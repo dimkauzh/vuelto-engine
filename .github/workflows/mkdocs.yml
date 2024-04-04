@@ -2,10 +2,12 @@ name: MkDocs Deploy
 on:
   push:
     branches:
-      - master 
-      - main
+      - latest 
+      - stable
+
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
