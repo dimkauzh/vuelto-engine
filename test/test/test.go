@@ -1,20 +1,12 @@
 package main
 
 import (
-	"log"
-
 	"vuelto.me/pkg"
 )
 
 func main() {
-	w1, err1 := vuelto.NewWindow("hi", 800, 600, false)
-  if err1 != nil {
-    log.Fatalln("Could not create a new window1: ", err1)
-  }
-	w2, err2 := vuelto.NewWindow("hi2", 800, 600, false)
-  if err2 != nil {
-    log.Fatalln("Could not create a new window1: ", err1)
-  }
+	w1 := vuelto.NewWindow("hi", 800, 600, false)
+	w2 := vuelto.NewWindow("hi2", 800, 600, false)
 
 	ren1 := w1.NewRenderer2D()
 	ren2 := w2.NewRenderer2D()

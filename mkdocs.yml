@@ -8,7 +8,7 @@ repo_url: https://github.com/vuelto-org/vuelto
 docs_dir: "website"
 
 nav:
-  - Home: "home.md"
+  - 🎲 Home: "home.md"
 
   - Getting started:
     - 🚀 Quick start: "get-started.md"
@@ -20,6 +20,8 @@ nav:
 
 theme:
   name: material
+  custom_templates:
+    - index.html
 
   logo: logo/icon-no-bg.png
   favicon: logo/icon-no-bg.png

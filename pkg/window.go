@@ -20,10 +20,11 @@ func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) 
 }
 
 // Creates a new window and returns a Window struct.
-func NewWindow(title string, width, height int, resizable bool) (*Window, error) {
+func NewWindow(title string, width, height int, resizable bool) *Window {
   window, err := windowing.InitWindow()
   if err != nil {
-    return nil, err
+    log.Fatalln("Could not initialise a new window: ", err)
+    return nil
   }
 
   window.Title = title
@@ -56,7 +57,7 @@ func NewWindow(title string, width, height int, resizable bool) (*Window, error)
     Title: title,
     Width: width,
     Height: height,
-  }, nil
+  }
 }
 
 // Sets the resizable attribute of the window.

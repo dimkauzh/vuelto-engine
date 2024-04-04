@@ -1,9 +1,9 @@
 package web
 
 import (
-  "syscall/js"
+	"syscall/js"
 
-  "strconv"
+	"strconv"
 )
 
 type Canvas struct {
@@ -52,6 +52,14 @@ func (c *Context) ClearRect(x, y, width, height float64) {
 
 func (c *Context) DrawImage(inputImage js.Value, x, y, width, height float64) {
 	c.JSContext.Call("drawImage", inputImage, x, y, width, height)
+}
+
+func (c *Context) Call(inputKey string, inputArgs ...any) js.Value {
+  return c.JSContext.Call(inputKey, inputArgs) 
+}
+
+func (c *Context) Get(inputKey string) js.Value {
+  return c.JSContext.Get(inputKey)
 }
 
 func GetRGBA(color [4]int) string {

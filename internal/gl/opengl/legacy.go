@@ -8,7 +8,7 @@ package gl
 #cgo darwin LDFLAGS: -framework OpenGL
 #cgo windows LDFLAGS: -lopengl32
 
-#include "opengl/gl.h"
+#include "gl.h"
 */
 import "C"
 import "unsafe"
