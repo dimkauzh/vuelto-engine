@@ -3,7 +3,7 @@
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl.h>
+#include "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/gl.h"
 
 #elif __linux__
 #define GL_SILENCE_DEPRECATION
