@@ -3,7 +3,8 @@
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
-#include <GL/gl.h>
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
 
 #elif __linux__
 #define GL_SILENCE_DEPRECATION
