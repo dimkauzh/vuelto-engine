@@ -31,7 +31,7 @@ func (c *Canvas) IsNull() bool {
 }
 
 func (c *Canvas) AddEventListener(inputEvent string, inputFunc func(this js.Value, args []js.Value) any) {
-    js.Global().Get("window").Call("addEventListener", inputEvent, js.FuncOf(inputFunc))
+	js.Global().Get("window").Call("addEventListener", inputEvent, js.FuncOf(inputFunc))
 }
 
 func (c *Context) Set(inputKey string, inputValue any) {
@@ -55,11 +55,11 @@ func (c *Context) DrawImage(inputImage js.Value, x, y, width, height float64) {
 }
 
 func (c *Context) Call(inputKey string, inputArgs ...any) js.Value {
-  return c.JSContext.Call(inputKey, inputArgs) 
+	return c.JSContext.Call(inputKey, inputArgs)
 }
 
 func (c *Context) Get(inputKey string) js.Value {
-  return c.JSContext.Get(inputKey)
+	return c.JSContext.Get(inputKey)
 }
 
 func GetRGBA(color [4]int) string {
