@@ -15,7 +15,7 @@ type Window struct {
 
 	JSCanvas web.Canvas
 
-  GlfwGLMajor int
+	GlfwGLMajor int
 	GlfwGLMinor int
 
 	Title  string
@@ -89,6 +89,6 @@ func (w *Window) SetResizable(resizable bool) {
 }
 
 func (w *Window) ContextCurrent() {}
-func (w *Window) Destroy() {}
-func (w *Window) HandleEvents() {}
-func (w *Window) Close() {}
+func (w *Window) Destroy()        {}
+func (w *Window) HandleEvents()   {}
+func (w *Window) Close()          {}

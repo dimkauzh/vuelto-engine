@@ -6,7 +6,7 @@ import (
 	"github.com/go-gl/glfw/v3.3/glfw"
 
 	"vuelto.me/internal/gl"
-  "vuelto.me/internal/windowing"
+	"vuelto.me/internal/windowing"
 )
 
 type Window struct {
@@ -21,20 +21,20 @@ func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) 
 
 // Creates a new window and returns a Window struct.
 func NewWindow(title string, width, height int, resizable bool) *Window {
-  window, err := windowing.InitWindow()
-  if err != nil {
-    log.Fatalln("Could not initialise a new window: ", err)
-    return nil
-  }
+	window, err := windowing.InitWindow()
+	if err != nil {
+		log.Fatalln("Could not initialise a new window: ", err)
+		return nil
+	}
 
-  window.Title = title
-  window.Width = width
-  window.Height = height
-  
-  window.GlfwGLMajor = 2
-  window.GlfwGLMinor = 1
+	window.Title = title
+	window.Width = width
+	window.Height = height
 
-  window.Resizable = resizable
+	window.GlfwGLMajor = 2
+	window.GlfwGLMinor = 1
+
+	window.Resizable = resizable
 
 	err = window.Create()
 	if err != nil {
@@ -53,16 +53,16 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
 	return &Window{
-    Window: window,
-    Title: title,
-    Width: width,
-    Height: height,
-  }
+		Window: window,
+		Title:  title,
+		Width:  width,
+		Height: height,
+	}
 }
 
 // Sets the resizable attribute of the window.
 func (w *Window) SetResizable(resizable bool) {
-  w.Window.SetResizable(resizable)
+	w.Window.SetResizable(resizable)
 }
 
 // Function created for a loop. Returns true when being closed, and returns false when being active.

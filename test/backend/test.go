@@ -7,24 +7,24 @@ import (
 )
 
 func main() {
-  win, err := windowing.InitWindow()
-  if err != nil {
-    log.Fatalf("Failed to initialise: %s", err)
-  }
+	win, err := windowing.InitWindow()
+	if err != nil {
+		log.Fatalf("Failed to initialise: %s", err)
+	}
 
-  win.Resizable = true
-  win.Title = "Test"
+	win.Resizable = true
+	win.Title = "Test"
 
-  win.Width = 500
-  win.Height = 500
+	win.Width = 500
+	win.Height = 500
 
-  win.Create()
+	win.Create()
 
-  for {
-    win.DrawingTest()
+	for {
+		win.DrawingTest()
 
-    win.HandleEvents()
-    win.UpdateBuffers()
-  } 
-  win.Close()
+		win.HandleEvents()
+		win.UpdateBuffers()
+	}
+	win.Close()
 }

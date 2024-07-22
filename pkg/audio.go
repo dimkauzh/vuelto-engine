@@ -49,11 +49,11 @@ func OpenAudioFile(filePath string) *AudioPlayer {
 	}
 
 	return &AudioPlayer{
-    Streamer: streamer,
-    Format: format, 
-    File: f, 
-    Done: make(chan bool),
-  }
+		Streamer: streamer,
+		Format:   format,
+		File:     f,
+		Done:     make(chan bool),
+	}
 }
 
 // Starts playing the audio file.

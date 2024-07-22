@@ -3,103 +3,49 @@
 
 package gl
 
-/*
-#cgo linux LDFLAGS: -lGL
-#cgo darwin LDFLAGS: -framework OpenGL
-#cgo windows LDFLAGS: -lopengl32
+import gl "vuelto.me/internal/gl/opengl"
 
-#include "opengl/gl.h"
-*/
-import "C"
-import "unsafe"
+type VertexShader struct{}
+type FragmentShader struct{}
 
-const (
-	TEXTURE_2D          = uint32(C.GL_TEXTURE_2D)
-	TEXTURE_WRAP_S      = uint32(C.GL_TEXTURE_WRAP_S)
-	TEXTURE_WRAP_T      = uint32(C.GL_TEXTURE_WRAP_T)
-	TEXTURE_MIN_FILTER  = uint32(C.GL_TEXTURE_MIN_FILTER)
-	TEXTURE_MAG_FILTER  = uint32(C.GL_TEXTURE_MAG_FILTER)
-	CLAMP_TO_EDGE       = uint32(C.GL_CLAMP_TO_EDGE)
-	LINEAR              = uint32(C.GL_LINEAR)
-	LINES               = uint32(C.GL_LINES)
-	QUADS               = uint32(C.GL_QUADS)
-	RGBA                = uint32(C.GL_RGBA)
-	UNSIGNED_BYTE       = uint32(C.GL_UNSIGNED_BYTE)
-	SRC_ALPHA           = uint32(C.GL_SRC_ALPHA)
-	ONE_MINUS_SRC_ALPHA = uint32(C.GL_ONE_MINUS_SRC_ALPHA)
-	BLEND               = uint32(C.GL_BLEND)
-	DEPTH_BUFFER_BIT    = uint32(C.GL_DEPTH_BUFFER_BIT)
-	COLOR_BUFFER_BIT    = uint32(C.GL_COLOR_BUFFER_BIT)
-)
+type Shader struct {
+	WebShader     string
+	DesktopShader string
 
-func Begin(state uint32) {
-	C.glBegin(C.uint(state))
+	Type any
 }
 
-func End() {
-	C.glEnd()
+type Program struct {
+	Program uint32
+
+	VertexShader   Shader
+	FragmentShader Shader
 }
 
-func Color3f(r, g, b float32) {
-	C.glColor3f(C.float(r), C.float(g), C.float(b))
+var VERTEX_SHADER = &VertexShader{}
+var FRAGMENT_SHADER = &FragmentShader{}
+
+func NewShader(shadertype any, webshader, desktopshader string) *Shader {
+	return &Shader{
+		Type: shadertype,
+
+		WebShader:     webshader,
+		DesktopShader: desktopshader,
+	}
 }
 
-func Color4f(r, g, b, a float32) {
-	C.glColor4f(C.float(r), C.float(g), C.float(b), C.float(a))
+func (s *Shader) Compile() {}
+
+func (s *Shader) Delete() {}
+
+func NewProgram(vertexshader, fragmentshader Shader) *Program {
+	return &Program{
+		VertexShader:   vertexshader,
+		FragmentShader: fragmentshader,
+	}
 }
 
-func Vertex2f(x, y float32) {
-	C.glVertex2f(C.float(x), C.float(y))
-}
+func (p *Program) Link() {}
 
-func ClearColor(r, g, b, a float32) {
-	C.glClearColor(C.float(r), C.float(g), C.float(b), C.float(a))
-}
+func (p *Program) Use() {}
 
-func GenTextures(n int32, textures *uint32) {
-	C.glGenTextures(C.int(n), (*C.uint)(unsafe.Pointer(textures)))
-}
-
-func DeleteTextures(n int, textures *uint32) {
-	C.glDeleteTextures(C.int(n), (*C.uint)(unsafe.Pointer(textures)))
-}
-
-func BindTexture(target, texture uint32) {
-	C.glBindTexture(C.uint(target), C.uint(texture))
-}
-
-func TexParameteri(target, pname, param uint32) {
-	C.glTexParameteri(C.uint(target), C.uint(pname), C.int(param))
-}
-
-func TexCoord2f(s, t float32) {
-	C.glTexCoord2f(C.float(s), C.float(t))
-}
-
-func TexImage2D(target, level, internalFormat uint32, width, height int, border, format, typ uint32, pixels []byte) {
-	C.glTexImage2D(C.uint(target), C.int(level), C.int(internalFormat), C.int(width), C.int(height), C.int(border), C.uint(format), C.uint(typ), C.CBytes(pixels))
-}
-
-func Clear(mask uint32) {
-	C.glClear(C.uint(mask))
-}
-
-func Enable(cap uint32) {
-	C.glEnable(C.uint(cap))
-}
-
-func BlendFunc(sfactor, dfactor uint32) {
-	C.glBlendFunc(C.uint(sfactor), C.uint(dfactor))
-}
-
-func Ortho(left, right, bottom, top, near, far float64) {
-	C.glOrtho(C.double(left), C.double(right), C.double(bottom), C.double(top), C.double(near), C.double(far))
-}
-
-func Viewport(x, y, width, height int) {
-	C.glViewport(C.int(x), C.int(y), C.int(width), C.int(height))
-}
-
-func LineWidth(width float32) {
-	C.glLineWidth(C.float(width))
-}

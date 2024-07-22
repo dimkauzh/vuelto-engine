@@ -17,4 +17,3 @@ func XOpenDisplay() {
 func XCloseDisplay(display *C.Display) {
 	C.XCloseDisplay(nil)
 }
-
