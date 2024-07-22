@@ -48,4 +48,3 @@ func NewProgram(vertexshader, fragmentshader Shader) *Program {
 func (p *Program) Link() {}
 
 func (p *Program) Use() {}
-
