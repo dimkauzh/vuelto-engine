@@ -8,7 +8,7 @@ package opengl
 #cgo darwin LDFLAGS: -framework OpenGL
 #cgo windows LDFLAGS: -lopengl32
 
-#include "opengl/gl.h"
+#include "gl.h"
 #include <stdlib.h>
 */
 import "C"

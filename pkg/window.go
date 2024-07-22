@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-gl/glfw/v3.3/glfw"
 
-	"vuelto.me/internal/gl"
+	"vuelto.me/internal/gl/legacy"
 	"vuelto.me/internal/windowing"
 )
 

@@ -1,6 +1,6 @@
 package vuelto
 
-import "vuelto.me/internal/gl"
+import "vuelto.me/internal/gl/legacy"
 
 // Draws a new rect by the given x, y, width, height and color
 func (r *Renderer2D) DrawRect(x, y, width, height float32, color [4]int) {
