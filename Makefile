@@ -41,3 +41,8 @@ format:
 	go fmt ./internal/windowing/wayland/
 	go fmt ./internal/windowing/
 
+	go fmt ./examples/images/
+	go fmt ./examples/rectangle/
+	go fmt ./examples/two-windows/
+	go fmt ./examples/basic-window/
+
