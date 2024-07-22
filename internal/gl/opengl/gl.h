@@ -2,19 +2,12 @@
 #define GL_H
 
 #ifdef __APPLE__
-#define GL_SILENCE_DEPRECATION
-#include "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers/gl.h"
+#include <OpenGL/gl.h>
 
 #elif __linux__
-#define GL_SILENCE_DEPRECATION
 #include <GL/gl.h>
 
-#elif _WIN32
-#define GL_CLAMP_TO_EDGE 0x812f
-#include <windows.h>
-#include <GL/gl.h>
-
-#elif _WIN64
+#elif defined(_WIN32) || defined(_WIN64)
 #define GL_CLAMP_TO_EDGE 0x812f
 #include <windows.h>
 #include <GL/gl.h>
@@ -25,3 +18,4 @@
 #endif
 
 #endif
+
