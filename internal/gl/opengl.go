@@ -22,6 +22,13 @@ type Program struct {
 	FragmentShader Shader
 }
 
+type Buffer struct {
+	Vao uint32
+	Vbo uint32
+
+	Vertices []float32
+}
+
 var VERTEX_SHADER = &VertexShader{}
 var FRAGMENT_SHADER = &FragmentShader{}
 
@@ -48,3 +55,15 @@ func NewProgram(vertexshader, fragmentshader Shader) *Program {
 func (p *Program) Link() {}
 
 func (p *Program) Use() {}
+
+func GenBuffers(vertices []float32) *Buffer {
+	return &Buffer{
+		Vertices: vertices,
+	}
+}
+
+func (b *Buffer) BindVA() {}
+
+func (b *Buffer) BindVBO() {}
+
+func (b *Buffer) Data() {}
