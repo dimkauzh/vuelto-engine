@@ -81,7 +81,7 @@ We have a [discord server at this link](https://discord.gg/gZqdRXbbqg). It's a f
 We are fully open to contributions, but I will check and test your code before merging it into the dev branch. All your code thats accepted will only be merged into the dev branch, and will be later released with the next release.
 
 ## 🔐 License
-Vuelto is licensed under the [GPLv3 Licence](LICENSE). Any PR's that go mainly about changing the licence won't be accepted.
+Vuelto is licensed under the [GPLv3 Licence](LICENSE.md). Any PR's that go mainly about changing the licence won't be accepted.
 
 <h2 style="text-align: center;">Made for you by the Vuelto Team ❤️ </h2>
 

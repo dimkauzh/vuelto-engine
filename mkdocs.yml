@@ -8,11 +8,25 @@ repo_url: https://github.com/vuelto-org/vuelto
 docs_dir: "website"
 
 nav:
-  - Home: "home.md"
-
+  - Home: "index.md"
   - Getting started:
     - 🚀 Quick start: "get-started.md"
     - 🛠️ Indepth Installation: "install.md"
+
+  - Docs:
+    - 🏠 Home: "docs/index.md"
+    - 👤 User Docs:
+      - 🪟 Windowing: "docs/latest/windowing.md"
+      - 🖥️ Renderer: "docs/latest/renderer.md"
+      - 🔊 Audio: "docs/latest/audio.md"
+      - 🔢 Math: "docs/latest/math.md"
+    - 📱 Developer Docs:
+      - 💻 Dev Home: "docs/developers/index.md"
+      - 💍 3 Ring approach: "docs/developers/rings.md"
+      - 📋 Contribution Guidelines: "docs/developers/contribution.md"
+
+  - Tutorials:
+    - 🎓 Home: "tutorials/index.md"
 
   - Roadmap:
     - 🛣️ V1: "roadmap/v1.md"

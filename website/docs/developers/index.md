@@ -3,3 +3,4 @@ Hey and welcome to the developers part of the docs! This part is focused on peop
 
 ## 📑 Table of contents
 - [Contributing guidelines](contribution.md)
+- [Vuelto's 3 ring Engine structure approach](rings.md) 

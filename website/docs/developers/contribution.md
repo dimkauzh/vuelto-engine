@@ -2,6 +2,7 @@
 
 ## 📜 Rules
 We are happy and welcome if you want to contribute to Vuelto. But please consider a few details before continuing:
+
 1. Fork: Please before working, make sure you forked the repo and are working inside the fork
 2. Branch: Please before working in your own fork, make sure you are in the `latest` branch.
 3. Explain: Please explain why this should be considered and merged. That can increase he chance for us to merge and will safe the maintainers time.
