@@ -6,8 +6,6 @@ hide:
 <h1 align="center">
 <p align="center">
 <img width="1400" alt="banner" src="/logo/banner1.png">
-
-<p align="center">
   <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto"></a>
   <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VLv1-blue"></a>
   <a href="https://github.com/vuelto-org/vuelto"><img alt="CI Check" src="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml/badge.svg"></a>
@@ -15,7 +13,6 @@ hide:
   <a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto"><img alt="Report card" src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto"></a>
   <a href="https://www.opengl.org/Documentation/Specs.html"><img alt="Powered By" src="https://img.shields.io/badge/powered_by-GL_3.3-blue"></a>
 </p>
-
 </h1>
 
 Welcome to the Vuelto website! Here you will find things like documentation, blogs, tutorials and everything about Vuelto!

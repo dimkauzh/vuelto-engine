@@ -29,6 +29,10 @@ type Buffer struct {
 	Vertices []float32
 }
 
+type Location struct {
+	UniformLocation int32
+}
+
 var VERTEX_SHADER = &VertexShader{}
 var FRAGMENT_SHADER = &FragmentShader{}
 
@@ -56,6 +60,12 @@ func (p *Program) Link() {}
 
 func (p *Program) Use() {}
 
+func (p *Program) UniformLocation(location string) *Location {
+	return &Location{}
+}
+
+func (l *Location) Set(arg ...float32) {}
+
 func GenBuffers(vertices []float32) *Buffer {
 	return &Buffer{
 		Vertices: vertices,
@@ -67,3 +77,7 @@ func (b *Buffer) BindVA() {}
 func (b *Buffer) BindVBO() {}
 
 func (b *Buffer) Data() {}
+
+func InitVertexAttrib() {}
+
+func DrawElements() {}

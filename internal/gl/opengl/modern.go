@@ -42,7 +42,6 @@ var (
 	ONE_MINUS_SRC_ALPHA uint32 = uint32(C.GL_ONE_MINUS_SRC_ALPHA)
 	BLEND               uint32 = uint32(C.GL_BLEND)
 	DEPTH_BUFFER_BIT    uint32 = uint32(C.GL_DEPTH_BUFFER_BIT)
-	COLOR_BUFFER_BIT    uint32 = uint32(C.GL_COLOR_BUFFER_BIT)
 )
 
 func CreateShader(shaderType uint32) uint32 {
@@ -117,4 +116,14 @@ func Enable(cap uint32) {
 
 func DrawArrays(mode uint32, first, count int32) {
 	C.glDrawArrays(C.uint(mode), C.int(first), C.int(count))
+}
+
+func GetUniformLocation(program uint32, name string) int32 {
+	cname := C.CString(name)
+	defer C.free(unsafe.Pointer(cname))
+	return int32(C.glGetUniformLocation(C.uint(program), cname))
+}
+
+func Uniform4f(location int32, v0, v1, v2, v3 float32) {
+	C.glUniform4f(C.int(location), C.float(v0), C.float(v1), C.float(v2), C.float(v3))
 }

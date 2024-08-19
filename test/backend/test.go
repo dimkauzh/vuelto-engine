@@ -12,6 +12,8 @@ func main() {
 		log.Fatalf("Failed to initialise: %s", err)
 	}
 
+	defer win.Close()
+
 	win.Resizable = true
 	win.Title = "Test"
 
@@ -26,5 +28,4 @@ func main() {
 		win.HandleEvents()
 		win.UpdateBuffers()
 	}
-	win.Close()
 }
