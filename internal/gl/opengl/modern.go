@@ -58,32 +58,44 @@ func CompileShader(shader uint32) {
 	C.glCompileShader(C.uint(shader))
 }
 
-func CreateProgram() uint32 {
-	return uint32(C.glCreateProgram())
-}
-
 func AttachShader(program, shader uint32) {
 	C.glAttachShader(C.uint(program), C.uint(shader))
-}
-
-func LinkProgram(program uint32) {
-	C.glLinkProgram(C.uint(program))
 }
 
 func DeleteShader(shader uint32) {
 	C.glDeleteShader(C.uint(shader))
 }
 
+func CreateProgram() uint32 {
+	return uint32(C.glCreateProgram())
+}
+
+func LinkProgram(program uint32) {
+	C.glLinkProgram(C.uint(program))
+}
+
 func UseProgram(program uint32) {
 	C.glUseProgram(C.uint(program))
+}
+
+func DeleteProgram(program uint32) {
+	C.glDeleteProgram(C.uint(program))
 }
 
 func GenBuffers(n int32, buffers *uint32) {
 	C.glGenBuffers(C.int(n), (*C.uint)(unsafe.Pointer(buffers)))
 }
 
+func DeleteBuffers(n int32, buffers *uint32) {
+	C.glDeleteBuffers(C.int(n), (*C.uint)(unsafe.Pointer(buffers)))
+}
+
 func BindVertexArray(array uint32) {
 	C.glBindVertexArray(C.uint(array))
+}
+
+func DeleteVertexArrays(n int32, arrays *uint32) {
+	C.glDeleteVertexArrays(C.int(n), (*C.uint)(unsafe.Pointer(arrays)))
 }
 
 func BindBuffer(target, buffer uint32) {
@@ -106,14 +118,6 @@ func ClearColor(red, green, blue, alpha float32) {
 	C.glClearColor(C.float(red), C.float(green), C.float(blue), C.float(alpha))
 }
 
-func Clear(mask uint32) {
-	C.glClear(C.uint(mask))
-}
-
-func Enable(cap uint32) {
-	C.glEnable(C.uint(cap))
-}
-
 func DrawArrays(mode uint32, first, count int32) {
 	C.glDrawArrays(C.uint(mode), C.int(first), C.int(count))
 }
@@ -126,4 +130,52 @@ func GetUniformLocation(program uint32, name string) int32 {
 
 func Uniform4f(location int32, v0, v1, v2, v3 float32) {
 	C.glUniform4f(C.int(location), C.float(v0), C.float(v1), C.float(v2), C.float(v3))
+}
+
+func Clear(mask uint32) {
+	C.glClear(C.uint(mask))
+}
+
+func Enable(cap uint32) {
+	C.glEnable(C.uint(cap))
+}
+
+func Viewport(x, y, width, height int32) {
+	C.glViewport(C.int(x), C.int(y), C.int(width), C.int(height))
+}
+
+func Ortho(left, right, bottom, top, near, far float64) {
+	C.glOrtho(C.GLdouble(left), C.GLdouble(right), C.GLdouble(bottom), C.GLdouble(top), C.GLdouble(near), C.GLdouble(far))
+}
+
+func BlendFunc(sfactor, dfactor uint32) {
+	C.glBlendFunc(C.uint(sfactor), C.uint(dfactor))
+}
+
+func DrawElements(mode uint32, count int32, typ uint32, indices unsafe.Pointer) {
+	C.glDrawElements(C.uint(mode), C.int(count), C.uint(typ), indices)
+}
+
+func GenTextures(n int32, textures *uint32) {
+	C.glGenTextures(C.int(n), (*C.uint)(unsafe.Pointer(textures)))
+}
+
+func DeleteTextures(n int32, textures *uint32) {
+	C.glDeleteTextures(C.int(n), (*C.uint)(unsafe.Pointer(textures)))
+}
+
+func BindTexture(target, texture uint32) {
+	C.glBindTexture(C.uint(target), C.uint(texture))
+}
+
+func TexParameteri(target, pname, param uint32) {
+	C.glTexParameteri(C.uint(target), C.uint(pname), C.int(param))
+}
+
+func TexImage2D(target, level, internalformat, width, height, border, format, typ uint32, pixels unsafe.Pointer) {
+	C.glTexImage2D(C.uint(target), C.int(level), C.int(internalformat), C.int(width), C.int(height), C.int(border), C.uint(format), C.uint(typ), pixels)
+}
+
+func GenerateMipmap(target uint32) {
+	C.glGenerateMipmap(C.uint(target))
 }

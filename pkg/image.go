@@ -1,15 +1,8 @@
 package vuelto
 
 import (
-	"image"
-	"image/draw"
-	_ "image/jpeg"
-	_ "image/png"
-	"log"
-
-	"os"
-
 	"vuelto.me/internal/gl/legacy"
+	"vuelto.me/internal/image"
 )
 
 type Image struct {
@@ -22,26 +15,14 @@ var ImageArray []uint32
 
 // Loads a new image and returns a Image struct. Can be later drawn using the Draw() method
 func (r *Renderer2D) LoadImage(imagePath string, x, y, width, height float32) *Image {
-	file, err := os.Open(imagePath)
-	if err != nil {
-		log.Fatalln("Failed to open image: ", err)
-	}
-	defer file.Close()
-
-	img, _, err := image.Decode(file)
-	if err != nil {
-		log.Fatalln("Failed to decode image: ", err)
-	}
-
-	rgba := image.NewRGBA(img.Bounds())
-	draw.Draw(rgba, rgba.Bounds(), img, image.Point{}, draw.Over)
+	file := image.Load(imagePath)
 
 	var textureID uint32
 	gl.GenTextures(1, &textureID)
 
 	gl.BindTexture(gl.TEXTURE_2D, textureID)
 
-	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rgba.Rect.Size().X, rgba.Rect.Size().Y, 0, gl.RGBA, gl.UNSIGNED_BYTE, rgba.Pix)
+	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, file.ImageWidth, file.ImageHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, file.Texture)
 
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)

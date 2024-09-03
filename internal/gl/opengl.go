@@ -33,6 +33,10 @@ type Location struct {
 	UniformLocation int32
 }
 
+type Texture struct {
+	Texture uint32
+}
+
 var VERTEX_SHADER = &VertexShader{}
 var FRAGMENT_SHADER = &FragmentShader{}
 
@@ -60,6 +64,8 @@ func (p *Program) Link() {}
 
 func (p *Program) Use() {}
 
+func (p *Program) Delete() {}
+
 func (p *Program) UniformLocation(location string) *Location {
 	return &Location{}
 }
@@ -76,8 +82,32 @@ func (b *Buffer) BindVA() {}
 
 func (b *Buffer) BindVBO() {}
 
+func (b *Buffer) UnBindVA() {}
+
+func (b *Buffer) UnBindVBO() {}
+
 func (b *Buffer) Data() {}
+
+func (b *Buffer) Delete() {}
+
+func GenTexture() *Texture {
+	return &Texture{}
+}
+
+func (t *Texture) Bind() {}
+
+func (t *Texture) UnBind() {}
 
 func InitVertexAttrib() {}
 
-func DrawElements() {}
+func DrawElements(corners int) {}
+
+func Clear() {}
+
+func Enable(args ...uint32) {}
+
+func Viewport(width, height int32) {}
+
+func Ortho() {}
+
+func Texture2D() {}
