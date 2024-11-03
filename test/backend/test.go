@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"vuelto.me/internal/windowing"
+	windowing "vuelto.me/internal/window"
 )
 
 func main() {
