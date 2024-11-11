@@ -1,5 +1,6 @@
 #ifndef GL_H
 #define GL_H
+#define GL_SILENCE_DEPRECATION
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -18,4 +19,3 @@
 #endif
 
 #endif
-

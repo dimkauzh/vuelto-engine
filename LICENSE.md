@@ -42,3 +42,7 @@ SOFTWARE.
 **4. Interpretation**
 
 The decision on whether the software is unmaintained will be made by the original maintainer(s) or the designated project governance body, if any. In the absence of such a body, the community of contributors may reach a consensus according to the project's documented processes.
+
+**5. Copyright on Artwork**
+
+Any artwork associated with this software, including but not limited to logos, icons, and other visual assets, is copyrighted and licensed under the terms of the Primary License (GNU GPLv3 or later). However, if the software license changes to the MIT License under the conditions outlined in **Section 3**, this copyright on artwork no longer applies, and the artwork is included under the MIT License.
