@@ -10,27 +10,31 @@ docs_dir: "website"
 nav:
   - Home: "index.md"
   - Getting started:
-    - 🚀 Quick start: "get-started.md"
-    - 🛠️ Indepth Installation: "install.md"
+      - 🚀 Quick start: "get-started.md"
+      - 🛠️ Indepth Installation: "install.md"
 
   - Docs:
-    - 🏠 Home: "docs/index.md"
-    - 👤 User Docs:
-      - 🪟 Windowing: "docs/latest/windowing.md"
-      - 🖥️ Renderer: "docs/latest/renderer.md"
-      - 🔊 Audio: "docs/latest/audio.md"
-      - 🔢 Math: "docs/latest/math.md"
-    - 📱 Developer Docs:
-      - 💻 Dev Home: "docs/developers/index.md"
-      - 💍 3 Ring approach: "docs/developers/rings.md"
-      - 📋 Contribution Guidelines: "docs/developers/contribution.md"
+      - 🏠 Home: "docs/index.md"
+      - 👤 User Docs:
+          - 🪟 Windowing: "docs/latest/windowing.md"
+          - 🖥️ Renderer: "docs/latest/renderer.md"
+          - 🔊 Audio: "docs/latest/audio.md"
+          - 🔢 Math: "docs/latest/math.md"
+      - 📱 Developer Docs:
+          - 💻 Dev Home: "docs/developers/index.md"
+          - 💍 3 Ring approach: "docs/developers/rings.md"
+          - 📋 Contribution Guidelines: "docs/developers/contribution.md"
+
+  - Blog: # ✍️
+      - 📚 Articles: "blog/index.md"
+      - <emoji> Example: "blog/example.md"
 
   - Tutorials:
-    - 🎓 Home: "tutorials/index.md"
+      - 🎓 Home: "tutorials/index.md"
 
   - Roadmap:
-    - 🛣️ V1: "roadmap/v1.md"
-    - 🛣️ V2: "roadmap/v2.md"
+      - 🛣️ V1: "roadmap/v1.md"
+      - 🛣️ V2: "roadmap/v2.md"
 
   - Discord: "discord.html"
 
@@ -49,7 +53,6 @@ theme:
     - navigation.expand
 
     - content.code.copy
-
 
   palette:
     - media: "(prefers-color-scheme)"
