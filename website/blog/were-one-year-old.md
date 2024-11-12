@@ -1,3 +1,5 @@
+![Post cover](/blog/were-one-year-old-cover.png)
+
 # We’re one year old\! V1.1 is coming, and it’s looking good\!
 
 Hi there\! I’m [ZakaHaceCosas](https://github.com/ZakaHaceCosas), and I’m a new addition to the Vuelto Team, though I’ve known this engine for a while. Feels like it’s already been a year since I got to know this engine \- and indeed, it has been a year since it was made\! Today, one year ago, Vuelto was created as an alternative to [Fusion Engine](https://github.com/fusionengine-org/fusion), another engine made by the same creator.
@@ -85,6 +87,8 @@ vuelto.GetMousePox().Y // 131
 ## Better engine, better looks
 
 The priority is to *be* a good option, but we also gotta *look like* a good option. That’s why we did some iterations on our branding\! We kept the core idea (the main logo),  but changed typefaces, colors, banners, styling, and more.
+
+![An image showing some of the design tweaks we did to Vuelto's branding](/blog/were-one-year-old-image1.png)
 
 We want Vuelto to look more professional, so we’re giving it a well-needed refresh. Talking about being professional, we’re finally finishing the documentation, and we’ll also get contributing guidelines and more cool-looking documents soon.
 
