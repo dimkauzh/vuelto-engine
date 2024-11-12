@@ -10,36 +10,34 @@
 </p>
 </h1>
 
-Hey there! Welcome to Vuelto's repo! Vuelto is a fast and lightweight Go game engine which uses CGo and OpenGL to display your graphics. It is really easy to start with, but it can be really powerful to work with. It's cross-platform, meaning that every game you make with Vuelto will work on Windows, Linux, Mac and Web (Coming soon). It's also open-source, meaning that you can see the source code and contribute to the engine. Have fun!
+Vuelto is an open-source, fast, and light game engine, based on Golang, CGo, and OpenGL. It's really easy to use, yet very powerful, and it also supports cross-platform compiling.
 
+## ✨ Features
+- 🌍 Cross Platform
+- 🛠️ Open-Source
+- 📚 Easy to learn
+- 🚀 Fully built using CGo (and some other libraries)
 
-## 📑 Table of Contents
- - [Usage](#usage)
- - [Contributing](#contributing)
- - [Website+Docs](https://vuelto-org.github.io/vuelto/)
- - [Discord Server](https://discord.gg/gZqdRXbbqg)
- - [Roadmap](#roadmap)
- - [License](#license)
- - [About](#about)
+## 📦 Installation
 
+### 📋 Requirements
+You need to have the following installed on your system:
+- 🖥️ A C compiler
+- 🔧 A Go compiler
+- 🪟 Xorg/Wayland development packages (For Linux only)
+- 🖱️ Supported platform
 
-## 🚀 Usage
-### 🛠️ Requirements
-There are some extra things you will need to use Vuelto.
-- A C compiler
-- A Go compiler
-- Xorg development packages (For Linux only)
+For an installation guide, [go here](https://vuelto-org.github.io/vuelto/install/).
 
-For a installation guide, [go here](https://vuelto-org.github.io/vuelto/install/).
+### 🐹 Gopkg
 
-### 📦 Go package
-We have a Go package published, so run this command to add it to your go.mod:
-```bash
+You can get the latest Go package by running this command:
+```sh
 go get vuelto.me@latest
 ```
 
-### 🌟 Examples
-All of our examples are inside the examples directory, so take a look there is you want a example. Here one small example of how easy Vuelto is:
+## 🖼️ Vuelto Example
+
 ```go
 package main
 
@@ -51,33 +49,185 @@ func main() {
 	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, false)
 	ren := w.NewRenderer2D()
 
-	image := ren.LoadImage("your_image1.png", 300, 300, 250, 250)
-	image1 := ren.LoadImage("your_image2.png", 100, 100, 150, 150)
+	image := ren.LoadImage("test/image.png", 300, 300, 250, 250)
+	image1 := ren.LoadImage("test/image.png", 100, 100, 150, 150)
 
 	for !w.Close() {
 		image.Draw()
 		image1.Draw()
 		w.Refresh()
-
 	}
 }
-
 ```
 
-## 📚 Docs
-Are you curious how to use Vuelto? Our docs are hosted on our website, so go [here](https://vuelto-org.github.io/vuelto/) to see them.
+## 🖥️ Platform Support
 
-## 📋 Roadmap
-Want to know which features are coming to Vuelto? You can find our [roadmap on the website](https://vuelto-org.github.io/vuelto/roadmap/v1).
-
-## 🎉 Discord server
-We have a [discord server at this link](https://discord.gg/gZqdRXbbqg). It's a fun server mainly created for vuelto, but you can talk about whatever you want. So come join us!
-
-## 🤝 Contributing
-We are fully open to contributions, but I will check and test your code before merging it into the dev branch. All your code thats accepted will only be merged into the dev branch, and will be later released with the next release.
-
-## 🔐 License
-Vuelto is licensed under a customised version of [VLv1 Licence](LICENSE.md). Any PR's that go mainly about changing the licence won't be accepted.
+| Platform | Status |
+| :---- | :---- |
+| Windows | ✅ |
+| macOS (Darwin) | ✅ |
+| Linux | ✅ |
+| Web | ❌ (*Work In Progress, V1.1*) |
 
 ---
-<h2 style="text-align: center;">Made for you by the Vuelto Team ❤️ </h2>
+
+## 📖 Docs
+
+You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
+
+> [!TIP]
+> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [(TODO: ADD LINK) examples](http://examples) directory for usage examples.
+
+### 🛣️ Roadmap
+
+Our roadmap is available on the website (URL here) or in the ROADMAP.md file in the root of the GitHub repo.
+
+### 🤝 Contributing
+
+We're really thankful for your contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+1. 🍴 Fork the repository
+2. 🌟 Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. 📝 Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. 🚀 Push to the branch (`git push origin feature/amazing-feature`)
+5. 🔄 Open a Pull Request
+
+## 🛡️ Support & Security
+
+### 🐛 Issues
+
+See the [Issues](https://github.com/vuelto-org/vuelto/issues) page for current bugs and feature requests. In case you find any issues, please open an issue or search for any other form of contact to submit a bug report.
+
+#### 🔒 Security Issues
+
+If you find a security vulnerability, please follow the instructions in [SECURITY.md](SECURITY.md) to safely report it.
+
+Here's the updated README with a "Thanks to" section in the requested style:
+
+```markdown
+<h1 align="center">
+<p align="center">
+<img width="1400" alt="banner" src="/logo/banner1.png">
+  <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto"></a>
+  <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VLv1-blue"></a>
+  <a href="https://github.com/vuelto-org/vuelto"><img alt="CI Check" src="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml/badge.svg"></a>
+  <a href="https://github.com/vuelto-org/vuelto"><img alt="Lines of code" src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto"></a>
+  <a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto"><img alt="Report card" src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto"></a>
+  <a href="https://www.opengl.org/Documentation/Specs.html"><img alt="Powered By" src="https://img.shields.io/badge/powered_by-GL_3.3-blue"></a>
+</p>
+</h1>
+
+Vuelto is an open-source, fast, and light game engine, based on Golang, CGo, and OpenGL. It's really easy to use, yet very powerful, and it also supports cross-platform compiling.
+
+## ✨ Features
+- 🌍 Cross Platform
+- 🛠️ Open-Source
+- 📚 Easy to learn
+- 🚀 Fully built using CGo (and some other libraries)
+
+## 📦 Installation
+
+### 📋 Requirements
+You need to have the following installed on your system:
+- 🖥️ A C compiler
+- 🔧 A Go compiler
+- 🪟 Xorg/Wayland development packages (For Linux only)
+- 🖱️ Supported platform
+
+For an installation guide, [go here](https://vuelto-org.github.io/vuelto/install/).
+
+### 🐹 Gopkg
+
+You can get the latest Go package by running this command:
+```sh
+go get vuelto.me@latest
+```
+
+## 🖼️ Vuelto Example
+
+```go
+package main
+
+import (
+	vuelto "vuelto.me/pkg"
+)
+
+func main() {
+	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, false)
+	ren := w.NewRenderer2D()
+
+	image := ren.LoadImage("test/image.png", 300, 300, 250, 250)
+	image1 := ren.LoadImage("test/image.png", 100, 100, 150, 150)
+
+	for !w.Close() {
+		image.Draw()
+		image1.Draw()
+		w.Refresh()
+	}
+}
+```
+
+## 🖥️ Platform Support
+
+| Platform | Status |
+| :---- | :---- |
+| Windows | ✅ |
+| macOS (Darwin) | ✅ |
+| Linux | ✅ |
+| Web | ❌ (*Work In Progress, V1.1*) |
+
+---
+
+## 📖 Docs
+
+You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
+
+> [!TIP]
+> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [(TODO: ADD LINK) examples](http://examples) directory for usage examples.
+
+### 🛣️ Roadmap
+
+Our roadmap is available on the website (URL here) or in the ROADMAP.md file in the root of the GitHub repo.
+
+### 🤝 Contributing
+
+We're really thankful for your contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+1. 🍴 Fork the repository
+2. 🌟 Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. 📝 Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. 🚀 Push to the branch (`git push origin feature/amazing-feature`)
+5. 🔄 Open a Pull Request
+
+## 🛡️ Support & Security
+
+### 🐛 Issues
+
+See the [Issues](https://github.com/vuelto-org/vuelto/issues) page for current bugs and feature requests. In case you find any issues, please open an issue or search for any other form of contact to submit a bug report.
+
+#### 🔒 Security Issues
+
+If you find a security vulnerability, please follow the instructions in [SECURITY.md](SECURITY.md) to safely report it.
+
+### 🌐 Community and Contact
+
+You can contact us via our Discord community or at our email:
+
+- 🗨️ [Discord server](https://discord.gg/gZqdRXbbqg)
+- ✉️ [Email](mailto:dima@vuelto.me)
+
+### 🙌 Thanks To
+
+A special thanks to:
+- **Dimkauzh** for the initial idea and development.
+- **ZakaHaceCosas** for the great improvements on top of vuelto.
+
+Your support has helped make Vuelto even better! ❤️
+
+### 🔐 License
+
+Vuelto is licensed under a customized version of [VLv1 Licence](LICENSE.md). Any PRs that primarily focus on changing the license won't be accepted.
+
+---
+
+<h2 style="text-align: center;">Made with ❤️ by the Vuelto Team </h2>
