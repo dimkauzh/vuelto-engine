@@ -101,7 +101,7 @@ If you find a security vulnerability, please follow the instructions in [SECURIT
 
 ### 🔐 License
 
-Vuelto is licensed under a customized version of [VLv1 Licence](LICENSE.md). Any PRs that primarily focus on changing the license won't be accepted.
+Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). Any PRs that primarily focus on changing the license won't be accepted.
 
 ### 🌐 Community and Contact
 
