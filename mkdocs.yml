@@ -41,8 +41,8 @@ nav:
 theme:
   name: material
 
-  logo: logo/icon-no-bg.png
-  favicon: logo/icon-no-bg.png
+  logo: logo/pfp-nobg.png
+  favicon: logo/pfp-nobg.png
 
   features:
     - navigation.path

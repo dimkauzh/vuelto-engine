@@ -5,7 +5,7 @@ hide:
 
 <h1 align="center">
 <p align="center">
-<img width="1400" alt="banner" src="/logo/banner1.png">
+<img width="1400" alt="banner" src="/logo/banner-nobg.png">
   <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto"></a>
   <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VLv1-blue"></a>
   <a href="https://github.com/vuelto-org/vuelto"><img alt="CI Check" src="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml/badge.svg"></a>
@@ -39,4 +39,3 @@ We are fully open to contributions, but I will check and test your code before m
 Vuelto is licensed under the [GPLv3 Licence](https://github.com/vuelto-org/vuelto/blob/latest/LICENSE.md). Any PR's that go mainly about changing the licence won't be accepted.
 
 <h2 style="text-align: center;">Made for you by the Vuelto Team ❤️ </h2>
-
