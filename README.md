@@ -73,7 +73,7 @@ func main() {
 You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
 
 > [!TIP]
-> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [(TODO: ADD LINK) examples](http://examples) directory for usage examples.
+> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [examples](https://github.com/vuelto-org/vuelto/tree/latest/examples) directory for usage examples.
 
 ### 🛣️ Roadmap
 

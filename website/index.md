@@ -43,8 +43,8 @@ go get vuelto.me@latest
 
 You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
 
-> [!TIP]
-> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [(TODO: ADD LINK) examples](http://examples) directory for usage examples.
+!!! tip
+    In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [examples](https://github.com/vuelto-org/vuelto/tree/latest/examples) directory for usage examples.
 
 ### 🛣️ Roadmap
 
@@ -84,6 +84,7 @@ You can contact us via our Discord community or at our email:
 ### 🙌 Thanks To
 
 A special thanks to:
+
 - **Dimkauzh** for the initial idea and development.
 - **ZakaHaceCosas** for the great improvements on top of vuelto.
 
