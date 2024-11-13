@@ -16,7 +16,13 @@ hide:
 Welcome to the Vuelto website! Here you will find things like documentation, blogs, tutorials and everything about Vuelto!
 
 ## ℹ️  About
-Vuelto is a fast and lightweight Go game engine which uses CGo and OpenGL to display your graphics. It is really easy to start with, but it can be really powerful to work with. It's cross-platform, meaning that every game you make with Vuelto will work on Windows, Linux and Mac. It's also open-source, meaning that you can see the source code and contribute to the engine. Have fun!
+Vuelto is an open-source, fast, and light game engine, based on Golang, CGo, and OpenGL. It's really easy to use, yet very powerful, and it also supports cross-platform compiling.
+
+## ✨ Features
+- 🌍 Cross Platform
+- 🛠️ Open-Source
+- 📚 Easy to learn
+- 🚀 Fully built using CGo (and some other libraries)
 
 ## 📦 Go package
 We have a Go package published, so run this command to add it to your go.mod:
@@ -24,18 +30,61 @@ We have a Go package published, so run this command to add it to your go.mod:
 go get vuelto.me@latest
 ```
 
-## 📋 Roadmap
-Want to know which features are coming to Vuelto? You can find our [roadmap on the website](https://vuelto-org.github.io/vuelto/roadmap/v1).
+## 🖥️ Platform Support
 
-## 🎉 Discord server
-We have a [discord server at this link](https://discord.gg/gZqdRXbbqg). It's a fun server mainly created for vuelto, but you can talk about whatever you want. So come join us!
+| Platform | Status |
+| :---- | :---- |
+| Windows | ✅ |
+| macOS (Darwin) | ✅ |
+| Linux | ✅ |
+| Web | ❌ (*Work In Progress, V1.1*) |
 
-## 🤝 Contributing
-We are fully open to contributions, but I will check and test your code before merging it into the dev branch. All your code thats accepted will only be merged into the dev branch, and will be later released with the next release.
+## 📖 Docs
 
-## 🔐 License
-Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). Any PRs that primarily focus on changing the license won't be accepted.
+You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
 
----
+> [!TIP]
+> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [(TODO: ADD LINK) examples](http://examples) directory for usage examples.
 
-<h2 style="text-align: center;">Made with ❤️ by the Vuelto Team </h2>
+### 🛣️ Roadmap
+
+Our roadmap is available on the website (URL here) or in the ROADMAP.md file in the root of the GitHub repo.
+
+### 🤝 Contributing
+
+We're really thankful for your contributions! Please see our [Contributing Guide](https://github.com/vuelto-org/vuelto/blob/latest/CONTRIBUTING.md) for details.
+
+1. 🍴 Fork the repository
+2. 🌟 Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. 📝 Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. 🚀 Push to the branch (`git push origin feature/amazing-feature`)
+5. 🔄 Open a Pull Request
+
+## 🛡️ Support & Security
+
+### 🐛 Issues
+
+See the [Issues](https://github.com/vuelto-org/vuelto/issues) page for current bugs and feature requests. In case you find any issues, please open an issue or search for any other form of contact to submit a bug report.
+
+#### 🔒 Security Issues
+
+If you find a security vulnerability, please follow the instructions in [SECURITY.md](https://github.com/vuelto-org/vuelto/blob/latest/SECURITY.md) to safely report it.
+
+### 🔐 License
+
+Vuelto is licensed under the [VL-Cv1.1 Licence](https://github.com/vuelto-org/vuelto/blob/latest/LICENSE.md). Any PRs that primarily focus on changing the license won't be accepted.
+
+### 🌐 Community and Contact
+
+You can contact us via our Discord community or at our email:
+
+- 🗨️ [Discord server](https://discord.gg/gZqdRXbbqg)
+- ✉️ [Email](mailto:dima@vuelto.me)
+
+### 🙌 Thanks To
+
+A special thanks to:
+- **Dimkauzh** for the initial idea and development.
+- **ZakaHaceCosas** for the great improvements on top of vuelto.
+
+Your support has helped make Vuelto even better! ❤️

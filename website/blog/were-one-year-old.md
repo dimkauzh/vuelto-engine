@@ -1,4 +1,4 @@
-![Post cover](/blog/were-one-year-old-cover.png)
+![Post cover](assets/were-one-year-old-cover.png)
 
 # We’re one year old\! V1.1 is coming, and it’s looking good\!
 
@@ -11,26 +11,26 @@ We at Vuelto have been cooking a new release for a while now, and while it’s n
 Currently, Vuelto 1.0 uses a pipelined system for rendering graphics. It looks kinda like this:
 
 ```go
-// …  
-gl.Vertex2f(x, y)  
-gl.Vertex2f(x+width, y)  
-gl.Vertex2f(x+width, y+height)  
-gl.Vertex2f(x, y+height)  
-// …  
+// …
+gl.Vertex2f(x, y)
+gl.Vertex2f(x+width, y)
+gl.Vertex2f(x+width, y+height)
+gl.Vertex2f(x, y+height)
+// …
 ```
 
 Version 1.1 adds new GL 3.3 Core and refactors the rendering system to be more shader based, like this:
 
 ```go
-vertexShader := NewShader(VERTEX_SHADER, "vertex_shader_web.glsl", "vertex_shader_desktop.glsl")  
+vertexShader := NewShader(VERTEX_SHADER, "vertex_shader_web.glsl", "vertex_shader_desktop.glsl")
 fragmentShader := NewShader(FRAGMENT_SHADER, "fragment_shader_web.glsl", "fragment_shader_desktop.glsl")
 
-vertexShader.Compile()  
+vertexShader.Compile()
 fragmentShader.Compile()
 
-program := NewProgram(*vertexShader, *fragmentShader)  
-program.Link()  
-program.Use()  
+program := NewProgram(*vertexShader, *fragmentShader)
+program.Link()
+program.Use()
 ```
 
 It doesn’t only make the code more maintainable, but it also improves performance, since we now work with GL 3.3’s shaders system.
@@ -44,16 +44,16 @@ We replaced Vuelto’s old windowing library with a homemade one, supporting GLF
 Now, from a single piece of code like this one:
 
 ```go
-window, err := windowing.InitWindow()  
-if err != nil {  
-    log.Fatalln("Could not initialise a new window: ", err)  
-    return nil  
+window, err := windowing.InitWindow()
+if err != nil {
+    log.Fatalln("Could not initialise a new window: ", err)
+    return nil
 }
 
-window.Title = title  
-window.Width = width  
-window.Height = height  
-window.Resizable = resizable  
+window.Title = title
+window.Width = width
+window.Height = height
+window.Resizable = resizable
 ```
 
 \- you now have something that works with both the web and GLFW. Under the hood, Vuelto will take care of code filtering for each platform, so you don’t gotta worry about that.
@@ -65,9 +65,9 @@ window.Resizable = resizable
 Basically:
 
 ```go
-if vuelto.Key["e"].Pressed == true {  
- // do something  
-}  
+if vuelto.Key["e"].Pressed == true {
+ // do something
+}
 ```
 
 `.Pressed` will change to true as soon as the event is called, firing the code inside the block. It will turn false immediately after (as it’s a one time event) so it can be called again as many times as needed.
@@ -75,9 +75,9 @@ if vuelto.Key["e"].Pressed == true {
 For data that isn’t an event *itself* but *depends* on an event (e.g. the mouse position), the idea is to provide a function to get the value. For example:
 
 ```go
-vuelto.GetMousePox() // {x: 483, y: 131}  
-vuelto.GetMousePox().X // 483  
-vuelto.GetMousePox().Y // 131  
+vuelto.GetMousePox() // {x: 483, y: 131}
+vuelto.GetMousePox().X // 483
+vuelto.GetMousePox().Y // 131
 ```
 
 !!! note Keep in mind that the function returns the value for the moment of the call.
@@ -88,7 +88,7 @@ vuelto.GetMousePox().Y // 131
 
 The priority is to *be* a good option, but we also gotta *look like* a good option. That’s why we did some iterations on our branding\! We kept the core idea (the main logo),  but changed typefaces, colors, banners, styling, and more.
 
-![An image showing some of the design tweaks we did to Vuelto's branding](/blog/were-one-year-old-image1.png)
+![An image showing some of the design tweaks we did to Vuelto's branding](assets/were-one-year-old-image1.png)
 
 We want Vuelto to look more professional, so we’re giving it a well-needed refresh. Talking about being professional, we’re finally finishing the documentation, and we’ll also get contributing guidelines and more cool-looking documents soon.
 
@@ -96,5 +96,5 @@ And that’s all, my fellows\! Again, this is still in the works, V1.1 will have
 
 For now, happy birthday, Vuelto\!
 
-God bless you,  
+God bless you,
 > \- [ZakaHaceCosas](https://github.com/ZakaHaceCosas), from the Vuelto Team.
