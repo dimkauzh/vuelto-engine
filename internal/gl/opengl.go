@@ -15,14 +15,25 @@
 
 package gl
 
+import (
+	"fmt"
+
+	gl "vuelto.me/internal/gl/opengl"
+)
+
 type VertexShader struct{}
 type FragmentShader struct{}
+
+type EnableArg struct {
+	Arg uint32
+}
 
 type Shader struct {
 	WebShader     string
 	DesktopShader string
 
-	Type any
+	Type   any
+	Shader uint32
 }
 
 type Program struct {
@@ -50,18 +61,51 @@ type Texture struct {
 var VERTEX_SHADER = &VertexShader{}
 var FRAGMENT_SHADER = &FragmentShader{}
 
+var TEXTURE_2D = &EnableArg{gl.TEXTURE_2D}
+
 func NewShader(shadertype any, webshader, desktopshader string) *Shader {
 	return &Shader{
-		Type: shadertype,
-
+		Type:          shadertype,
 		WebShader:     webshader,
 		DesktopShader: desktopshader,
 	}
 }
 
-func (s *Shader) Compile() {}
+func (s *Shader) Compile() {
+	var shaderType uint32
+	switch s.Type.(type) {
+	case *VertexShader:
+		shaderType = gl.VERTEX_SHADER
+	case *FragmentShader:
+		shaderType = gl.FRAGMENT_SHADER
+	default:
+		panic("invalid shader type")
+	}
 
-func (s *Shader) Delete() {}
+	shader := gl.CreateShader(shaderType)
+	src, free := gl.Strs(s.DesktopShader + "\x00")
+	gl.ShaderSource(shader, 1, src, nil)
+	free()
+	gl.CompileShader(shader)
+
+	var success int32
+	gl.GetShaderiv(shader, gl.COMPILE_STATUS, &success)
+	if success == gl.FALSE {
+		var logLength int32
+		gl.GetShaderiv(shader, gl.INFO_LOG_LENGTH, &logLength)
+		log := make([]byte, logLength+1)
+		gl.GetShaderInfoLog(shader, logLength, nil, &log[0])
+		panic(fmt.Sprintf("failed to compile shader: %s", log))
+	}
+
+	s.Type = shader
+}
+
+func (s *Shader) Delete() {
+	if shader, ok := s.Type.(uint32); ok {
+		gl.DeleteShader(shader)
+	}
+}
 
 func NewProgram(vertexshader, fragmentshader Shader) *Program {
 	return &Program{
@@ -70,54 +114,146 @@ func NewProgram(vertexshader, fragmentshader Shader) *Program {
 	}
 }
 
-func (p *Program) Link() {}
+func (p *Program) Link() {
+	program := gl.CreateProgram()
 
-func (p *Program) Use() {}
+	vertexShader, ok := p.VertexShader.Type.(uint32)
+	if !ok {
+		panic("vertex shader is not compiled")
+	}
+	fragmentShader, ok := p.FragmentShader.Type.(uint32)
+	if !ok {
+		panic("fragment shader is not compiled")
+	}
 
-func (p *Program) Delete() {}
+	gl.AttachShader(program, vertexShader)
+	gl.AttachShader(program, fragmentShader)
+	gl.LinkProgram(program)
 
-func (p *Program) UniformLocation(location string) *Location {
-	return &Location{}
+	var success int32
+	gl.GetProgramiv(program, gl.LINK_STATUS, &success)
+	if success == gl.FALSE {
+		var logLength int32
+		gl.GetProgramiv(program, gl.INFO_LOG_LENGTH, &logLength)
+		log := make([]byte, logLength+1)
+		gl.GetProgramInfoLog(program, logLength, nil, &log[0])
+		panic(fmt.Sprintf("failed to link program: %s", log))
+	}
+
+	p.Program = program
 }
 
-func (l *Location) Set(arg ...float32) {}
+func (p *Program) Use() {
+	gl.UseProgram(p.Program)
+}
+
+func (p *Program) Delete() {
+	gl.DeleteProgram(p.Program)
+}
+
+func (p *Program) UniformLocation(location string) *Location {
+	loc := gl.GetUniformLocation(p.Program, gl.Str(location+"\x00"))
+	if loc == -1 {
+		panic(fmt.Sprintf("uniform %s not found", location))
+	}
+	return &Location{UniformLocation: loc}
+}
+
+func (l *Location) Set(arg ...float32) {
+	switch len(arg) {
+	case 1:
+		gl.Uniform1f(l.UniformLocation, arg[0])
+	case 2:
+		gl.Uniform2f(l.UniformLocation, arg[0], arg[1])
+	case 3:
+		gl.Uniform3f(l.UniformLocation, arg[0], arg[1], arg[2])
+	case 4:
+		gl.Uniform4f(l.UniformLocation, arg[0], arg[1], arg[2], arg[3])
+	default:
+		panic("unsupported uniform length")
+	}
+}
 
 func GenBuffers(vertices []float32) *Buffer {
+	var vao, vbo uint32
+	gl.GenVertexArrays(1, &vao)
+	gl.GenBuffers(1, &vbo)
+
 	return &Buffer{
+		Vao:      vao,
+		Vbo:      vbo,
 		Vertices: vertices,
 	}
 }
 
-func (b *Buffer) BindVA() {}
-
-func (b *Buffer) BindVBO() {}
-
-func (b *Buffer) UnBindVA() {}
-
-func (b *Buffer) UnBindVBO() {}
-
-func (b *Buffer) Data() {}
-
-func (b *Buffer) Delete() {}
-
-func GenTexture() *Texture {
-	return &Texture{}
+func (b *Buffer) BindVA() {
+	gl.BindVertexArray(b.Vao)
 }
 
-func (t *Texture) Bind() {}
+func (b *Buffer) BindVBO() {
+	gl.BindBuffer(gl.ARRAY_BUFFER, b.Vbo)
+}
 
-func (t *Texture) UnBind() {}
+func (b *Buffer) UnBindVA() {
+	gl.BindVertexArray(0)
+}
 
-func InitVertexAttrib() {}
+func (b *Buffer) UnBindVBO() {
+	gl.BindBuffer(gl.ARRAY_BUFFER, 0)
+}
 
-func DrawElements(corners int) {}
+func (b *Buffer) Data() {
+	gl.BufferData(gl.ARRAY_BUFFER, len(b.Vertices)*4, gl.Ptr(b.Vertices), gl.STATIC_DRAW)
+}
 
-func Clear() {}
+func (b *Buffer) Delete() {
+	gl.DeleteVertexArrays(1, &b.Vao)
+	gl.DeleteBuffers(1, &b.Vbo)
+}
 
-func Enable(args ...uint32) {}
+func GenTexture() *Texture {
+	var texture uint32
+	gl.GenTextures(1, &texture)
+	return &Texture{Texture: texture}
+}
 
-func Viewport(width, height int32) {}
+func (t *Texture) Bind() {
+	gl.BindTexture(gl.TEXTURE_2D, t.Texture)
+}
 
-func Ortho() {}
+func (t *Texture) UnBind() {
+	gl.BindTexture(gl.TEXTURE_2D, 0)
+}
 
-func Texture2D() {}
+func InitVertexAttrib() {
+	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 5*4, gl.PtrOffset(0))
+	gl.EnableVertexAttribArray(0)
+}
+
+func DrawElements(corners int) {
+	gl.DrawElements(gl.TRIANGLES, int32(corners), gl.UNSIGNED_INT, gl.PtrOffset(0))
+}
+
+func Clear() {
+	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+}
+
+func Enable(args ...EnableArg) {
+	for _, arg := range args {
+		gl.Enable(arg.Arg)
+	}
+}
+
+func Viewport(width, height int32) {
+	gl.Viewport(0, 0, width, height)
+}
+
+func Ortho() {
+}
+
+func Init() error {
+	if err := gl.Init(); err != nil {
+		return fmt.Errorf("failed to initialize OpenGL: %w", err)
+	}
+	return nil
+}

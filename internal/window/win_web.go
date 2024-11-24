@@ -19,7 +19,7 @@ import (
 	"syscall/js"
 	"time"
 
-	"vuelto.me/internal/windowing/web"
+	"vuelto.me/internal/window/web"
 )
 
 type Window struct {
@@ -48,7 +48,7 @@ func InitWindow() (*Window, error) {
 	return w, nil
 }
 
-func (w *Window) CreateWindow() error {
+func (w *Window) Create() error {
 	web.Document.DocumentElement.Style.Set("overflow", "hidden")
 	web.Document.Body.Style.Set("overflow", "hidden")
 
@@ -100,7 +100,10 @@ func (w *Window) SetResizable(resizable bool) {
 	}
 }
 
+func (w *Window) Close() bool {
+	return true
+}
+
 func (w *Window) ContextCurrent() {}
 func (w *Window) Destroy()        {}
 func (w *Window) HandleEvents()   {}
-func (w *Window) Close()          {}

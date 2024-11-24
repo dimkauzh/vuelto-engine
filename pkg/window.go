@@ -15,8 +15,6 @@ package vuelto
 import (
 	"log"
 
-	"github.com/go-gl/glfw/v3.3/glfw"
-
 	gl "vuelto.me/internal/gl/legacy"
 	windowing "vuelto.me/internal/window"
 )
@@ -39,12 +37,12 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 		return nil
 	}
 
+	window.GlfwGLMajor = 2
+	window.GlfwGLMinor = 1
+
 	window.Title = title
 	window.Width = width
 	window.Height = height
-
-	window.GlfwGLMajor = 2
-	window.GlfwGLMinor = 1
 
 	window.Resizable = resizable
 
@@ -80,7 +78,7 @@ func (w *Window) SetResizable(resizable bool) {
 // Function created for a loop. Returns true when being closed, and returns false when being active.
 func (w *Window) Close() bool {
 	for !w.Window.Close() {
-		glfw.PollEvents()
+		w.Window.HandleEvents()
 		return false
 	}
 	cleanTex()

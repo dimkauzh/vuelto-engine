@@ -15,85 +15,161 @@
 
 package gl
 
+import (
+	"syscall/js"
+
+	"vuelto.me/internal/gl/webgl"
+	"vuelto.me/internal/trita"
+)
+
 type VertexShader struct{}
 type FragmentShader struct{}
+
+type EnableArg struct {
+	Arg js.Value
+}
 
 type Shader struct {
 	WebShader     string
 	DesktopShader string
 
-	Type any
+	Type   js.Value
+	Shader js.Value
 }
 
 type Program struct {
-	Program uint32
+	Program js.Value
 
-	VertexShader   Shader
-	FragmentShader Shader
+	VertexShader   js.Value
+	FragmentShader js.Value
 }
 
 type Buffer struct {
-	Vao uint32
-	Vbo uint32
-
-	Vertices []float32
+	Vao        uint32
+	Vbo        js.Value
+	Vertices   []float32
+	BufferType js.Value
 }
 
 type Location struct {
-	UniformLocation int32
+	UniformLocation js.Value
 }
 
 var VERTEX_SHADER = &VertexShader{}
 var FRAGMENT_SHADER = &FragmentShader{}
+var TEXTURE_2D = &EnableArg{webgl.TEXTURE_2D}
 
 func NewShader(shadertype any, webshader, desktopshader string) *Shader {
-	return &Shader{
-		Type: shadertype,
-
+	shader := &Shader{
 		WebShader:     webshader,
 		DesktopShader: desktopshader,
 	}
+
+	switch trita.YourType(shadertype) {
+	case trita.YourType(FragmentShader{}):
+		shader.Type = webgl.VERTEX_SHADER
+	case trita.YourType(VertexShader{}):
+		shader.Type = webgl.FRAGMENT_SHADER
+	default:
+		panic("Unknown shader type")
+	}
+
+	shader.Shader = webgl.CreateShader(shader.Type)
+	webgl.ShaderSource(shader.Shader, webshader)
+
+	return shader
 }
 
-func (s *Shader) Compile() {}
+func (s *Shader) Compile() {
+	webgl.CompileShader(s.Shader)
+}
 
-func (s *Shader) Delete() {}
+func (s *Shader) Delete() {
+	webgl.DeleteShader(s.Shader)
+}
 
 func NewProgram(vertexshader, fragmentshader Shader) *Program {
 	return &Program{
-		VertexShader:   vertexshader,
-		FragmentShader: fragmentshader,
+		VertexShader:   vertexshader.Shader,
+		FragmentShader: fragmentshader.Shader,
+		Program:        webgl.CreateProgram(),
 	}
 }
 
-func (p *Program) Link() {}
-
-func (p *Program) Use() {}
-
-func (p *Program) UniformLocation(location string) *Location {
-	return &Location{}
+func (p *Program) Link() {
+	webgl.AttachShader(p.Program, p.VertexShader)
+	webgl.AttachShader(p.Program, p.FragmentShader)
+	webgl.LinkProgram(p.Program)
 }
 
-func (l *Location) Set(arg ...float32) {}
+func (p *Program) Use() {
+	webgl.UseProgram(p.Program)
+}
+
+func (p *Program) UniformLocation(location string) *Location {
+	return &Location{
+		UniformLocation: webgl.GetUniformLocation(p.Program, location),
+	}
+}
+
+func (l *Location) Set(arg ...float32) {
+	switch len(arg) {
+	case 1:
+		webgl.Uniform1f(l.UniformLocation, arg[0])
+	case 2:
+		webgl.Uniform2f(l.UniformLocation, arg[0], arg[1])
+	case 3:
+		webgl.Uniform3f(l.UniformLocation, arg[0], arg[1], arg[2])
+	case 4:
+		webgl.Uniform4f(l.UniformLocation, arg[0], arg[1], arg[2], arg[3])
+	default:
+		panic("unsupported uniform length")
+	}
+}
 
 func GenBuffers(vertices []float32) *Buffer {
+	buffer := webgl.CreateBuffer()
+	webgl.BindBuffer(webgl.ARRAY_BUFFER, buffer)
+	webgl.BufferData(webgl.ARRAY_BUFFER, vertices, webgl.STATIC_DRAW)
 	return &Buffer{
 		Vertices: vertices,
+		Vbo:      buffer,
 	}
 }
 
 func (b *Buffer) BindVA() {}
 
-func (b *Buffer) BindVBO() {}
+func (b *Buffer) BindVBO() {
+	webgl.BindBuffer(webgl.ARRAY_BUFFER, b.Vbo)
+}
 
-func (b *Buffer) Data() {}
+func (b *Buffer) Data() {
+	webgl.BufferData(webgl.ARRAY_BUFFER, b.Vertices, webgl.STATIC_DRAW)
+}
 
-func (b *Buffer) Delete() {}
+func (b *Buffer) Delete() {
+	webgl.DeleteBuffer(b.Vbo)
+}
 
-func InitVertexAttrib() {}
+func InitVertexAttrib() {
+	webgl.EnableVertexAttribArray(0)
+}
 
-func DrawElements() {}
+func DrawElements(corners int) {}
 
-func Clear() {}
+func Clear() {
+	webgl.Clear(webgl.COLOR_BUFFER_BIT)
+	webgl.Clear(webgl.DEPTH_BUFFER_BIT)
+}
 
-func Enable(args ...uint32) {}
+func Enable(args ...EnableArg) {
+	for _, capability := range args {
+		webgl.Enable(capability.Arg)
+	}
+}
+
+func Init() error {
+	return nil
+}
+
+func Viewport(width, height int32) {}

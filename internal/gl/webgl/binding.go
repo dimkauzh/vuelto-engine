@@ -18,7 +18,7 @@ package webgl
 import (
 	"syscall/js"
 
-	"vuelto.me/internal/windowing/web"
+	"vuelto.me/internal/window/web"
 )
 
 var canvas web.Canvas = web.Document.GetElementById("vuelto")
@@ -74,6 +74,10 @@ func AttachShader(program, shaderType js.Value) {
 	gl.Call("attachShader", program, shaderType)
 }
 
+func DeleteShader(shader js.Value) {
+	gl.Call("deleteShader", shader)
+}
+
 func LinkProgram(program js.Value) {
 	gl.Call("linkProgram", program)
 }
@@ -87,7 +91,11 @@ func BindBuffer(target js.Value, buffer js.Value) {
 }
 
 func BufferData(target js.Value, data []float32, usage js.Value) {
-	gl.Call("bufferData", target, js.TypedArrayOf(data), usage)
+	gl.Call("bufferData", target, NewFloat32Array(data), usage)
+}
+
+func DeleteBuffer(buffer js.Value) {
+	gl.Call("deleteBuffer", buffer)
 }
 
 func UseProgram(program js.Value) {
@@ -98,7 +106,7 @@ func GetAttribLocation(program js.Value, name string) js.Value {
 	return gl.Call("getAttribLocation", program, name)
 }
 
-func EnableVertexAttribArray(index js.Value) {
+func EnableVertexAttribArray(index int) {
 	gl.Call("enableVertexAttribArray", index)
 }
 
@@ -110,6 +118,78 @@ func GetUniformLocation(program js.Value, name string) js.Value {
 	return gl.Call("getUniformLocation", program, name)
 }
 
+func Uniform1f(location js.Value, x float32) {
+	gl.Call("uniform1f", location, x)
+}
+
+func Uniform2f(location js.Value, x, y float32) {
+	gl.Call("uniform2f", location, x, y)
+}
+
+func Uniform3f(location js.Value, x, y, z float32) {
+	gl.Call("uniform3f", location, x, y, z)
+}
+
+func Uniform4f(location js.Value, x, y, z, w float32) {
+	gl.Call("uniform4f", location, x, y, z, w)
+}
+
 func DrawArrays(mode js.Value, first int, count int) {
 	gl.Call("drawArrays", mode, first, count)
+}
+
+func GetShaderParameter(shader js.Value, pname js.Value) js.Value {
+	return gl.Call("getShaderParameter", shader, pname)
+}
+
+func GetShaderInfoLog(shader js.Value) string {
+	return gl.Call("getShaderInfoLog", shader).String()
+}
+
+func GetProgramParameter(program js.Value, pname js.Value) js.Value {
+	return gl.Call("getProgramParameter", program, pname)
+}
+
+func GetProgramInfoLog(program js.Value) string {
+	return gl.Call("getProgramInfoLog", program).String()
+}
+
+func CreateTexture() js.Value {
+	return gl.Call("createTexture")
+}
+
+func BindTexture(target js.Value, texture js.Value) {
+	gl.Call("bindTexture", target, texture)
+}
+
+func TexParameteri(target js.Value, pname js.Value, param js.Value) {
+	gl.Call("texParameteri", target, pname, param)
+}
+
+func TexImage2D(target js.Value, level int, internalFormat js.Value, width, height, border int, format, typ, pixels js.Value) {
+	gl.Call("texImage2D", target, level, internalFormat, width, height, border, format, typ, pixels)
+}
+
+func ClearColor(r, g, b, a float32) {
+	gl.Call("clearColor", r, g, b, a)
+}
+
+func Clear(mask js.Value) {
+	gl.Call("clear", mask)
+}
+
+func ClearDepth(depth float64) {
+	gl.Call("clearDepth", depth)
+}
+
+func BlendFunc(sfactor, dfactor js.Value) {
+	gl.Call("blendFunc", sfactor, dfactor)
+}
+
+func Enable(capability js.Value) {
+	gl.Call("enable", capability)
+}
+
+func NewFloat32Array(values []float32) js.Value {
+	return js.Global().Get("Float32Array").New(len(values)).Call("set", js.ValueOf(values))
 }
