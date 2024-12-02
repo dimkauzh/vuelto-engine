@@ -85,6 +85,7 @@ Vuelto is licensed under the [VL-Cv1.1 Licence](https://github.com/vuelto-org/vu
 
 You can contact us via our Discord community or at our email:
 
+- 🐙 [Github repo](https://github.com/vuelto-org/vuelto)
 - 🗨️ [Discord server](https://discord.gg/gZqdRXbbqg)
 - ✉️ [Email](mailto:dima@vuelto.me)
 

@@ -38,7 +38,7 @@ nav:
       - 🛣️ V1: "roadmap/v1.md"
       - 🛣️ V2: "roadmap/v2.md"
 
-  - About: "discord.html"
+  - About: "about.md"
 
 theme:
   name: material
