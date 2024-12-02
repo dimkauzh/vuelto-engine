@@ -16,9 +16,11 @@
 package windowing
 
 import (
+	"fmt"
 	"syscall/js"
 	"time"
 
+	"vuelto.me/internal/gl"
 	"vuelto.me/internal/window/web"
 )
 
@@ -41,8 +43,12 @@ func InitWindow() (*Window, error) {
 	w.JSCanvas = web.Document.GetElementById("vuelto")
 	if w.JSCanvas.IsNull() {
 		w.JSCanvas = web.Document.CreateCanvasElement()
-		w.JSCanvas.Set("id", "canvas")
+		w.JSCanvas.Set("id", "vuelto")
 		web.Document.Body.AppendCanvasChild(w.JSCanvas)
+	}
+
+	if w.JSCanvas.IsNull() {
+		return nil, fmt.Errorf("failed to create or fetch canvas")
 	}
 
 	return w, nil
@@ -74,7 +80,15 @@ func (w *Window) Create() error {
 
 func (w *Window) ResizingCallback(inputFunc func(*Window, int, int)) {
 	web.Window.AddEventListener("resize", func(this js.Value, p []js.Value) any {
-		inputFunc(w, web.Document.DocumentElement.ClientWidth(), web.Document.DocumentElement.ClientHeight())
+		newWidth := web.Document.DocumentElement.ClientWidth()
+		newHeight := web.Document.DocumentElement.ClientHeight()
+
+		w.JSCanvas.Set("width", newWidth)
+		w.JSCanvas.Set("height", newHeight)
+
+		gl.Viewport(0, 0, newWidth, newHeight)
+
+		inputFunc(w, newWidth, newHeight)
 		return nil
 	})
 }
@@ -101,9 +115,10 @@ func (w *Window) SetResizable(resizable bool) {
 }
 
 func (w *Window) Close() bool {
-	return true
+	return false
 }
 
 func (w *Window) ContextCurrent() {}
-func (w *Window) Destroy()        {}
-func (w *Window) HandleEvents()   {}
+
+func (w *Window) Destroy()      {}
+func (w *Window) HandleEvents() {}

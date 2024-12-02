@@ -21,38 +21,63 @@ import (
 	"vuelto.me/internal/window/web"
 )
 
-var canvas web.Canvas = web.Document.GetElementById("vuelto")
-var gl web.Context = canvas.GetContext("webgl")
-
 var (
-	VERTEX_SHADER   = gl.Get("VERTEX_SHADER")
+	canvas web.Canvas
+	gl     js.Value
+
+	VERTEX_SHADER       js.Value
+	FRAGMENT_SHADER     js.Value
+	ARRAY_BUFFER        js.Value
+	STATIC_DRAW         js.Value
+	TRIANGLES           js.Value
+	TRIANGLE_FAN        js.Value
+	FLOAT               js.Value
+	FALSE               js.Value
+	TRUE                js.Value
+	COLOR_BUFFER_BIT    js.Value
+	TEXTURE_2D          js.Value
+	TEXTURE_WRAP_S      js.Value
+	TEXTURE_WRAP_T      js.Value
+	TEXTURE_MIN_FILTER  js.Value
+	TEXTURE_MAG_FILTER  js.Value
+	CLAMP_TO_EDGE       js.Value
+	LINEAR              js.Value
+	RGBA                js.Value
+	UNSIGNED_BYTE       js.Value
+	SRC_ALPHA           js.Value
+	ONE_MINUS_SRC_ALPHA js.Value
+	BLEND               js.Value
+	DEPTH_BUFFER_BIT    js.Value
+)
+
+func InitWebGL() {
+	canvas = web.Document.GetElementById("vuelto")
+	gl = canvas.GetContext("webgl2").JSContext
+
+	VERTEX_SHADER = gl.Get("VERTEX_SHADER")
 	FRAGMENT_SHADER = gl.Get("FRAGMENT_SHADER")
-
 	ARRAY_BUFFER = gl.Get("ARRAY_BUFFER")
-	STATIC_DRAW  = gl.Get("STATIC_DRAW")
-	TRIANGLES    = gl.Get("TRIANGLES")
-
+	STATIC_DRAW = gl.Get("STATIC_DRAW")
+	TRIANGLES = gl.Get("TRIANGLES")
+	TRIANGLE_FAN = gl.Get("TRIANGLE_FAN")
 	FLOAT = gl.Get("FLOAT")
 	FALSE = gl.Get("FALSE")
-	TRUE  = gl.Get("TRUE")
-
+	TRUE = gl.Get("TRUE")
 	COLOR_BUFFER_BIT = gl.Get("COLOR_BUFFER_BIT")
-
-	TEXTURE_2D         = gl.Get("TEXTURE_2D")
-	TEXTURE_WRAP_S     = gl.Get("TEXTURE_WRAP_S")
-	TEXTURE_WRAP_T     = gl.Get("TEXTURE_WRAP_T")
+	TEXTURE_2D = gl.Get("TEXTURE_2D")
+	TEXTURE_WRAP_S = gl.Get("TEXTURE_WRAP_S")
+	TEXTURE_WRAP_T = gl.Get("TEXTURE_WRAP_T")
 	TEXTURE_MIN_FILTER = gl.Get("TEXTURE_MIN_FILTER")
 	TEXTURE_MAG_FILTER = gl.Get("TEXTURE_MAG_FILTER")
-	CLAMP_TO_EDGE      = gl.Get("CLAMP_TO_EDGE")
-
-	LINEAR              = gl.Get("LINEAR")
-	RGBA                = gl.Get("RGBA")
-	UNSIGNED_BYTE       = gl.Get("UNSIGNED_BYTE")
-	SRC_ALPHA           = gl.Get("SRC_ALPHA")
+	CLAMP_TO_EDGE = gl.Get("CLAMP_TO_EDGE")
+	LINEAR = gl.Get("LINEAR")
+	RGBA = gl.Get("RGBA")
+	UNSIGNED_BYTE = gl.Get("UNSIGNED_BYTE")
+	SRC_ALPHA = gl.Get("SRC_ALPHA")
 	ONE_MINUS_SRC_ALPHA = gl.Get("ONE_MINUS_SRC_ALPHA")
-	BLEND               = gl.Get("BLEND")
-	DEPTH_BUFFER_BIT    = gl.Get("DEPTH_BUFFER_BIT")
-)
+	BLEND = gl.Get("BLEND")
+	DEPTH_BUFFER_BIT = gl.Get("DEPTH_BUFFER_BIT")
+}
 
 func CreateShader(inputType js.Value) js.Value {
 	return gl.Call("createShader", inputType)
@@ -80,6 +105,10 @@ func DeleteShader(shader js.Value) {
 
 func LinkProgram(program js.Value) {
 	gl.Call("linkProgram", program)
+}
+
+func DeleteProgram(program js.Value) {
+	gl.Call("deleteProgram", program)
 }
 
 func CreateBuffer() js.Value {
@@ -110,7 +139,7 @@ func EnableVertexAttribArray(index int) {
 	gl.Call("enableVertexAttribArray", index)
 }
 
-func VertexAttribPointer(index js.Value, size int, typ js.Value, normalized bool, stride int, offset int) {
+func VertexAttribPointer(index int, size int, typ js.Value, normalized bool, stride int, offset int) {
 	gl.Call("vertexAttribPointer", index, size, typ, normalized, stride, offset)
 }
 
@@ -190,6 +219,14 @@ func Enable(capability js.Value) {
 	gl.Call("enable", capability)
 }
 
+func Viewport(x, y, width, height int) {
+	gl.Call("viewport", x, y, width, height)
+}
+
 func NewFloat32Array(values []float32) js.Value {
-	return js.Global().Get("Float32Array").New(len(values)).Call("set", js.ValueOf(values))
+	array := js.Global().Get("Float32Array").New(len(values))
+	for i, v := range values {
+		array.SetIndex(i, v)
+	}
+	return array
 }

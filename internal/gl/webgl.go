@@ -22,9 +22,6 @@ import (
 	"vuelto.me/internal/trita"
 )
 
-type VertexShader struct{}
-type FragmentShader struct{}
-
 type EnableArg struct {
 	Arg js.Value
 }
@@ -55,27 +52,26 @@ type Location struct {
 	UniformLocation js.Value
 }
 
-var VERTEX_SHADER = &VertexShader{}
-var FRAGMENT_SHADER = &FragmentShader{}
 var TEXTURE_2D = &EnableArg{webgl.TEXTURE_2D}
 
-func NewShader(shadertype any, webshader, desktopshader string) *Shader {
-	shader := &Shader{
-		WebShader:     webshader,
-		DesktopShader: desktopshader,
-	}
+func NewShader(shadertype any) *Shader {
+	shader := &Shader{}
 
 	switch trita.YourType(shadertype) {
 	case trita.YourType(FragmentShader{}):
-		shader.Type = webgl.VERTEX_SHADER
-	case trita.YourType(VertexShader{}):
 		shader.Type = webgl.FRAGMENT_SHADER
+		shader.DesktopShader = shadertype.(FragmentShader).DesktopShader
+		shader.WebShader = shadertype.(FragmentShader).WebShader
+	case trita.YourType(VertexShader{}):
+		shader.Type = webgl.VERTEX_SHADER
+		shader.DesktopShader = shadertype.(VertexShader).DesktopShader
+		shader.WebShader = shadertype.(VertexShader).WebShader
 	default:
 		panic("Unknown shader type")
 	}
 
 	shader.Shader = webgl.CreateShader(shader.Type)
-	webgl.ShaderSource(shader.Shader, webshader)
+	webgl.ShaderSource(shader.Shader, shader.WebShader)
 
 	return shader
 }
@@ -106,6 +102,10 @@ func (p *Program) Use() {
 	webgl.UseProgram(p.Program)
 }
 
+func (p *Program) Delete() {
+	webgl.DeleteProgram(p.Program)
+}
+
 func (p *Program) UniformLocation(location string) *Location {
 	return &Location{
 		UniformLocation: webgl.GetUniformLocation(p.Program, location),
@@ -123,7 +123,7 @@ func (l *Location) Set(arg ...float32) {
 	case 4:
 		webgl.Uniform4f(l.UniformLocation, arg[0], arg[1], arg[2], arg[3])
 	default:
-		panic("unsupported uniform length")
+		panic("Unsupported uniform length")
 	}
 }
 
@@ -152,10 +152,15 @@ func (b *Buffer) Delete() {
 }
 
 func InitVertexAttrib() {
+	webgl.VertexAttribPointer(0, 3, webgl.FLOAT, false, 0, 0)
 	webgl.EnableVertexAttribArray(0)
 }
 
 func DrawElements(corners int) {}
+
+func DrawArrays(verticesCount int) {
+	webgl.DrawArrays(webgl.TRIANGLE_FAN, 0, verticesCount)
+}
 
 func Clear() {
 	webgl.Clear(webgl.COLOR_BUFFER_BIT)
@@ -169,7 +174,10 @@ func Enable(args ...EnableArg) {
 }
 
 func Init() error {
+	webgl.InitWebGL()
 	return nil
 }
 
-func Viewport(width, height int32) {}
+func Viewport(x, y, width, height int) {
+	webgl.Viewport(x, y, width, height)
+}

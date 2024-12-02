@@ -13,6 +13,7 @@
 package web
 
 import (
+	"fmt"
 	"syscall/js"
 
 	"strconv"
@@ -27,7 +28,12 @@ type Context struct {
 }
 
 func (c *Canvas) GetContext(inputContext string) Context {
-	return Context{c.JSCanvas.Call("getContext", inputContext)}
+	context := c.JSCanvas.Call("getContext", inputContext)
+	if context.IsNull() {
+		fmt.Errorf("failed to get '%s' context", inputContext)
+		return Context{}
+	}
+	return Context{context}
 }
 
 func (c *Canvas) Get(inputKey string) js.Value {

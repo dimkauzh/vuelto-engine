@@ -19,10 +19,8 @@ import (
 	"fmt"
 
 	gl "vuelto.me/internal/gl/opengl"
+	"vuelto.me/internal/trita"
 )
-
-type VertexShader struct{}
-type FragmentShader struct{}
 
 type EnableArg struct {
 	Arg uint32
@@ -58,28 +56,38 @@ type Texture struct {
 	Texture uint32
 }
 
-var VERTEX_SHADER = &VertexShader{}
-var FRAGMENT_SHADER = &FragmentShader{}
-
 var TEXTURE_2D = &EnableArg{gl.TEXTURE_2D}
 
-func NewShader(shadertype any, webshader, desktopshader string) *Shader {
-	return &Shader{
-		Type:          shadertype,
-		WebShader:     webshader,
-		DesktopShader: desktopshader,
+func NewShader(shadertype any) *Shader {
+	switch trita.YourType(shadertype) {
+	case trita.YourType(FragmentShader{}):
+		return &Shader{
+			Type:          shadertype,
+			WebShader:     shadertype.(FragmentShader).WebShader,
+			DesktopShader: shadertype.(FragmentShader).DesktopShader,
+		}
+	case trita.YourType(VertexShader{}):
+		return &Shader{
+			Type:          shadertype,
+			WebShader:     shadertype.(VertexShader).WebShader,
+			DesktopShader: shadertype.(VertexShader).DesktopShader,
+		}
+	default:
+		panic("Unknown shader type")
 	}
+
 }
 
 func (s *Shader) Compile() {
 	var shaderType uint32
-	switch s.Type.(type) {
-	case *VertexShader:
+
+	switch trita.YourType(s.Type) {
+	case trita.YourType(VertexShader{}):
 		shaderType = gl.VERTEX_SHADER
-	case *FragmentShader:
+	case trita.YourType(FragmentShader{}):
 		shaderType = gl.FRAGMENT_SHADER
 	default:
-		panic("invalid shader type")
+		panic("Invalid shader type")
 	}
 
 	shader := gl.CreateShader(shaderType)
@@ -87,16 +95,6 @@ func (s *Shader) Compile() {
 	gl.ShaderSource(shader, 1, src, nil)
 	free()
 	gl.CompileShader(shader)
-
-	var success int32
-	gl.GetShaderiv(shader, gl.COMPILE_STATUS, &success)
-	if success == gl.FALSE {
-		var logLength int32
-		gl.GetShaderiv(shader, gl.INFO_LOG_LENGTH, &logLength)
-		log := make([]byte, logLength+1)
-		gl.GetShaderInfoLog(shader, logLength, nil, &log[0])
-		panic(fmt.Sprintf("failed to compile shader: %s", log))
-	}
 
 	s.Type = shader
 }
@@ -129,16 +127,6 @@ func (p *Program) Link() {
 	gl.AttachShader(program, vertexShader)
 	gl.AttachShader(program, fragmentShader)
 	gl.LinkProgram(program)
-
-	var success int32
-	gl.GetProgramiv(program, gl.LINK_STATUS, &success)
-	if success == gl.FALSE {
-		var logLength int32
-		gl.GetProgramiv(program, gl.INFO_LOG_LENGTH, &logLength)
-		log := make([]byte, logLength+1)
-		gl.GetProgramInfoLog(program, logLength, nil, &log[0])
-		panic(fmt.Sprintf("failed to link program: %s", log))
-	}
 
 	p.Program = program
 }
@@ -226,12 +214,16 @@ func (t *Texture) UnBind() {
 }
 
 func InitVertexAttrib() {
-	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 5*4, gl.PtrOffset(0))
+	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 3*4, gl.PtrOffset(0))
 	gl.EnableVertexAttribArray(0)
 }
 
 func DrawElements(corners int) {
 	gl.DrawElements(gl.TRIANGLES, int32(corners), gl.UNSIGNED_INT, gl.PtrOffset(0))
+}
+
+func DrawArrays(corners int32) {
+	gl.DrawArrays(gl.TRIANGLE_FAN, 0, corners)
 }
 
 func Clear() {
@@ -244,11 +236,8 @@ func Enable(args ...EnableArg) {
 	}
 }
 
-func Viewport(width, height int32) {
-	gl.Viewport(0, 0, width, height)
-}
-
-func Ortho() {
+func Viewport(x, y, width, height int) {
+	gl.Viewport(int32(x), int32(y), int32(width), int32(height))
 }
 
 func Init() error {
