@@ -1,7 +1,7 @@
 package main
 
 import (
-	vuelto "vuelto.me/pkg"
+	vuelto "vuelto.pp.ua/pkg"
 )
 
 func main() {

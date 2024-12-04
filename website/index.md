@@ -34,7 +34,7 @@ Vuelto is an open-source, fast, and light game engine, based on Golang, CGo, and
 ## 📦 Go package
 We have a Go package published, so run this command to add it to your go.mod:
 ```bash
-go get vuelto.me@latest
+go get vuelto.pp.ua@latest
 ```
 
 ## 🖥️ Platform Support
@@ -48,10 +48,10 @@ go get vuelto.me@latest
 
 ## 📖 Docs
 
-You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
+You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.pp.ua/docs/).
 
 !!! tip
-    In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [examples](https://github.com/vuelto-org/vuelto/tree/latest/examples) directory for usage examples.
+    In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.pp.ua) page for API documentation. Use the [examples](https://github.com/vuelto-org/vuelto/tree/latest/examples) directory for usage examples.
 
 ### 🛣️ Roadmap
 
@@ -87,7 +87,7 @@ You can contact us via our Discord community or at our email:
 
 - 🐙 [Github repo](https://github.com/vuelto-org/vuelto)
 - 🗨️ [Discord server](https://discord.gg/gZqdRXbbqg)
-- ✉️ [Email](mailto:dima@vuelto.me)
+- ✉️ [Email](mailto:dima@vuelto.pp.ua)
 
 ### 🙌 Thanks To
 

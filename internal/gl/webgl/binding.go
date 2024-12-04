@@ -18,7 +18,7 @@ package webgl
 import (
 	"syscall/js"
 
-	"vuelto.me/internal/window/web"
+	"vuelto.pp.ua/internal/window/web"
 )
 
 var (

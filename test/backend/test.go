@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"vuelto.me/internal/gl"
-	windowing "vuelto.me/internal/window"
+	"vuelto.pp.ua/internal/gl"
+	windowing "vuelto.pp.ua/internal/window"
 )
 
 func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) {

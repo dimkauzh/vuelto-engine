@@ -1,7 +1,7 @@
 # 📦 Go package
 We have a Go package published, so run this command to add it to your go.mod:
 ```bash
-go get vuelto.me@latest
+go get vuelto.pp.ua@latest
 ```
 
 # 🔧 Installation
@@ -31,7 +31,7 @@ xcode-select --install
 You have to have a C compiler installed. You can also use WSL, if so follow the Linux instructions.
 
 
-Download Go from the download page and follow instructions. 
+Download Go from the download page and follow instructions.
 
 Install one of the available C compilers for windows, the following are tested with Go and Fyne:
 - MSYS2 with MingW-w64 - msys2.org
@@ -57,5 +57,3 @@ You will need to add /c/Program\ Files/Go/bin and ~/Go/bin to your $PATH, for MS
 echo "export PATH=\$PATH:/c/Program\ Files/Go/bin:~/Go/bin" >> ~/.bashrc
 ```
 For the compiler to work on other terminals you will need to set up the windows %PATH% variable to find these tools. Go to the "Edit the system environment variables" control panel, tap "Advanced" and add "C:\msys64\mingw64\bin" to the Path list.
-
-

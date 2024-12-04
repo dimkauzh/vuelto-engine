@@ -15,8 +15,8 @@ package vuelto
 import (
 	"log"
 
-	gl "vuelto.me/internal/gl/legacy"
-	windowing "vuelto.me/internal/window"
+	gl "vuelto.pp.ua/internal/gl/legacy"
+	windowing "vuelto.pp.ua/internal/window"
 )
 
 type Window struct {

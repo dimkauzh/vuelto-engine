@@ -10,5 +10,5 @@ Vuelto is an open-source, fast, and light game engine, based on Golang, CGo, and
 We have multiple ways to reach us, like the following:
 
 - 🐙 [Github repo](https://github.com/vuelto-org/vuelto)
-- 🗨️ [Discord server](https://vuelto.me/discord)
-- ✉️ [Email](mailto:dima@vuelto.me)
+- 🗨️ [Discord server](https://vuelto.pp.ua/discord)
+- ✉️ [Email](mailto:dima@vuelto.pp.ua)

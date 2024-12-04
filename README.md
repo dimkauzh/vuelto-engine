@@ -33,7 +33,7 @@ For an installation guide, [go here](https://vuelto-org.github.io/vuelto/install
 
 You can get the latest Go package by running this command:
 ```sh
-go get vuelto.me@latest
+go get vuelto.pp.ua@latest
 ```
 
 ## 🖼️ Vuelto Example
@@ -42,7 +42,7 @@ go get vuelto.me@latest
 package main
 
 import (
-	vuelto "vuelto.me/pkg"
+	vuelto "vuelto.pp.ua/pkg"
 )
 
 func main() {
@@ -71,10 +71,10 @@ func main() {
 
 ## 📖 Docs
 
-You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.me/docs/).
+You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.pp.ua/docs/).
 
 > [!TIP]
-> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.me) page for API documentation. Use the [examples](https://github.com/vuelto-org/vuelto/tree/latest/examples) directory for usage examples.
+> In case the documentation is missing something or there is something wrong, use the [GoDoc](https://pkg.go.dev/vuelto.pp.ua) page for API documentation. Use the [examples](https://github.com/vuelto-org/vuelto/tree/latest/examples) directory for usage examples.
 
 ### 🛣️ Roadmap
 
@@ -109,7 +109,7 @@ Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). Any PRs that primar
 You can contact us via our Discord community or at our email:
 
 - 🗨️ [Discord server](https://discord.gg/gZqdRXbbqg)
-- ✉️ [Email](mailto:dima@vuelto.me)
+- ✉️ [Email](mailto:dima@vuelto.pp.ua)
 
 ### 🙌 Thanks To
 
@@ -117,7 +117,13 @@ A special thanks to:
 - **Dimkauzh** for the initial idea and development.
 - **ZakaHaceCosas** for the great improvements on top of vuelto.
 
-Your support has helped make Vuelto even better! ❤️
+Without your help, Vuelto wouldn't be where it is today. 🙌
+
+Also a big shoutout to our homies and partners at:
+- [**Sokora**, the multiplatform discord bot](https://sokora.org)
+- [**Atom Bot**, the multipurpose discord bot](https://atomlabs.ie)
+
+Your support has helped make Vuelto even better! 🤝
 
 
 ---

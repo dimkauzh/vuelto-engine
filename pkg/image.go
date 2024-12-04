@@ -13,8 +13,8 @@
 package vuelto
 
 import (
-	gl "vuelto.me/internal/gl/legacy"
-	"vuelto.me/internal/image"
+	gl "vuelto.pp.ua/internal/gl/legacy"
+	"vuelto.pp.ua/internal/image"
 )
 
 type Image struct {

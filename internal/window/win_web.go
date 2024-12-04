@@ -20,8 +20,8 @@ import (
 	"syscall/js"
 	"time"
 
-	"vuelto.me/internal/gl"
-	"vuelto.me/internal/window/web"
+	"vuelto.pp.ua/internal/gl"
+	"vuelto.pp.ua/internal/window/web"
 )
 
 type Window struct {

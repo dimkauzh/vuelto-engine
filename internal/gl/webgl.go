@@ -18,8 +18,8 @@ package gl
 import (
 	"syscall/js"
 
-	"vuelto.me/internal/gl/webgl"
-	"vuelto.me/internal/trita"
+	"vuelto.pp.ua/internal/gl/webgl"
+	"vuelto.pp.ua/internal/trita"
 )
 
 type EnableArg struct {

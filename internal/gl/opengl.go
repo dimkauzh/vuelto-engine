@@ -18,8 +18,8 @@ package gl
 import (
 	"fmt"
 
-	gl "vuelto.me/internal/gl/opengl"
-	"vuelto.me/internal/trita"
+	gl "vuelto.pp.ua/internal/gl/opengl"
+	"vuelto.pp.ua/internal/trita"
 )
 
 type EnableArg struct {
