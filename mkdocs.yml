@@ -42,7 +42,7 @@ nav:
 
 theme:
   name: material
-  custom_dir: overrides
+  custom_dir: website/overrides
 
   logo: logo/pfp-nobg.png
   favicon: logo/pfp-nobg.png
