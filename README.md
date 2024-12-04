@@ -37,7 +37,7 @@ For a installation guide, [go here](https://vuelto-org.github.io/vuelto/install/
 ### 📦 Go package
 We have a Go package published, so run this command to add it to your go.mod:
 ```bash
-go get vuelto.me@latest
+go get vuelto.pp.ua@latest
 ```
 
 ### 🌟 Examples
@@ -46,7 +46,7 @@ All of our examples are inside the examples directory, so take a look there is y
 package main
 
 import (
-	vuelto "vuelto.me/pkg"
+	vuelto "vuelto.pp.ua/pkg"
 )
 
 func main() {
@@ -68,7 +68,7 @@ func main() {
 
 ## 📚 Docs
 Our docs are hosted on our website, so go [here](https://vuelto-org.github.io/vuelto/) to see them.
-	
+
 
 ## 📋 Roadmap
 You can find our [roadmap on the website](https://vuelto-org.github.io/vuelto/roadmap/v1).

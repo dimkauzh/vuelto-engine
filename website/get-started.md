@@ -11,7 +11,7 @@ For a installation guide, [go here](install.md).
 ## 📦 Go package
 We have a Go package published, so run this command to add it to your go.mod:
 ```bash
-go get vuelto.me@latest
+go get vuelto.pp.ua@latest
 ```
 
 ## 🌟 Examples
@@ -20,7 +20,7 @@ All of our examples are inside the examples directory, so take a look there is y
 package main
 
 import (
-	vuelto "vuelto.me/pkg"
+	vuelto "vuelto.pp.ua/pkg"
 )
 
 func main() {

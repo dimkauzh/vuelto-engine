@@ -5,7 +5,7 @@ import (
 	"runtime"
 
 	"github.com/go-gl/glfw/v3.3/glfw"
-	"vuelto.me/internal/gl"
+	"vuelto.pp.ua/internal/gl"
 )
 
 type Window struct {
@@ -52,11 +52,11 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
 	return &Window{
-    Window: window,
-    Title: title,
-    Width: width,
-    Height: height,
-  }
+		Window: window,
+		Title:  title,
+		Width:  width,
+		Height: height,
+	}
 }
 
 // Sets the resizable attribute of the window.

@@ -1,6 +1,6 @@
 site_name: Vuelto
 site_description: A fast and lightweight game engine powered by Go and OpenGL. Easy, fast and lightweight!
-site_url: https://vuelto.me
+site_url: https://vuelto.pp.ua
 
 repo_name: vuelto-org/vuelto
 repo_url: https://github.com/vuelto-org/vuelto
@@ -11,12 +11,12 @@ nav:
   - Home: "home.md"
 
   - Getting started:
-    - 🚀 Quick start: "get-started.md"
-    - 🛠️ Indepth Installation: "install.md"
+      - 🚀 Quick start: "get-started.md"
+      - 🛠️ Indepth Installation: "install.md"
 
   - Roadmap:
-    - 🛣️ V1: "roadmap/v1.md"
-    - 🛣️ V2: "roadmap/v2.md"
+      - 🛣️ V1: "roadmap/v1.md"
+      - 🛣️ V2: "roadmap/v2.md"
 
 theme:
   name: material
@@ -33,7 +33,6 @@ theme:
     - navigation.expand
 
     - content.code.copy
-
 
   palette:
     - media: "(prefers-color-scheme)"

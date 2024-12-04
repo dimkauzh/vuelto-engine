@@ -11,7 +11,7 @@ release:
 	make proxy-release
 
 proxy-release:
-	GOPROXY=proxy.golang.org go list -m vuelto.me@$(VERSION)
+	GOPROXY=proxy.golang.org go list -m vuelto.pp.ua@$(VERSION)
 
 ci_check:
 	go build -o bin/test/test test/test1/test.go

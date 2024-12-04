@@ -1,4 +1,4 @@
-module vuelto.me
+module vuelto.pp.ua
 
 go 1.18
 

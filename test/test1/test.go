@@ -1,6 +1,6 @@
 package main
 
-import "vuelto.me/pkg"
+import vuelto "vuelto.me/pkg"
 
 func main() {
 	w1 := vuelto.NewWindow("hi", 800, 600, false)
