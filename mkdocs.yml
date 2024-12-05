@@ -44,8 +44,8 @@ theme:
   name: material
   custom_dir: website/overrides
 
-  logo: logo/pfp-nobg.png
-  favicon: logo/pfp-nobg.png
+  logo: /logo/pfp-nobg.png
+  favicon: logo/favicon.png
 
   features:
     - navigation.path
@@ -111,6 +111,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde

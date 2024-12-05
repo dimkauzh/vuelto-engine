@@ -12,3 +12,19 @@ We have multiple ways to reach us, like the following:
 - 🐙 [Github repo](https://github.com/vuelto-org/vuelto)
 - 🗨️ [Discord server](https://vuelto.pp.ua/discord)
 - ✉️ [Email](mailto:dima@vuelto.pp.ua)
+
+## 🙌 Thanks To
+
+A special thanks to:
+
+- **Dimkauzh** for the initial idea and development.
+- **ZakaHaceCosas** for the great improvements on top of vuelto.
+
+Without your help, Vuelto wouldn't be where it is today. 🙌
+
+Also a big shoutout to our homies and partners at:
+
+- [**Sokora**](https://sokora.org), the multiplatform discord bot
+- [**Atom Bot**](https://atomlabs.ie), the multipurpose discord bot
+
+Your support has helped make Vuelto even better! 🤝

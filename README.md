@@ -120,8 +120,8 @@ A special thanks to:
 Without your help, Vuelto wouldn't be where it is today. 🙌
 
 Also a big shoutout to our homies and partners at:
-- [**Sokora**, the multiplatform discord bot](https://sokora.org)
-- [**Atom Bot**, the multipurpose discord bot](https://atomlabs.ie)
+- [**Sokora**](https://sokora.org), the multiplatform discord bot
+- [**Atom Bot**](https://atomlabs.ie), the multipurpose discord bot
 
 Your support has helped make Vuelto even better! 🤝
 
