@@ -38,7 +38,11 @@ nav:
       - 🛣️ V1: "roadmap/v1.md"
       - 🛣️ V2: "roadmap/v2.md"
 
-  - About: "about.md"
+  - About:
+      - ℹ️ About: "about/index.md"
+      - 🛡️ License: "about/license.md"
+      - 🤝 Code of Conduct: "about/coc.md"
+      - 👥 Contributing: "about/contributing.md"
 
 theme:
   name: material

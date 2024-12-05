@@ -30,7 +30,7 @@ You need to have the following installed on your system:
 - 🪟 Xorg/Wayland development packages (For Linux only)
 - 🖱️ Supported platform
 
-For an installation guide, [go here](https://vuelto-org.github.io/vuelto/install/).
+For an installation guide, [go here](https://vuelto.pp.ua/install/).
 
 ### 🐹 Go package
 
@@ -108,6 +108,13 @@ If you find a security vulnerability, please follow the instructions in [SECURIT
 ### 🔐 License
 
 Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). Any PRs that will change the license won't be accepted.
+
+### 📖 Guidelines
+
+We’re excited to have you here! To ensure a welcoming and productive environment, we kindly ask you to follow our **Guidelines**. Please take a moment to review the following:
+
+- **[Contributing](CONTRIBUTING.md)**: Learn how to make meaningful contributions to our project.
+- **[Code of Conduct](CODE_OF_CONDUCT.md)**: Understand the principles that foster a respectful and inclusive community.
 
 ### 🌐 Community and Contact
 
