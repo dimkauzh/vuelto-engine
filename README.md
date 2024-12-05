@@ -1,16 +1,17 @@
+<h1 align="center">Vuelto</h1>
 <p align="center">
   <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-dark.png#gh-dark-mode-only">
   <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-light.png#gh-light-mode-only">
-  <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto"></a>
-  <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VL--Cv1.1-blue"></a>
-  <a href="https://github.com/vuelto-org/vuelto"><img alt="CI Check" src="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml/badge.svg"></a>
-  <a href="https://github.com/vuelto-org/vuelto"><img alt="Lines of code" src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto"></a>
-  <a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto"><img alt="Report card" src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto"></a>
-  <a href="https://www.opengl.org/Documentation/Specs.html"><img alt="Powered By" src="https://img.shields.io/badge/powered_by-GL_3.3-blue"></a>
-  <a href="https://beua.today"><img alt="Powered By" src="https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7"></a>
+  <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto?style=for-the-badge"></a>
+  <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge"></a>
+  <a href="https://github.com/vuelto-org/vuelto"><img alt="CI Check" src="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml/badge.svg?style=for-the-badge"></a>
+  <a href="https://github.com/vuelto-org/vuelto"><img alt="Lines of code" src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge"></a>
+  <a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto"><img alt="Report card" src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto?style=for-the-badge"></a>
+  <a href="https://www.opengl.org/Documentation/Specs.html"><img alt="Powered By" src="https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge"></a>
+  <a href="https://beua.today"><img alt="Powered By" src="https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge"></a>
 </p>
 
-Vuelto is an open-source, fast, and light game engine, based on Golang, CGo, and OpenGL. It's really easy to use, yet very powerful, and it also supports cross-platform compiling.
+Vuelto is an open-source, fast, and lightweight game engine, based on Golang, CGo, and OpenGL. It's easy to use yet very powerful, and it also supports cross-platform compiling.
 
 ## ✨ Features
 - 🌍 Cross Platform
@@ -29,14 +30,14 @@ You need to have the following installed on your system:
 
 For an installation guide, [go here](https://vuelto-org.github.io/vuelto/install/).
 
-### 🐹 Gopkg
+### 🐹 Go package
 
 You can get the latest Go package by running this command:
 ```sh
 go get vuelto.pp.ua@latest
 ```
 
-## 🖼️ Vuelto Example
+## 🖼️ Vuelto example
 
 ```go
 package main
@@ -60,7 +61,9 @@ func main() {
 }
 ```
 
-## 🖥️ Platform Support
+## 🖥️ Platform support
+
+Vuelto can compile your games for the following platforms:
 
 | Platform | Status |
 | :---- | :---- |
@@ -78,7 +81,7 @@ You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.pp
 
 ### 🛣️ Roadmap
 
-Our roadmap is available on the website (URL here) or in the ROADMAP.md file in the root of the GitHub repo.
+Our roadmap is available on our [website](https://vuelto.pp.ua/roadmap/v1/).
 
 ### 🤝 Contributing
 
@@ -94,7 +97,7 @@ We're really thankful for your contributions! Please see our [Contributing Guide
 
 ### 🐛 Issues
 
-See the [Issues](https://github.com/vuelto-org/vuelto/issues) page for current bugs and feature requests. In case you find any issues, please open an issue or search for any other form of contact to submit a bug report.
+See the [Issues](https://github.com/vuelto-org/vuelto/issues) page for current bugs and feature requests. In case you find any bug or have a suggestion, please open up an issue or search for any other form of contact to submit a bug report.
 
 #### 🔒 Security Issues
 
@@ -102,7 +105,7 @@ If you find a security vulnerability, please follow the instructions in [SECURIT
 
 ### 🔐 License
 
-Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). Any PRs that primarily focus on changing the license won't be accepted.
+Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). PRs that change the license won't be accepted.
 
 ### 🌐 Community and Contact
 
@@ -119,13 +122,10 @@ A special thanks to:
 
 Without your help, Vuelto wouldn't be where it is today. 🙌
 
-Also a big shoutout to our homies and partners at:
-- [**Sokora**](https://sokora.org), the multiplatform discord bot
-- [**Atom Bot**](https://atomlabs.ie), the multipurpose discord bot
+Also a big shoutout to our homies and partners at [**Sokora**](https://sokora.org) and [**Atom Bot**](https://atomlabs.ie).
 
 Your support has helped make Vuelto even better! 🤝
 
-
 ---
 
-<h2 style="text-align: center;">Made with ❤️ by the Vuelto Team </h2>
+<h2 align="center">Made with ❤️ by the Vuelto Team </h2>
