@@ -24,8 +24,8 @@ import (
 type Image struct {
 	Texture []uint8
 
-	ImageWidth  int
-	ImageHeight int
+	Width  int
+	Height int
 }
 
 func Load(imagePath string) *Image {
@@ -44,8 +44,8 @@ func Load(imagePath string) *Image {
 	draw.Draw(rgba, rgba.Bounds(), img, image.Point{}, draw.Over)
 
 	return &Image{
-		Texture:     rgba.Pix,
-		ImageWidth:  rgba.Rect.Size().X,
-		ImageHeight: rgba.Rect.Size().Y,
+		Texture: rgba.Pix,
+		Width:   rgba.Rect.Size().X,
+		Height:  rgba.Rect.Size().Y,
 	}
 }

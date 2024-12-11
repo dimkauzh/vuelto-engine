@@ -19,11 +19,12 @@ import (
 	"fmt"
 
 	gl "vuelto.pp.ua/internal/gl/opengl"
+	"vuelto.pp.ua/internal/image"
 	"vuelto.pp.ua/internal/trita"
 )
 
-type EnableArg struct {
-	Arg uint32
+type Arguments struct {
+	Arg any
 }
 
 type Shader struct {
@@ -44,8 +45,10 @@ type Program struct {
 type Buffer struct {
 	Vao uint32
 	Vbo uint32
+	Ebo uint32
 
 	Vertices []float32
+	Indices  []uint32
 }
 
 type Location struct {
@@ -56,7 +59,9 @@ type Texture struct {
 	Texture uint32
 }
 
-var TEXTURE_2D = &EnableArg{gl.TEXTURE_2D}
+var TEXTURE_2D = &Arguments{gl.TEXTURE_2D}
+var LINEAR = &Arguments{gl.LINEAR}
+var NEAREST = &Arguments{gl.NEAREST}
 
 func NewShader(shadertype any) *Shader {
 	switch trita.YourType(shadertype) {
@@ -75,7 +80,6 @@ func NewShader(shadertype any) *Shader {
 	default:
 		panic("Unknown shader type")
 	}
-
 }
 
 func (s *Shader) Compile() {
@@ -162,15 +166,18 @@ func (l *Location) Set(arg ...float32) {
 	}
 }
 
-func GenBuffers(vertices []float32) *Buffer {
-	var vao, vbo uint32
+func GenBuffers(vertices []float32, indices []uint32) *Buffer {
+	var vao, vbo, ebo uint32
 	gl.GenVertexArrays(1, &vao)
 	gl.GenBuffers(1, &vbo)
+	gl.GenBuffers(1, &ebo)
 
 	return &Buffer{
 		Vao:      vao,
 		Vbo:      vbo,
+		Ebo:      ebo,
 		Vertices: vertices,
+		Indices:  indices,
 	}
 }
 
@@ -182,6 +189,10 @@ func (b *Buffer) BindVBO() {
 	gl.BindBuffer(gl.ARRAY_BUFFER, b.Vbo)
 }
 
+func (b *Buffer) BindEBO() {
+	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, b.Ebo)
+}
+
 func (b *Buffer) UnBindVA() {
 	gl.BindVertexArray(0)
 }
@@ -190,13 +201,19 @@ func (b *Buffer) UnBindVBO() {
 	gl.BindBuffer(gl.ARRAY_BUFFER, 0)
 }
 
+func (b *Buffer) UnBindEBO() {
+	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, 0)
+}
+
 func (b *Buffer) Data() {
 	gl.BufferData(gl.ARRAY_BUFFER, len(b.Vertices)*4, gl.Ptr(b.Vertices), gl.STATIC_DRAW)
+	gl.BufferData(gl.ELEMENT_ARRAY_BUFFER, len(b.Indices)*4, gl.Ptr(b.Indices), gl.STATIC_DRAW)
 }
 
 func (b *Buffer) Delete() {
 	gl.DeleteVertexArrays(1, &b.Vao)
 	gl.DeleteBuffers(1, &b.Vbo)
+	gl.DeleteBuffers(1, &b.Ebo)
 }
 
 func GenTexture() *Texture {
@@ -213,13 +230,24 @@ func (t *Texture) UnBind() {
 	gl.BindTexture(gl.TEXTURE_2D, 0)
 }
 
+func (t *Texture) Configure(image image.Image, filter Arguments) {
+	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(image.Width), int32(image.Height), 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(image.Texture))
+
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter.Arg.(int32))
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter.Arg.(int32))
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+}
+
 func InitVertexAttrib() {
 	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 3*4, gl.PtrOffset(0))
 	gl.EnableVertexAttribArray(0)
+	gl.VertexAttribPointer(1, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(3*4))
+	gl.EnableVertexAttribArray(1)
 }
 
-func DrawElements(corners int) {
-	gl.DrawElements(gl.TRIANGLES, int32(corners), gl.UNSIGNED_INT, gl.PtrOffset(0))
+func DrawElements(indices []uint32) {
+	gl.DrawElements(gl.TRIANGLES, 6, gl.UNSIGNED_INT, gl.PtrOffset(0))
 }
 
 func DrawArrays(corners int32) {
@@ -230,9 +258,9 @@ func Clear() {
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
-func Enable(args ...EnableArg) {
+func Enable(args ...Arguments) {
 	for _, arg := range args {
-		gl.Enable(arg.Arg)
+		gl.Enable(arg.Arg.(uint32))
 	}
 }
 

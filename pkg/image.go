@@ -34,7 +34,7 @@ func (r *Renderer2D) LoadImage(imagePath string, x, y, width, height float32) *I
 
 	gl.BindTexture(gl.TEXTURE_2D, textureID)
 
-	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, file.ImageWidth, file.ImageHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, file.Texture)
+	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, file.Width, file.Height, 0, gl.RGBA, gl.UNSIGNED_BYTE, file.Texture)
 
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)

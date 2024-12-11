@@ -30,6 +30,6 @@ A special thanks to:
 
 Without your help, Vuelto wouldn't be where it is today. 🙌
 
-Also a big shoutout to our homies and partners at [**Sokora**](https://sokora.org) and [**Atom Bot**](https://atomlabs.ie).
+Also a big shoutout to our homies and partners at [**Sokora**](https://sokora.org), [**Atom**](https://atomlabs.ie) and [**Epic-Bot**](https://bamb.cl/epic-bot/)
 
 Your support has helped make Vuelto even better! 🤝

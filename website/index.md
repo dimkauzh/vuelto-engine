@@ -15,8 +15,8 @@ hide:
   <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto?style=for-the-badge"></a>
   <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge"></a>
 	<a href="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml">
-  <img alt="CI Check" src="https://img.shields.io/github/actions/workflow/status/vuelto-org/vuelto/ci_check.yml?style=for-the-badge">
-</a>
+    <img alt="CI Check" src="https://img.shields.io/github/actions/workflow/status/vuelto-org/vuelto/ci_check.yml?style=for-the-badge">
+	</a>
   <a href="https://github.com/vuelto-org/vuelto"><img alt="Lines of code" src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge"></a>
   <a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto"><img alt="Report card" src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto?style=for-the-badge"></a>
   <a href="https://www.opengl.org/Documentation/Specs.html"><img alt="Powered By" src="https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge"></a>
@@ -98,19 +98,5 @@ If you find a security vulnerability, please follow the instructions in [SECURIT
 
 Vuelto is licensed under the [VL-Cv1.1 Licence](https://vuelto.pp.ua/about/license). Any PRs that primarily focus on changing the license won't be accepted.
 
-### 🌐 Community and Contact
-
-You can contact us via our Discord community or at our email:
-
-- 🐙 [Github repo](https://vuelto.pp.ua/repo)
-- 🗨️ [Discord server](https://vuelto.pp.ua/discord)
-- ✉️ [Email](mailto:dima@vuelto.pp.ua)
-
-### 🙌 Thanks To
-
-A special thanks to:
-
-- **Dimkauzh** for the initial idea and development.
-- **ZakaHaceCosas** for the great improvements on top of vuelto.
-
-Your support has helped make Vuelto even better! ❤️
+### ℹ️ About
+All of our contact info, project info and our team/parners can be found on the [About](https://vuelto.pp.ua/about/) page.

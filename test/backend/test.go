@@ -41,47 +41,13 @@ func main() {
 
 	win.ContextCurrent()
 
-	vertexShaderSource := `
-		#version 330 core
-		layout(location = 0) in vec3 aPos;
-		void main() {
-			gl_Position = vec4(aPos, 1.0);
-		}
-	`
-
-	fragmentShaderSource := `
-		#version 330 core
-		out vec4 FragColor;
-		void main() {
-			FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-		}
-	`
-
-	webVertexShaderSource := `#version 300 es
-precision mediump float;
-
-layout(location = 0) in vec3 aPos;
-
-void main() {
-    gl_Position = vec4(aPos, 1.0);
-}`
-
-	webFragmentShaderSource := `#version 300 es
-precision mediump float;
-
-out vec4 FragColor;
-
-void main() {
-    FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-}`
-
 	vertexShader := gl.NewShader(gl.VertexShader{
-		WebShader:     webVertexShaderSource,
-		DesktopShader: vertexShaderSource,
+		WebShader:     WebVertexShaderSource,
+		DesktopShader: VertexShaderSource,
 	})
 	fragmentShader := gl.NewShader(gl.FragmentShader{
-		WebShader:     webFragmentShaderSource,
-		DesktopShader: fragmentShaderSource,
+		WebShader:     WebFragmentShaderSource,
+		DesktopShader: FragmentShaderSource,
 	})
 	vertexShader.Compile()
 	defer vertexShader.Delete()
@@ -96,15 +62,21 @@ void main() {
 	program.Use()
 
 	vertices := []float32{
-		-0.5, -0.5, 0.0, // bottom-left
+		0.5, 0.5, 0.0, // bottom-left
 		0.5, -0.5, 0.0, // bottom-right
-		0.5, 0.5, 0.0, // top-right
+		-0.5, -0.5, 0.0, // top-right
 		-0.5, 0.5, 0.0, // top-left
 	}
 
-	buffer := gl.GenBuffers(vertices)
+	indices := []uint32{
+		0, 1, 3, // bottom-left, bottom-right, top-right
+		1, 2, 3, // bottom-left, top-right, top-left
+	}
+
+	buffer := gl.GenBuffers(vertices, indices)
 	buffer.BindVA()
 	buffer.BindVBO()
+	buffer.BindEBO()
 	defer buffer.Delete()
 
 	buffer.Data()
@@ -113,9 +85,10 @@ void main() {
 	for !win.Close() {
 		gl.Clear()
 
-		gl.DrawArrays(4)
+		gl.DrawElements(indices)
 
 		win.HandleEvents()
 		win.UpdateBuffers()
 	}
+
 }
