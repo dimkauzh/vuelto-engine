@@ -1,4 +1,5 @@
 # Contributing rules
+
 We are happy and welcome if you want to contribute to Vuelto. But please consider a few details before continuing:
 
 1. Branch: Please when working on your fork, work in the dev branch, because we only will accept commits to the dev branch. It will later be released with the next version of Vuelto.
@@ -13,6 +14,7 @@ We allow you to re-open a new pull request, but we expect you to have your code 
 So make sure that you followed [the rules](#contributing-rules)
 
 Some technologies we are using
+
 - GLFW: We use this for the desktop windowing
 - “syscall/js”: We use this to interact with the JS runtime
 - glow: Generate OpenGL Go bindings (only happened one)
