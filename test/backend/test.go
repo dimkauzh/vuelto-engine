@@ -5,6 +5,7 @@ import (
 
 	"vuelto.pp.ua/internal/gl"
 	"vuelto.pp.ua/internal/gl/shader"
+	"vuelto.pp.ua/internal/image"
 	windowing "vuelto.pp.ua/internal/window"
 )
 
@@ -64,19 +65,26 @@ func main() {
 	program.Use()
 
 	vertices := []float32{
-		0.5, 0.5, 0.0, // bottom-left
-		0.5, -0.5, 0.0, // bottom-right
-		-0.5, -0.5, 0.0, // top-right
-		-0.5, 0.5, 0.0, // top-left
+		// Positions      // Texture Coords
+		-0.5, 0.5, 0.0, 0.0, 0.0, // Top-left
+		-0.5, -0.5, 0.0, 0.0, 1.0, // Bottom-left
+		0.5, -0.5, 0.0, 1.0, 1.0, // Bottom-right
+		0.5, 0.5, 0.0, 1.0, 0.0, // Top-right
 	}
 
-	program.UniformLocation("uniformColor").Set(0.4, 0.4, 0.7, 1.0)
-	program.UniformLocation("useTexture").Set(0)
+	program.UniformLocation("uniformColor").Set(0, 0, 0, 1.0)
+	program.UniformLocation("useTexture").Set(1)
 
 	indices := []uint32{
 		0, 1, 3, // bottom-left, bottom-right, top-right
 		1, 2, 3, // bottom-left, top-right, top-left
 	}
+
+	texture := gl.GenTexture()
+	texture.Bind()
+	texture.Configure(image.Load("test/backend/tree.png"), gl.NEAREST)
+	texture.UnBind()
+	defer texture.Delete()
 
 	buffer := gl.GenBuffers(vertices, indices)
 	buffer.BindVA()
@@ -85,11 +93,12 @@ func main() {
 	defer buffer.Delete()
 
 	buffer.Data()
-	gl.InitVertexAttrib()
+	gl.SetupVertexAttrib(program)
 
 	for !win.Close() {
 		gl.Clear()
 
+		texture.Bind()
 		gl.DrawElements(indices)
 
 		win.HandleEvents()

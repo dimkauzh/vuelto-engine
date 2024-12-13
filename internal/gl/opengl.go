@@ -230,20 +230,32 @@ func (t *Texture) UnBind() {
 	gl.BindTexture(gl.TEXTURE_2D, 0)
 }
 
-func (t *Texture) Configure(image image.Image, filter Arguments) {
+func (t *Texture) Configure(image *image.Image, filter *Arguments) {
 	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(image.Width), int32(image.Height), 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(image.Texture))
 
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter.Arg.(int32))
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter.Arg.(int32))
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, int32(filter.Arg.(int)))
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, int32(filter.Arg.(int)))
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
 }
 
-func InitVertexAttrib() {
-	gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 3*4, gl.PtrOffset(0))
-	gl.EnableVertexAttribArray(0)
-	gl.VertexAttribPointer(1, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(3*4))
-	gl.EnableVertexAttribArray(1)
+func (t *Texture) Delete() {
+	gl.DeleteTextures(1, &t.Texture)
+}
+
+func SetupVertexAttrib(program *Program) {
+	var useTexture int32
+	gl.GetUniformiv(program.Program, gl.GetUniformLocation(program.Program, gl.Str("useTexture"+"\x00")), &useTexture)
+	if useTexture == 1 {
+		gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 5*4, gl.PtrOffset(0))
+		gl.EnableVertexAttribArray(0)
+
+		gl.VertexAttribPointer(1, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(3*4))
+		gl.EnableVertexAttribArray(1)
+	} else {
+		gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 3*4, gl.PtrOffset(0))
+		gl.EnableVertexAttribArray(0)
+	}
 }
 
 func DrawElements(indices []uint32) {
@@ -258,7 +270,7 @@ func Clear() {
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
-func Enable(args ...Arguments) {
+func Enable(args ...*Arguments) {
 	for _, arg := range args {
 		gl.Enable(arg.Arg.(uint32))
 	}
