@@ -14,13 +14,13 @@ proxy-release:
 	GOPROXY=proxy.golang.org go list -m vuelto.pp.ua@$(VERSION)
 
 ci_check:
-	go build -o bin/test/test test/test/test.go
-	go build -o bin/test/backend test/backend/test.go
+	go build -o bin/test/test ./test/test/
+	go build -o bin/test/backend ./test/backend/
 
-	go build -o bin/examples/basic-window examples/basic-window/main.go
-	go build -o bin/examples/rectangle examples/rectangle/main.go
-	go build -o bin/examples/images examples/images/main.go
-	go build -o bin/examples/two-windows examples/two-windows/main.go
+	go build -o bin/examples/basic-window ./examples/basic-window/
+	go build -o bin/examples/rectangle ./examples/rectangle/
+	go build -o bin/examples/images ./examples/images/
+	go build -o bin/examples/two-windows ./examples/two-windows/
 
 test:
 	go run test/test/test.go
