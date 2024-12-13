@@ -13,7 +13,7 @@ nav:
   - Home: "index.md"
   - Getting started:
       - 🚀 Quick start: "get-started.md"
-      - 🛠️ Indepth Installation: "install.md"
+      - 🛠️ In-depth Installation: "install.md"
 
   - Docs:
       - 🏠 Home: "docs/index.md"

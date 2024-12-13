@@ -4,7 +4,7 @@
   <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-light.png#gh-light-mode-only">
   <a href="https://github.com/vuelto-org/vuelto"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vuelto-org/vuelto?style=for-the-badge"></a>
   <a href="https://github.com/vuelto-org/license"><img alt="License" src="https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge"></a>
-	<a href="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml">
+ <a href="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml">
   <img alt="CI Check" src="https://img.shields.io/github/actions/workflow/status/vuelto-org/vuelto/ci_check.yml?style=for-the-badge">
 </a>
   <a href="https://github.com/vuelto-org/vuelto"><img alt="Lines of code" src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge"></a>
@@ -16,6 +16,7 @@
 Vuelto is an open-source, fast, and lightweight game engine, based on Golang, CGo, and OpenGL. It's easy to use yet very powerful, and it's also cross platform, meaning it can be deployed on almost all major platforms
 
 ## ✨ Features
+
 - 🌍 Cross Platform
 - 🛠️ Open-Source
 - 📚 Easy to learn
@@ -24,7 +25,9 @@ Vuelto is an open-source, fast, and lightweight game engine, based on Golang, CG
 ## 📦 Installation
 
 ### 📋 Requirements
+
 You need to have the following installed on your system:
+
 - 🖥️ A C compiler
 - 🔧 A Go compiler
 - 🪟 Xorg/Wayland development packages (For Linux only)
@@ -35,6 +38,7 @@ For an installation guide, [go here](https://vuelto.pp.ua/install/).
 ### 🐹 Go package
 
 You can get the latest Go package by running this command:
+
 ```sh
 go get vuelto.pp.ua@latest
 ```
@@ -45,21 +49,21 @@ go get vuelto.pp.ua@latest
 package main
 
 import (
-	vuelto "vuelto.pp.ua/pkg"
+ vuelto "vuelto.pp.ua/pkg"
 )
 
 func main() {
-	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, false)
-	ren := w.NewRenderer2D()
+ w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, false)
+ ren := w.NewRenderer2D()
 
-	image := ren.LoadImage("test/image.png", 300, 300, 250, 250)
-	image1 := ren.LoadImage("test/image.png", 100, 100, 150, 150)
+ image := ren.LoadImage("test/image.png", 300, 300, 250, 250)
+ image1 := ren.LoadImage("test/image.png", 100, 100, 150, 150)
 
-	for !w.Close() {
-		image.Draw()
-		image1.Draw()
-		w.Refresh()
-	}
+ for !w.Close() {
+  image.Draw()
+  image1.Draw()
+  w.Refresh()
+ }
 }
 ```
 
@@ -107,7 +111,7 @@ If you find a security vulnerability, please follow the instructions in [SECURIT
 
 ### 🔐 License
 
-Vuelto is licensed under the [VL-Cv1.1 Licence](LICENSE.md). Any PRs that will change the license won't be accepted.
+Vuelto is licensed under the [VL-Cv1.1 License](LICENSE.md). Any PRs that will change the license won't be accepted.
 
 ### 📖 Guidelines
 
@@ -126,12 +130,13 @@ You can contact us via our Discord community or at our email:
 ### 🙌 Thanks To
 
 A special thanks to:
+
 - **Dimkauzh** for the initial idea and development.
 - **ZakaHaceCosas** for the great improvements on top of vuelto.
 
 Also a big shoutout to our homies and partners at [**Sokora**](https://sokora.org), [**Atom**](https://atomlabs.ie) and [**Epic-Bot**](https://bamb.cl/epic-bot/)
 
-Without the help of these people, Vuelto would be where it is today. Your support has helped make Vuelto even better! 🤝 🙌
+Without the help of these people, Vuelto wouldn't be where it is today. Your support has helped make Vuelto even better! 🤝 🙌
 
 ---
 
