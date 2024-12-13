@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"vuelto.pp.ua/internal/gl"
+	"vuelto.pp.ua/internal/gl/shader"
 	windowing "vuelto.pp.ua/internal/window"
 )
 
@@ -42,13 +43,14 @@ func main() {
 	win.ContextCurrent()
 
 	vertexShader := gl.NewShader(gl.VertexShader{
-		WebShader:     WebVertexShaderSource,
-		DesktopShader: VertexShaderSource,
+		WebShader:     shader.LoadShader("test/backend/shaders/web.vs"),
+		DesktopShader: shader.LoadShader("test/backend/shaders/desktop.vs"),
 	})
 	fragmentShader := gl.NewShader(gl.FragmentShader{
-		WebShader:     WebFragmentShaderSource,
-		DesktopShader: FragmentShaderSource,
+		WebShader:     shader.LoadShader("test/backend/shaders/web.fs"),
+		DesktopShader: shader.LoadShader("test/backend/shaders/desktop.fs"),
 	})
+
 	vertexShader.Compile()
 	defer vertexShader.Delete()
 
@@ -67,6 +69,9 @@ func main() {
 		-0.5, -0.5, 0.0, // top-right
 		-0.5, 0.5, 0.0, // top-left
 	}
+
+	program.UniformLocation("uniformColor").Set(0.4, 0.4, 0.7, 1.0)
+	program.UniformLocation("useTexture").Set(0)
 
 	indices := []uint32{
 		0, 1, 3, // bottom-left, bottom-right, top-right
