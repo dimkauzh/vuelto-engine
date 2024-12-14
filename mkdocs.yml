@@ -81,6 +81,12 @@ theme:
         icon: material/toggle-switch-off
         name: Switch to system preference
 
+plugins:
+  - redirects:
+      redirect_maps:
+        "discord.md": "https://discord.gg/gZqdRXbbqg"
+        "repo.md": "https://github.com/vuelto-org/vuelto"
+
 markdown_extensions:
   - abbr
   - admonition
