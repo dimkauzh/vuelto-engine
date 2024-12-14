@@ -1,5 +1,8 @@
 {% extends "base.html" %} {% block site_meta %}
-<meta name="go-import" content="vuelto.pp.ua git https://github.com/vuelto-org/vuelto.git" />
+<meta
+    name="go-import"
+    content="vuelto.pp.ua git https://github.com/vuelto-org/vuelto.git"
+/>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
@@ -36,5 +39,8 @@
 <link rel="icon" href="{{ config.theme.favicon | url }}" />
 
 <!-- Generator banner -->
-<meta name="generator" content="mkdocs-{{ mkdocs_version }}, $md-name$-$md-version$" />
+<meta
+    name="generator"
+    content="mkdocs-{{ mkdocs_version }}, $md-name$-$md-version$"
+/>
 {% endblock %}

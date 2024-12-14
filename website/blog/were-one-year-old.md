@@ -84,6 +84,7 @@ vuelto.GetMousePox().Y // 131
     Keep in mind that the function returns the value for the moment of the call.
 
     The value is not “reactive” like a web dev would say, so if you want to constantly keep track of the value, you’ll have to use some sort of loop.
+
 ## Better engine, better looks
 
 The priority is to *be* a good option, but we also gotta *look like* a good option. That’s why we did some iterations on our branding\! We kept the core idea (the main logo),  but changed typefaces, colors, banners, styling, and more.
