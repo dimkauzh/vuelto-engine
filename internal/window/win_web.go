@@ -94,7 +94,7 @@ func (w *Window) ResizingCallback(inputFunc func(*Window, int, int)) {
 }
 
 func (w *Window) UpdateBuffers() {
-	time.Sleep(time.Millisecond * 32)
+	time.Sleep(time.Millisecond * 16)
 }
 
 func (w *Window) SetResizable(resizable bool) {

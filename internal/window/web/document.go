@@ -67,6 +67,10 @@ func (e *Element) AddEventListener(inputEvent string, inputFunc func(js.Value, [
 	e.JSElement.Call("addEventListener", inputEvent, js.FuncOf(inputFunc))
 }
 
+func (e *Element) SetAttribute(inputKey string, inputValue any) {
+	e.JSElement.Call("setAttribute", inputKey, inputValue)
+}
+
 func (b *Body) AppendChild(inputElement Element) {
 	appendChild := inputElement.JSElement
 	js.Global().Get("document").Get("body").Call("appendChild", appendChild)

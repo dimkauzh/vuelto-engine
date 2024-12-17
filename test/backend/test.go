@@ -1,13 +1,19 @@
 package main
 
 import (
+	"embed"
+	_ "embed"
 	"log"
 
 	"vuelto.pp.ua/internal/gl"
-	"vuelto.pp.ua/internal/gl/shader"
+	"vuelto.pp.ua/internal/gl/ushaders"
 	"vuelto.pp.ua/internal/image"
+
 	windowing "vuelto.pp.ua/internal/window"
 )
+
+//go:embed tree.png
+var embeddedFiles embed.FS
 
 func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) {
 	gl.Viewport(0, 0, newWidth, newHeight)
@@ -41,15 +47,17 @@ func main() {
 		log.Fatalf("Failed to initialise: %s", err)
 	}
 
+	gl.Enable(gl.TEXTURE_2D)
+
 	win.ContextCurrent()
 
 	vertexShader := gl.NewShader(gl.VertexShader{
-		WebShader:     shader.LoadShader("test/backend/shaders/web.vs"),
-		DesktopShader: shader.LoadShader("test/backend/shaders/desktop.vs"),
+		WebShader:     ushaders.WebVShader,
+		DesktopShader: ushaders.DesktopVShader,
 	})
 	fragmentShader := gl.NewShader(gl.FragmentShader{
-		WebShader:     shader.LoadShader("test/backend/shaders/web.fs"),
-		DesktopShader: shader.LoadShader("test/backend/shaders/desktop.fs"),
+		WebShader:     ushaders.WebFShader,
+		DesktopShader: ushaders.DesktopFShader,
 	})
 
 	vertexShader.Compile()
@@ -75,14 +83,14 @@ func main() {
 	program.UniformLocation("uniformColor").Set(0, 0, 0, 1.0)
 	program.UniformLocation("useTexture").Set(1)
 
-	indices := []uint32{
+	indices := []uint16{
 		0, 1, 3, // bottom-left, bottom-right, top-right
 		1, 2, 3, // bottom-left, top-right, top-left
 	}
 
 	texture := gl.GenTexture()
 	texture.Bind()
-	texture.Configure(image.Load("test/backend/tree.png"), gl.NEAREST)
+	texture.Configure(image.LoadAsEmbed(embeddedFiles, "tree.png"), gl.NEAREST)
 	texture.UnBind()
 	defer texture.Delete()
 

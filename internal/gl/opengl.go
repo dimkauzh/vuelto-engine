@@ -48,7 +48,7 @@ type Buffer struct {
 	Ebo uint32
 
 	Vertices []float32
-	Indices  []uint32
+	Indices  []int32
 }
 
 type Location struct {
@@ -166,7 +166,7 @@ func (l *Location) Set(arg ...float32) {
 	}
 }
 
-func GenBuffers(vertices []float32, indices []uint32) *Buffer {
+func GenBuffers(vertices []float32, indices []uint16) *Buffer {
 	var vao, vbo, ebo uint32
 	gl.GenVertexArrays(1, &vao)
 	gl.GenBuffers(1, &vbo)
@@ -177,7 +177,7 @@ func GenBuffers(vertices []float32, indices []uint32) *Buffer {
 		Vbo:      vbo,
 		Ebo:      ebo,
 		Vertices: vertices,
-		Indices:  indices,
+		Indices:  gl.Uint16ToInt32(indices),
 	}
 }
 
@@ -247,19 +247,19 @@ func SetupVertexAttrib(program *Program) {
 	var useTexture int32
 	gl.GetUniformiv(program.Program, gl.GetUniformLocation(program.Program, gl.Str("useTexture"+"\x00")), &useTexture)
 	if useTexture == 1 {
-		gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 5*4, gl.PtrOffset(0))
+		gl.VertexAttribPointerWithOffset(0, 3, gl.FLOAT, false, 5*4, 0)
 		gl.EnableVertexAttribArray(0)
 
-		gl.VertexAttribPointer(1, 2, gl.FLOAT, false, 5*4, gl.PtrOffset(3*4))
+		gl.VertexAttribPointerWithOffset(1, 2, gl.FLOAT, false, 5*4, 3*4)
 		gl.EnableVertexAttribArray(1)
 	} else {
-		gl.VertexAttribPointer(0, 3, gl.FLOAT, false, 3*4, gl.PtrOffset(0))
+		gl.VertexAttribPointerWithOffset(0, 3, gl.FLOAT, false, 3*4, 0)
 		gl.EnableVertexAttribArray(0)
 	}
 }
 
-func DrawElements(indices []uint32) {
-	gl.DrawElements(gl.TRIANGLES, 6, gl.UNSIGNED_INT, gl.PtrOffset(0))
+func DrawElements(indices []uint16) {
+	gl.DrawElements(gl.TRIANGLES, int32(len(indices)), gl.UNSIGNED_INT, nil)
 }
 
 func DrawArrays(corners int32) {

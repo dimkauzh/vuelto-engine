@@ -25,29 +25,33 @@ var (
 	canvas web.Canvas
 	gl     js.Value
 
-	VERTEX_SHADER       js.Value
-	FRAGMENT_SHADER     js.Value
-	ARRAY_BUFFER        js.Value
-	STATIC_DRAW         js.Value
-	TRIANGLES           js.Value
-	TRIANGLE_FAN        js.Value
-	FLOAT               js.Value
-	FALSE               js.Value
-	TRUE                js.Value
-	COLOR_BUFFER_BIT    js.Value
-	TEXTURE_2D          js.Value
-	TEXTURE_WRAP_S      js.Value
-	TEXTURE_WRAP_T      js.Value
-	TEXTURE_MIN_FILTER  js.Value
-	TEXTURE_MAG_FILTER  js.Value
-	CLAMP_TO_EDGE       js.Value
-	LINEAR              js.Value
-	RGBA                js.Value
-	UNSIGNED_BYTE       js.Value
-	SRC_ALPHA           js.Value
-	ONE_MINUS_SRC_ALPHA js.Value
-	BLEND               js.Value
-	DEPTH_BUFFER_BIT    js.Value
+	VERTEX_SHADER        js.Value
+	FRAGMENT_SHADER      js.Value
+	ARRAY_BUFFER         js.Value
+	STATIC_DRAW          js.Value
+	TRIANGLES            js.Value
+	TRIANGLE_FAN         js.Value
+	FLOAT                js.Value
+	FALSE                js.Value
+	TRUE                 js.Value
+	COLOR_BUFFER_BIT     js.Value
+	TEXTURE_2D           js.Value
+	TEXTURE_WRAP_S       js.Value
+	TEXTURE_WRAP_T       js.Value
+	TEXTURE_MIN_FILTER   js.Value
+	TEXTURE_MAG_FILTER   js.Value
+	CLAMP_TO_EDGE        js.Value
+	LINEAR               js.Value
+	RGBA                 js.Value
+	UNSIGNED_BYTE        js.Value
+	SRC_ALPHA            js.Value
+	ONE_MINUS_SRC_ALPHA  js.Value
+	BLEND                js.Value
+	DEPTH_BUFFER_BIT     js.Value
+	NEAREST              js.Value
+	UNSIGNED_SHORT       js.Value
+	ELEMENT_ARRAY_BUFFER js.Value
+	TEXTURE0             js.Value
 )
 
 func InitWebGL() {
@@ -77,6 +81,10 @@ func InitWebGL() {
 	ONE_MINUS_SRC_ALPHA = gl.Get("ONE_MINUS_SRC_ALPHA")
 	BLEND = gl.Get("BLEND")
 	DEPTH_BUFFER_BIT = gl.Get("DEPTH_BUFFER_BIT")
+	NEAREST = gl.Get("NEAREST")
+	UNSIGNED_SHORT = gl.Get("UNSIGNED_SHORT")
+	ELEMENT_ARRAY_BUFFER = gl.Get("ELEMENT_ARRAY_BUFFER")
+	TEXTURE0 = gl.Get("TEXTURE0")
 }
 
 func CreateShader(inputType js.Value) js.Value {
@@ -111,16 +119,36 @@ func DeleteProgram(program js.Value) {
 	gl.Call("deleteProgram", program)
 }
 
+func CreateVertexArray() js.Value {
+	return gl.Call("createVertexArray")
+}
+
+func BindVertexArray(vao js.Value) {
+	if vao.IsUndefined() || vao.IsNull() {
+		gl.Call("bindVertexArray", nil)
+	} else {
+		gl.Call("bindVertexArray", vao)
+	}
+}
+
+func DeleteVertexArray(vao js.Value) {
+	gl.Call("deleteVertexArray", vao)
+}
+
 func CreateBuffer() js.Value {
 	return gl.Call("createBuffer")
 }
 
 func BindBuffer(target js.Value, buffer js.Value) {
-	gl.Call("bindBuffer", target, buffer)
+	if buffer.IsUndefined() || buffer.IsNull() {
+		gl.Call("bindBuffer", target, nil)
+	} else {
+		gl.Call("bindBuffer", target, buffer)
+	}
 }
 
-func BufferData(target js.Value, data []float32, usage js.Value) {
-	gl.Call("bufferData", target, NewFloat32Array(data), usage)
+func BufferData(target js.Value, data js.Value, usage js.Value) {
+	gl.Call("bufferData", target, data, usage)
 }
 
 func DeleteBuffer(buffer js.Value) {
@@ -147,6 +175,10 @@ func GetUniformLocation(program js.Value, name string) js.Value {
 	return gl.Call("getUniformLocation", program, name)
 }
 
+func GetUniform(program js.Value, location js.Value) js.Value {
+	return gl.Call("getUniform", program, location)
+}
+
 func Uniform1f(location js.Value, x float32) {
 	gl.Call("uniform1f", location, x)
 }
@@ -165,6 +197,14 @@ func Uniform4f(location js.Value, x, y, z, w float32) {
 
 func DrawArrays(mode js.Value, first int, count int) {
 	gl.Call("drawArrays", mode, first, count)
+}
+
+func DrawElements(mode js.Value, count int, typ js.Value, offset int) {
+	gl.Call("drawElements", mode, count, typ, offset)
+}
+
+func DrawElementsInstanced(mode js.Value, count int, typ js.Value, offset int, primcount int) {
+	gl.Call("drawElementsInstanced", mode, count, typ, offset, primcount)
 }
 
 func GetShaderParameter(shader js.Value, pname js.Value) js.Value {
@@ -187,8 +227,20 @@ func CreateTexture() js.Value {
 	return gl.Call("createTexture")
 }
 
+func DeleteTexture(texture js.Value) {
+	gl.Call("deleteTexture", texture)
+}
+
 func BindTexture(target js.Value, texture js.Value) {
-	gl.Call("bindTexture", target, texture)
+	if texture.IsUndefined() || texture.IsNull() {
+		gl.Call("bindTexture", target, nil)
+	} else {
+		gl.Call("bindTexture", target, texture)
+	}
+}
+
+func ActiveTexture(texture js.Value) {
+	gl.Call("activeTexture", texture)
 }
 
 func TexParameteri(target js.Value, pname js.Value, param js.Value) {
@@ -229,4 +281,32 @@ func NewFloat32Array(values []float32) js.Value {
 		array.SetIndex(i, v)
 	}
 	return array
+}
+
+func NewUint16Array(values []uint16) js.Value {
+	array := js.Global().Get("Uint16Array").New(len(values))
+	for i, v := range values {
+		array.SetIndex(i, v)
+	}
+	return array
+}
+
+func Int32ToFloat32(input []int32) []float32 {
+	output := make([]float32, len(input))
+	for i, v := range input {
+		output[i] = float32(v)
+	}
+	return output
+}
+
+func Int32ToUint16(input []int32) []uint16 {
+	output := make([]uint16, len(input))
+	for i, v := range input {
+		output[i] = uint16(v)
+	}
+	return output
+}
+
+func NewUint16ArrayFromInt32(input []int32) js.Value {
+	return NewUint16Array(Int32ToUint16(input))
 }

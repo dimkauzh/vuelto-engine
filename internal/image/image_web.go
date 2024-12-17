@@ -1,5 +1,5 @@
-//go:build windows || linux || darwin
-// +build windows linux darwin
+//go:build js && wasm
+// +build js,wasm
 
 /*
  * Copyright (C) 2024 vuelto-org
@@ -19,41 +19,22 @@ import (
 	"bytes"
 	"embed"
 	"image"
-	"image/draw"
 	_ "image/jpeg"
 	_ "image/png"
 	"log"
-	"os"
+	"syscall/js"
 )
 
 type Image struct {
 	Path    string
-	Texture []uint8
-
-	Width  int
-	Height int
+	Texture js.Value
+	Width   int
+	Height  int
 }
 
 func Load(imagePath string) *Image {
-	file, err := os.Open(imagePath)
-	if err != nil {
-		log.Fatalln("Failed to open image: ", err)
-	}
-	defer file.Close()
-
-	img, _, err := image.Decode(file)
-	if err != nil {
-		log.Fatalln("Failed to decode image: ", err)
-	}
-
-	rgba := image.NewRGBA(img.Bounds())
-	draw.Draw(rgba, rgba.Bounds(), img, image.Point{}, draw.Over)
-
-	return &Image{
-		Texture: rgba.Pix,
-		Width:   rgba.Rect.Size().X,
-		Height:  rgba.Rect.Size().Y,
-	}
+	log.Fatalf("Load() is not supported in web assembly")
+	return &Image{}
 }
 
 func LoadAsEmbed(fs embed.FS, imagePath string) *Image {
@@ -78,9 +59,14 @@ func LoadAsEmbed(fs embed.FS, imagePath string) *Image {
 		}
 	}
 
+	data := js.Global().Get("Uint8Array").New(len(rgbaImg.Pix))
+	for i, v := range rgbaImg.Pix {
+		data.SetIndex(i, v)
+	}
+
 	return &Image{
 		Path:    imagePath,
-		Texture: rgbaImg.Pix,
+		Texture: data,
 		Width:   rgbaImg.Bounds().Dx(),
 		Height:  rgbaImg.Bounds().Dy(),
 	}

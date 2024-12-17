@@ -13,19 +13,18 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package shader
+package ushaders
 
-import (
-	"log"
-	"os"
-)
+import _ "embed"
 
-func LoadShader(filePath string) string {
-	bytes, err := os.ReadFile(filePath)
-	if err != nil {
-		log.Fatalf("Failed to read shader file: %s", err)
-		return ""
-	}
+//go:embed shaders/desktop.vs
+var DesktopVShader string
 
-	return string(bytes)
-}
+//go:embed shaders/desktop.fs
+var DesktopFShader string
+
+//go:embed shaders/web.vs
+var WebVShader string
+
+//go:embed shaders/web.fs
+var WebFShader string

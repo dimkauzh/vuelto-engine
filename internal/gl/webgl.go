@@ -19,11 +19,12 @@ import (
 	"syscall/js"
 
 	"vuelto.pp.ua/internal/gl/webgl"
+	"vuelto.pp.ua/internal/image"
 	"vuelto.pp.ua/internal/trita"
 )
 
-type EnableArg struct {
-	Arg js.Value
+type Arguments struct {
+	Arg *js.Value
 }
 
 type Shader struct {
@@ -42,17 +43,25 @@ type Program struct {
 }
 
 type Buffer struct {
-	Vao        uint32
-	Vbo        js.Value
-	Vertices   []float32
-	BufferType js.Value
+	Vao js.Value
+	Vbo js.Value
+	Ebo js.Value
+
+	Vertices []float32
+	Indices  []uint16
 }
 
 type Location struct {
 	UniformLocation js.Value
 }
 
-var TEXTURE_2D = &EnableArg{webgl.TEXTURE_2D}
+type Texture struct {
+	Texture js.Value
+}
+
+var TEXTURE_2D = &Arguments{&webgl.TEXTURE_2D}
+var LINEAR = &Arguments{&webgl.LINEAR}
+var NEAREST = &Arguments{&webgl.NEAREST}
 
 func NewShader(shadertype any) *Shader {
 	shader := &Shader{}
@@ -127,36 +136,105 @@ func (l *Location) Set(arg ...float32) {
 	}
 }
 
-func GenBuffers(vertices []float32) *Buffer {
-	buffer := webgl.CreateBuffer()
-	webgl.BindBuffer(webgl.ARRAY_BUFFER, buffer)
-	webgl.BufferData(webgl.ARRAY_BUFFER, vertices, webgl.STATIC_DRAW)
+func GenBuffers(vertices []float32, indices []uint16) *Buffer {
+	vao := webgl.CreateVertexArray()
+	vbo := webgl.CreateBuffer()
+	ebo := webgl.CreateBuffer()
+
+	webgl.BindBuffer(webgl.ARRAY_BUFFER, vbo)
+	webgl.BufferData(webgl.ARRAY_BUFFER, webgl.NewFloat32Array(vertices), webgl.STATIC_DRAW)
+
+	webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, ebo)
+	webgl.BufferData(webgl.ELEMENT_ARRAY_BUFFER, webgl.NewUint16Array(indices), webgl.STATIC_DRAW)
+
 	return &Buffer{
+		Vao:      vao,
+		Vbo:      vbo,
+		Ebo:      ebo,
 		Vertices: vertices,
-		Vbo:      buffer,
+		Indices:  indices,
 	}
 }
 
-func (b *Buffer) BindVA() {}
+func (b *Buffer) BindVA() {
+	webgl.BindVertexArray(b.Vao)
+}
 
 func (b *Buffer) BindVBO() {
 	webgl.BindBuffer(webgl.ARRAY_BUFFER, b.Vbo)
 }
 
+func (b *Buffer) BindEBO() {
+	webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, b.Ebo)
+}
+
+func (b *Buffer) UnBindVA() {
+	webgl.BindVertexArray(js.Null())
+}
+
+func (b *Buffer) UnBindVBO() {
+	webgl.BindBuffer(webgl.ARRAY_BUFFER, js.Null())
+}
+
+func (b *Buffer) UnBindEBO() {
+	webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, js.Null())
+}
+
 func (b *Buffer) Data() {
-	webgl.BufferData(webgl.ARRAY_BUFFER, b.Vertices, webgl.STATIC_DRAW)
+	webgl.BufferData(webgl.ARRAY_BUFFER, webgl.NewFloat32Array(b.Vertices), webgl.STATIC_DRAW)
+	webgl.BufferData(webgl.ELEMENT_ARRAY_BUFFER, webgl.NewUint16Array(b.Indices), webgl.STATIC_DRAW)
 }
 
 func (b *Buffer) Delete() {
+	webgl.DeleteVertexArray(b.Vao)
 	webgl.DeleteBuffer(b.Vbo)
+	webgl.DeleteBuffer(b.Ebo)
 }
 
-func InitVertexAttrib() {
-	webgl.VertexAttribPointer(0, 3, webgl.FLOAT, false, 0, 0)
-	webgl.EnableVertexAttribArray(0)
+func GenTexture() *Texture {
+	return &Texture{Texture: webgl.CreateTexture()}
 }
 
-func DrawElements(corners int) {}
+func (t *Texture) Bind() {
+	webgl.ActiveTexture(webgl.TEXTURE0)
+	webgl.BindTexture(webgl.TEXTURE_2D, t.Texture)
+}
+
+func (t *Texture) UnBind() {
+	webgl.BindTexture(webgl.TEXTURE_2D, js.Null())
+}
+
+func (t *Texture) Configure(image *image.Image, filter *Arguments) {
+	webgl.TexImage2D(webgl.TEXTURE_2D, 0, webgl.RGBA, image.Width, image.Height, 0, webgl.RGBA, webgl.UNSIGNED_BYTE, image.Texture)
+
+	webgl.TexParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, *filter.Arg)
+	webgl.TexParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, *filter.Arg)
+	webgl.TexParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_WRAP_S, webgl.CLAMP_TO_EDGE)
+	webgl.TexParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_WRAP_T, webgl.CLAMP_TO_EDGE)
+}
+
+func (t *Texture) Delete() {
+	webgl.DeleteTexture(t.Texture)
+}
+
+func SetupVertexAttrib(program *Program) {
+	useTexture := webgl.GetUniform(program.Program, webgl.GetUniformLocation(program.Program, "useTexture")).Bool()
+	if useTexture == true {
+		webgl.EnableVertexAttribArray(1)
+		webgl.VertexAttribPointer(0, 3, webgl.FLOAT, false, 5*4, 0)
+		webgl.EnableVertexAttribArray(0)
+
+		webgl.VertexAttribPointer(1, 2, webgl.FLOAT, false, 5*4, 3*4)
+		webgl.EnableVertexAttribArray(0)
+	} else {
+		webgl.VertexAttribPointer(0, 3, webgl.FLOAT, false, 3*4, 0)
+		webgl.EnableVertexAttribArray(0)
+	}
+}
+
+func DrawElements(indices []uint16) {
+	webgl.DrawElements(webgl.TRIANGLES, len(indices), webgl.UNSIGNED_SHORT, 0)
+}
 
 func DrawArrays(verticesCount int) {
 	webgl.DrawArrays(webgl.TRIANGLE_FAN, 0, verticesCount)
@@ -167,17 +245,17 @@ func Clear() {
 	webgl.Clear(webgl.DEPTH_BUFFER_BIT)
 }
 
-func Enable(args ...EnableArg) {
+func Enable(args ...*Arguments) {
 	for _, capability := range args {
-		webgl.Enable(capability.Arg)
+		webgl.Enable(*capability.Arg)
 	}
+}
+
+func Viewport(x, y, width, height int) {
+	webgl.Viewport(x, y, width, height)
 }
 
 func Init() error {
 	webgl.InitWebGL()
 	return nil
-}
-
-func Viewport(x, y, width, height int) {
-	webgl.Viewport(x, y, width, height)
 }
