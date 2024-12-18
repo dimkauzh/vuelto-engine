@@ -108,6 +108,7 @@ func main() {
 
 		texture.Bind()
 		gl.DrawElements(indices)
+		// texture.UnBind()
 
 		win.HandleEvents()
 		win.UpdateBuffers()

@@ -272,7 +272,7 @@ func Clear() {
 
 func Enable(args ...*Arguments) {
 	for _, arg := range args {
-		gl.Enable(arg.Arg.(uint32))
+		gl.Enable(uint32(arg.Arg.(int)))
 	}
 }
 
