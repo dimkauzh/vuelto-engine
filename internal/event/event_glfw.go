@@ -21,12 +21,14 @@ import (
 
 type Event struct {
 	Window *glfw.Window
-
-	StickyKeys bool
 }
 
 type State struct {
 	State glfw.Action
+}
+
+type Key struct {
+	Key glfw.Key
 }
 
 var PRESSED = State{glfw.Press}
@@ -39,10 +41,25 @@ func Init(window *glfw.Window) *Event {
 }
 
 func (e *Event) SetStickyKeys(value bool) {
-	e.StickyKeys = value
 	glfwValue := glfw.False
 	if value {
 		glfwValue = glfw.True
 	}
 	e.Window.SetInputMode(glfw.StickyKeysMode, glfwValue)
+}
+
+func (e *Event) DisableCursor(value bool) {
+	glfwValue := glfw.CursorDisabled
+	if value {
+		glfwValue = glfw.CursorNormal
+	}
+	e.Window.SetInputMode(glfw.CursorMode, glfwValue)
+}
+
+func (e *Event) Key(key Key) State {
+	return State{e.Window.GetKey(key.Key)}
+}
+
+func (e *Event) MousePos() (float64, float64) {
+	return e.Window.GetCursorPos()
 }
