@@ -9,10 +9,19 @@
     in {
       devShell.x86_64-linux = pkgs.mkShell {
         buildInputs = [
-          pkgs.libX11
-          pkgs.gcc
+          pkgs.xorg.libX11
+          pkgs.xorg.libXext
+          pkgs.xorg.libXrandr
+          pkgs.xorg.libXinerama
+          pkgs.xorg.libXcursor
+          pkgs.xorg.libXi
+          pkgs.xorg.libXxf86vm
+
+          pkgs.pkg-config
           pkgs.gnumake
+
           pkgs.go
+          pkgs.gcc
         ];
       };
     };

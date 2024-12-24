@@ -16,5 +16,6 @@ site
 
 .env
 .envrc
+.direnv/
 
 internal/gl/opengl/old
