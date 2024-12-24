@@ -14,4 +14,7 @@ CMakeFiles/
 Testing
 site
 
+.env
+.envrc
+
 internal/gl/opengl/old
