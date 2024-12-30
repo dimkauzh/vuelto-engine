@@ -28,8 +28,7 @@ nav:
           - 📋 Contribution Guidelines: "docs/developers/contribution.md"
 
   - Blog:
-      - 📚 Articles: "blog/index.md"
-      - "🎁 We’re one year old!": "blog/were-one-year-old.md"
+      - blog/index.md
 
   - Tutorials:
       - 🎓 Home: "tutorials/index.md"
@@ -82,6 +81,7 @@ theme:
         name: Switch to system preference
 
 plugins:
+  - blog
   - redirects:
       redirect_maps:
         "discord.md": "https://discord.gg/gZqdRXbbqg"

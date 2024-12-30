@@ -1,8 +1,20 @@
-![Post cover](assets/were-one-year-old-cover.png)
+---
+draft: false
+date: 2024-11-13
+categories:
+  - Updates
+authors:
+  - zaka
+slug: were-one-year-old
+pin: true
+readtime: 3 # more or less
+---
+
+![Post cover](../assets/were-one-year-old-cover.png)
 
 # We’re one year old\! V1.1 is coming, and it’s looking good\!
 
-Hi there\! I’m [ZakaHaceCosas](https://github.com/ZakaHaceCosas), and I’m a new addition to the Vuelto Team, though I’ve known this engine for a while. Feels like it’s already been a year since I got to know this engine \- and indeed, it has been a year since it was made\! Today, one year ago, Vuelto was created as an alternative to [Fusion Engine](https://github.com/fusionengine-org/fusion), another engine made by the same creator.
+Hi there\! I’m [Zaka](https://github.com/ZakaHaceCosas), and I’m a new addition to the Vuelto Team, though I’ve known this engine for a while. Feels like it’s already been a year since I got to know this engine \- and indeed, it has been a year since it was made\! Today, one year ago, Vuelto was created as an alternative to [Fusion Engine](https://github.com/fusionengine-org/fusion), another engine made by the same creator.
 
 We at Vuelto have been cooking a new release for a while now, and while it’s not ready for today as we still work on it, it’s coming soon (in fact, there’s already a [PR draft](https://github.com/vuelto-org/vuelto/pull/8)), and it’s looking pretty neat.
 
@@ -46,7 +58,7 @@ Now, from a single piece of code like this one:
 ```go
 window, err := windowing.InitWindow()
 if err != nil {
-    log.Fatalln("Could not initialise a new window: ", err)
+    log.Fatalln("Could not initialize a new window: ", err)
     return nil
 }
 
@@ -89,7 +101,7 @@ vuelto.GetMousePox().Y // 131
 
 The priority is to *be* a good option, but we also gotta *look like* a good option. That’s why we did some iterations on our branding\! We kept the core idea (the main logo),  but changed typefaces, colors, banners, styling, and more.
 
-![An image showing some of the design tweaks we did to Vuelto's branding](assets/were-one-year-old-image1.png)
+![An image showing some of the design tweaks we did to Vuelto's branding](../assets/were-one-year-old-image1.png)
 
 We want Vuelto to look more professional, so we’re giving it a well-needed refresh. Talking about being professional, we’re finally finishing the documentation, and we’ll also get contributing guidelines and more cool-looking documents soon.
 
@@ -98,4 +110,4 @@ And that’s all, my fellows\! Again, this is still in the works, V1.1 will have
 For now, happy birthday, Vuelto\!
 
 God bless you,
-> \- [ZakaHaceCosas](https://github.com/ZakaHaceCosas), from the Vuelto Team.
+> \- [Zaka](https://github.com/ZakaHaceCosas), from the Vuelto Team.
