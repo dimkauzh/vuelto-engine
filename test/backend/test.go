@@ -26,7 +26,7 @@ func main() {
 	}
 	defer win.Close()
 
-	win.Resizable = true
+	win.Resizable = false
 	win.Title = "Test"
 
 	win.Width = 500
@@ -95,16 +95,25 @@ func main() {
 	defer texture.Delete()
 
 	buffer := gl.GenBuffers(vertices, indices)
-	buffer.BindVA()
-	buffer.BindVBO()
-	buffer.BindEBO()
-	defer buffer.Delete()
+	buffer.Bind(gl.VA, gl.VBO, gl.EBO)
+	defer buffer.Delete(gl.VA, gl.VBO, gl.EBO)
 
 	buffer.Data()
 	gl.SetupVertexAttrib(program)
 
+	dx := float32(0.01)
+	dy := float32(0.0)
+
 	for !win.Close() {
 		gl.Clear()
+
+		for i := 0; i < len(vertices); i += 5 {
+			vertices[i] += dx
+			vertices[i+1] += dy
+		}
+
+		buffer.Bind(gl.VBO)
+		buffer.Update(vertices)
 
 		texture.Bind()
 		gl.DrawElements(indices)
@@ -113,5 +122,4 @@ func main() {
 		win.HandleEvents()
 		win.UpdateBuffers()
 	}
-
 }

@@ -20,15 +20,16 @@
           pkgs.pkg-config
           pkgs.gnumake
 
-          pkgs.go
-          pkgs.gcc
-          pkgs.wasmserve
-
           pkgs.mesa
           pkgs.libglvnd
           pkgs.alsa-lib
+
+          pkgs.go
+          pkgs.gcc
+
+          pkgs.gopls
+          pkgs.wasmserve
         ];
       };
     };
 }
-

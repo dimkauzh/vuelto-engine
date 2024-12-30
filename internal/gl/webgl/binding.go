@@ -52,6 +52,8 @@ var (
 	UNSIGNED_SHORT       js.Value
 	ELEMENT_ARRAY_BUFFER js.Value
 	TEXTURE0             js.Value
+	VERTEX_ARRAY         js.Value
+	DYNAMIC_DRAW         js.Value
 )
 
 func InitWebGL() {
@@ -85,6 +87,8 @@ func InitWebGL() {
 	UNSIGNED_SHORT = gl.Get("UNSIGNED_SHORT")
 	ELEMENT_ARRAY_BUFFER = gl.Get("ELEMENT_ARRAY_BUFFER")
 	TEXTURE0 = gl.Get("TEXTURE0")
+	VERTEX_ARRAY = gl.Get("VERTEX_ARRAY")
+	DYNAMIC_DRAW = gl.Get("DYNAMIC_DRAW")
 }
 
 func CreateShader(inputType js.Value) js.Value {

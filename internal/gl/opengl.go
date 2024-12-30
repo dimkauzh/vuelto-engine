@@ -17,6 +17,7 @@ package gl
 
 import (
 	"fmt"
+	"log"
 
 	gl "vuelto.pp.ua/internal/gl/opengl"
 	"vuelto.pp.ua/internal/image"
@@ -62,6 +63,9 @@ type Texture struct {
 var TEXTURE_2D = &Arguments{gl.TEXTURE_2D}
 var LINEAR = &Arguments{gl.LINEAR}
 var NEAREST = &Arguments{gl.NEAREST}
+var VBO = &Arguments{gl.ARRAY_BUFFER}
+var EBO = &Arguments{gl.ELEMENT_ARRAY_BUFFER}
+var VA = &Arguments{gl.VERTEX_ARRAY}
 
 func NewShader(shadertype any) *Shader {
 	switch trita.YourType(shadertype) {
@@ -146,7 +150,8 @@ func (p *Program) Delete() {
 func (p *Program) UniformLocation(location string) *Location {
 	loc := gl.GetUniformLocation(p.Program, gl.Str(location+"\x00"))
 	if loc == -1 {
-		panic(fmt.Sprintf("uniform %s not found", location))
+		log.Fatalln("Uniform not found: ", location)
+		return nil
 	}
 	return &Location{UniformLocation: loc}
 }
@@ -181,28 +186,34 @@ func GenBuffers(vertices []float32, indices []uint16) *Buffer {
 	}
 }
 
-func (b *Buffer) BindVA() {
-	gl.BindVertexArray(b.Vao)
+func (b *Buffer) Bind(args ...*Arguments) {
+	for _, arg := range args {
+		switch arg {
+		case VA:
+			gl.BindVertexArray(b.Vao)
+		case VBO:
+			gl.BindBuffer(gl.ARRAY_BUFFER, b.Vbo)
+		case EBO:
+			gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, b.Ebo)
+		default:
+			fmt.Printf("Unknown argument: %v\n", arg)
+		}
+	}
 }
 
-func (b *Buffer) BindVBO() {
-	gl.BindBuffer(gl.ARRAY_BUFFER, b.Vbo)
-}
-
-func (b *Buffer) BindEBO() {
-	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, b.Ebo)
-}
-
-func (b *Buffer) UnBindVA() {
-	gl.BindVertexArray(0)
-}
-
-func (b *Buffer) UnBindVBO() {
-	gl.BindBuffer(gl.ARRAY_BUFFER, 0)
-}
-
-func (b *Buffer) UnBindEBO() {
-	gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, 0)
+func (b *Buffer) UnBind(args ...*Arguments) {
+	for _, arg := range args {
+		switch arg {
+		case VA:
+			gl.BindVertexArray(0)
+		case VBO:
+			gl.BindBuffer(gl.ARRAY_BUFFER, 0)
+		case EBO:
+			gl.BindBuffer(gl.ELEMENT_ARRAY_BUFFER, 0)
+		default:
+			fmt.Printf("Unknown argument: %v\n", arg)
+		}
+	}
 }
 
 func (b *Buffer) Data() {
@@ -210,10 +221,23 @@ func (b *Buffer) Data() {
 	gl.BufferData(gl.ELEMENT_ARRAY_BUFFER, len(b.Indices)*4, gl.Ptr(b.Indices), gl.STATIC_DRAW)
 }
 
-func (b *Buffer) Delete() {
-	gl.DeleteVertexArrays(1, &b.Vao)
-	gl.DeleteBuffers(1, &b.Vbo)
-	gl.DeleteBuffers(1, &b.Ebo)
+func (b *Buffer) Update(data []float32) {
+	gl.BufferData(gl.ARRAY_BUFFER, len(data)*4, gl.Ptr(data), gl.DYNAMIC_DRAW)
+}
+
+func (b *Buffer) Delete(args ...*Arguments) {
+	for _, arg := range args {
+		switch arg {
+		case VA:
+			gl.DeleteVertexArrays(1, &b.Vao)
+		case VBO:
+			gl.DeleteBuffers(1, &b.Vbo)
+		case EBO:
+			gl.DeleteBuffers(1, &b.Ebo)
+		default:
+			fmt.Printf("Unknown argument: %v\n", arg)
+		}
+	}
 }
 
 func GenTexture() *Texture {

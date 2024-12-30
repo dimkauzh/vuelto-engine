@@ -16,6 +16,7 @@
 package gl
 
 import (
+	"log"
 	"syscall/js"
 
 	"vuelto.pp.ua/internal/gl/webgl"
@@ -62,6 +63,9 @@ type Texture struct {
 var TEXTURE_2D = &Arguments{&webgl.TEXTURE_2D}
 var LINEAR = &Arguments{&webgl.LINEAR}
 var NEAREST = &Arguments{&webgl.NEAREST}
+var VBO = &Arguments{&webgl.ARRAY_BUFFER}
+var EBO = &Arguments{&webgl.ELEMENT_ARRAY_BUFFER}
+var VA = &Arguments{&webgl.VERTEX_ARRAY}
 
 func NewShader(shadertype any) *Shader {
 	shader := &Shader{}
@@ -156,28 +160,34 @@ func GenBuffers(vertices []float32, indices []uint16) *Buffer {
 	}
 }
 
-func (b *Buffer) BindVA() {
-	webgl.BindVertexArray(b.Vao)
+func (b *Buffer) Bind(args ...*Arguments) {
+	for _, arg := range args {
+		switch arg {
+		case VA:
+			webgl.BindVertexArray(b.Vao)
+		case VBO:
+			webgl.BindBuffer(webgl.ARRAY_BUFFER, b.Vbo)
+		case EBO:
+			webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, b.Ebo)
+		default:
+			log.Fatalln("Unknown argument: ", arg)
+		}
+	}
 }
 
-func (b *Buffer) BindVBO() {
-	webgl.BindBuffer(webgl.ARRAY_BUFFER, b.Vbo)
-}
-
-func (b *Buffer) BindEBO() {
-	webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, b.Ebo)
-}
-
-func (b *Buffer) UnBindVA() {
-	webgl.BindVertexArray(js.Null())
-}
-
-func (b *Buffer) UnBindVBO() {
-	webgl.BindBuffer(webgl.ARRAY_BUFFER, js.Null())
-}
-
-func (b *Buffer) UnBindEBO() {
-	webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, js.Null())
+func (b *Buffer) UnBind(args ...*Arguments) {
+	for _, arg := range args {
+		switch arg {
+		case VA:
+			webgl.BindVertexArray(js.Null())
+		case VBO:
+			webgl.BindBuffer(webgl.ARRAY_BUFFER, js.Null())
+		case EBO:
+			webgl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, js.Null())
+		default:
+			log.Fatalln("Unknown argument: ", arg)
+		}
+	}
 }
 
 func (b *Buffer) Data() {
@@ -185,10 +195,23 @@ func (b *Buffer) Data() {
 	webgl.BufferData(webgl.ELEMENT_ARRAY_BUFFER, webgl.NewUint16Array(b.Indices), webgl.STATIC_DRAW)
 }
 
-func (b *Buffer) Delete() {
-	webgl.DeleteVertexArray(b.Vao)
-	webgl.DeleteBuffer(b.Vbo)
-	webgl.DeleteBuffer(b.Ebo)
+func (b *Buffer) Update(data []float32) {
+	webgl.BufferData(webgl.ARRAY_BUFFER, webgl.NewFloat32Array(data), webgl.DYNAMIC_DRAW)
+}
+
+func (b *Buffer) Delete(args ...*Arguments) {
+	for _, arg := range args {
+		switch arg {
+		case VA:
+			webgl.DeleteVertexArray(b.Vao)
+		case VBO:
+			webgl.DeleteBuffer(b.Vbo)
+		case EBO:
+			webgl.DeleteBuffer(b.Ebo)
+		default:
+			log.Fatalln("Unknown argument: ", arg)
+		}
+	}
 }
 
 func GenTexture() *Texture {
