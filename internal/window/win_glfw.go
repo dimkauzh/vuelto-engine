@@ -17,6 +17,7 @@ package windowing
 
 import (
 	"runtime"
+	"time"
 
 	"github.com/go-gl/glfw/v3.3/glfw"
 )
@@ -31,6 +32,11 @@ type Window struct {
 	Title  string
 	Width  int
 	Height int
+
+	lastTime      time.Time
+	deltaTime     float64
+	desiredFPS    int
+	frameDuration time.Duration
 }
 
 func InitWindow() (*Window, error) {
@@ -39,7 +45,11 @@ func InitWindow() (*Window, error) {
 	if err := glfw.Init(); err != nil {
 		return nil, err
 	}
-	return &Window{}, nil
+	return &Window{
+		desiredFPS:    60,
+		frameDuration: time.Second / 60,
+		lastTime:      time.Now(),
+	}, nil
 }
 
 func (w *Window) Create() error {
@@ -95,7 +105,16 @@ func (w *Window) Close() bool {
 }
 
 func (w *Window) HandleEvents() {
+	now := time.Now()
+	w.deltaTime = now.Sub(w.lastTime).Seconds()
+	w.lastTime = now
+
 	glfw.PollEvents()
+
+	duration := time.Since(w.lastTime)
+	if duration < w.frameDuration {
+		time.Sleep(w.frameDuration - duration)
+	}
 }
 
 func (w *Window) UpdateBuffers() {
@@ -110,5 +129,17 @@ func (w *Window) Destroy() {
 	w.GlfwWindow.Destroy()
 }
 
-func (w *Window) DrawingTest() {
+func (w *Window) GetDeltaTime() float64 {
+	return w.deltaTime
+}
+
+func (w *Window) SetFPS(fps int) {
+	if fps > 0 {
+		w.desiredFPS = fps
+		w.frameDuration = time.Second / time.Duration(fps)
+	}
+}
+
+func (w *Window) GetFPS() int {
+	return w.desiredFPS
 }

@@ -18,10 +18,10 @@
   - [x] Platforms
     - [x] Windowing for web
     - [x] Windowing for desktop
-  - [ ] Framerates
-    - [ ] Set framerate
-    - [ ] Get framerate
-    - [ ] Deltatime
+  - [x] Framerates
+    - [x] Set framerate
+    - [x] Get framerate
+    - [x] Deltatime
 
 - [x] Imaging
     - [x] Load images

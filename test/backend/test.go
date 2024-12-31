@@ -35,6 +35,7 @@ func main() {
 
 	win.GlfwGLMajor = 3
 	win.GlfwGLMinor = 3
+	win.SetFPS(30)
 
 	err = win.Create()
 	if err != nil {

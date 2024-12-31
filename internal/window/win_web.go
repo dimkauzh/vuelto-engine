@@ -35,10 +35,19 @@ type Window struct {
 	Title  string
 	Width  int
 	Height int
+
+	lastTime      time.Time
+	deltaTime     float64
+	desiredFPS    int
+	frameDuration time.Duration
 }
 
 func InitWindow() (*Window, error) {
-	w := &Window{}
+	w := &Window{
+		desiredFPS:    60,
+		frameDuration: time.Second / 60,
+		lastTime:      time.Now(),
+	}
 
 	w.JSCanvas = web.Document.GetElementById("vuelto")
 	if w.JSCanvas.IsNull() {
@@ -93,9 +102,7 @@ func (w *Window) ResizingCallback(inputFunc func(*Window, int, int)) {
 	})
 }
 
-func (w *Window) UpdateBuffers() {
-	time.Sleep(time.Millisecond * 16)
-}
+func (w *Window) UpdateBuffers() {}
 
 func (w *Window) SetResizable(resizable bool) {
 	if resizable {
@@ -120,5 +127,30 @@ func (w *Window) Close() bool {
 
 func (w *Window) ContextCurrent() {}
 
-func (w *Window) Destroy()      {}
-func (w *Window) HandleEvents() {}
+func (w *Window) Destroy() {}
+
+func (w *Window) HandleEvents() {
+	now := time.Now()
+	w.deltaTime = now.Sub(w.lastTime).Seconds()
+	w.lastTime = now
+
+	duration := time.Since(w.lastTime)
+	if duration < w.frameDuration {
+		time.Sleep(w.frameDuration - duration)
+	}
+}
+
+func (w *Window) GetDeltaTime() float64 {
+	return w.deltaTime
+}
+
+func (w *Window) SetFPS(fps int) {
+	if fps > 0 {
+		w.desiredFPS = fps
+		w.frameDuration = time.Second / time.Duration(fps)
+	}
+}
+
+func (w *Window) GetFPS() int {
+	return w.desiredFPS
+}
