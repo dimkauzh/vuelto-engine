@@ -5,6 +5,7 @@ import (
 	_ "embed"
 	"log"
 
+	"vuelto.pp.ua/internal/event"
 	"vuelto.pp.ua/internal/gl"
 	"vuelto.pp.ua/internal/gl/ushaders"
 	"vuelto.pp.ua/internal/image"
@@ -41,6 +42,8 @@ func main() {
 	}
 
 	win.ResizingCallback(framebuffersizecallback)
+
+	events := event.Init(win)
 
 	err = gl.Init()
 	if err != nil {
@@ -106,6 +109,14 @@ func main() {
 
 	for !win.Close() {
 		gl.Clear()
+
+		if events.Key(event.KeyMap["Left"]) == event.PRESSED {
+			dx = -0.01
+		} else if events.Key(event.KeyMap["Right"]) == event.PRESSED {
+			dx = 0.01
+		} else {
+			dx = 0.0
+		}
 
 		for i := 0; i < len(vertices); i += 5 {
 			vertices[i] += dx

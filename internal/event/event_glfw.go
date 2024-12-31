@@ -17,10 +17,11 @@ package event
 
 import (
 	"github.com/go-gl/glfw/v3.3/glfw"
+	windowing "vuelto.pp.ua/internal/window"
 )
 
 type Event struct {
-	Window *glfw.Window
+	Window *windowing.Window
 }
 
 type State struct {
@@ -31,35 +32,46 @@ type Key struct {
 	Key glfw.Key
 }
 
-var PRESSED = State{glfw.Press}
-var RELEASED = State{glfw.Release}
+type Setting struct {
+	Mode  glfw.InputMode
+	True  int
+	False int
+}
 
-func Init(window *glfw.Window) *Event {
+var (
+	STICKY_KEYS = Setting{
+		Mode:  glfw.StickyKeysMode,
+		True:  glfw.True,
+		False: glfw.False,
+	}
+	DISABLE_CURSOR = Setting{
+		Mode:  glfw.CursorMode,
+		True:  glfw.CursorDisabled,
+		False: glfw.CursorNormal,
+	}
+
+	PRESSED  = State{glfw.Press}
+	RELEASED = State{glfw.Release}
+)
+
+func Init(window *windowing.Window) *Event {
 	return &Event{
 		Window: window,
 	}
 }
 
-func (e *Event) SetStickyKeys(value bool) {
-	glfwValue := glfw.False
+func (e *Event) SetSetting(setting Setting, value bool) {
 	if value {
-		glfwValue = glfw.True
+		e.Window.GlfwWindow.SetInputMode(setting.Mode, setting.True)
+	} else {
+		e.Window.GlfwWindow.SetInputMode(setting.Mode, setting.False)
 	}
-	e.Window.SetInputMode(glfw.StickyKeysMode, glfwValue)
-}
-
-func (e *Event) DisableCursor(value bool) {
-	glfwValue := glfw.CursorDisabled
-	if value {
-		glfwValue = glfw.CursorNormal
-	}
-	e.Window.SetInputMode(glfw.CursorMode, glfwValue)
 }
 
 func (e *Event) Key(key Key) State {
-	return State{e.Window.GetKey(key.Key)}
+	return State{e.Window.GlfwWindow.GetKey(key.Key)}
 }
 
 func (e *Event) MousePos() (float64, float64) {
-	return e.Window.GetCursorPos()
+	return e.Window.GlfwWindow.GetCursorPos()
 }
