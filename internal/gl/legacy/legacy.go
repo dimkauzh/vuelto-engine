@@ -1,3 +1,6 @@
+//go:build windows || linux || darwin
+// +build windows linux darwin
+
 /*
  * Copyright (C) 2024 vuelto-org
  *

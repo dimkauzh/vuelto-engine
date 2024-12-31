@@ -1,3 +1,6 @@
+//go:build js && wasm
+// +build js,wasm
+
 /*
  * Copyright (C) 2024 vuelto-org
  *
@@ -13,7 +16,7 @@
 package web
 
 import (
-	"fmt"
+	"log"
 	"syscall/js"
 
 	"strconv"
@@ -30,7 +33,7 @@ type Context struct {
 func (c *Canvas) GetContext(inputContext string) Context {
 	context := c.JSCanvas.Call("getContext", inputContext)
 	if context.IsNull() {
-		fmt.Errorf("failed to get '%s' context", inputContext)
+		log.Fatalln("failed to get context: ", inputContext)
 		return Context{}
 	}
 	return Context{context}
