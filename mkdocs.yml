@@ -34,6 +34,7 @@ nav:
       - 🎓 Home: "tutorials/index.md"
 
   - Roadmap:
+      - 📅 Upcoming: "roadmap/index.md"
       - 🛣️ V1: "roadmap/v1.md"
       - 🛣️ V2: "roadmap/v2.md"
 

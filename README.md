@@ -86,7 +86,7 @@ You can check out Vuelto's documentation at [Vuelto's website](https://vuelto.pp
 
 ### 🛣️ Roadmap
 
-Our roadmap is available on our [website](https://vuelto.pp.ua/roadmap/v1/).
+Our roadmap is available on our [website](https://vuelto.pp.ua/roadmap/).
 
 ### 🤝 Contributing
 
