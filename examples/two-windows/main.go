@@ -5,6 +5,7 @@ import (
 )
 
 func main() {
+	// Warning: This example is not working in the web! This is due to the web not supporting multiple windows.
 	w1 := vuelto.NewWindow("hi", 800, 600, false)
 	w2 := vuelto.NewWindow("hi2", 800, 600, false)
 

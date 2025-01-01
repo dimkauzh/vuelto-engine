@@ -20,7 +20,7 @@ ci_check:
 	go build -o bin/test/backend ./test/backend/
 
 	go build -o bin/examples/basic-window ./examples/basic-window/
-	go build -o bin/examples/rectangle ./examples/rectangle/
+	go build -o bin/examples/shapes ./examples/shapes/
 	go build -o bin/examples/images ./examples/images/
 	go build -o bin/examples/two-windows ./examples/two-windows/
 
@@ -57,6 +57,6 @@ format:
 	go fmt ./internal/windowing/
 
 	go fmt ./examples/images/
-	go fmt ./examples/rectangle/
+	go fmt ./examples/shapes/
 	go fmt ./examples/two-windows/
 	go fmt ./examples/basic-window/

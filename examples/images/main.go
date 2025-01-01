@@ -10,6 +10,7 @@ import (
 var embeddedFiles embed.FS
 
 func main() {
+	// This works in the web too! This is because of the images being embedded!
 	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, false)
 	ren := w.NewRenderer2D()
 
@@ -30,6 +31,5 @@ func main() {
 		image1.Draw()
 		image.Draw()
 		w.Refresh()
-
 	}
 }
