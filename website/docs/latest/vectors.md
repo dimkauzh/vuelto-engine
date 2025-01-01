@@ -3,7 +3,7 @@
 
 Features for doing math with both 2D and 3D vectors.
 
-## Types
+## 🔢 Types
 
 ```go
 type Vector2D struct {
@@ -18,7 +18,7 @@ type Vector3D struct {
 }
 ```
 
-## Usage
+## ℹ️ Usage
 
 You can create a 2D vector or a 3D vector using the `NewVector2D()` and `NewVector3D()` functions. Both take their X and Y (and Z for 3D) values as arguments.
 

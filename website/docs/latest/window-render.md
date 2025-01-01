@@ -1,38 +1,63 @@
+# 🎥 Windowing and Rendering Module
 
-# 🎥 Windowing and rendering module
+The main modules of Vuelto: the main window and the main renderer. Your entire project depends on these.
 
-The main modules of Vuelto - the main window and the main renderer. Your entire project depends on these.
+## 🌆 Overview
 
-## Usage
+This module allows you to manage the main window and rendering operations, essential for any Vuelto project.
 
-### Window
+## 🏠 Window
 
-Simply initialize a new window and store it in a variable (your window). Pass a title, width, height, and whether it's resizable or not as arguments.
+To create a window, initialize a new instance and store it in a variable. Pass the following arguments:
+- **Title**: The title of your window.
+- **Width**: The width of the window in pixels.
+- **Height**: The height of the window in pixels.
+- **Resizable**: A boolean indicating whether the window can be resized.
+
+### Example
 
 ```go
-window := NewWindow("title", 800, 600, true)
+window := vuelto.NewWindow("My Game", 800, 600, true)
 ```
 
-The renderer depends on this.
+The renderer depends on this window to function.
 
-### Renderer
+## 🌈 Renderer
 
-Simply initialize it by calling it and storing it into a variable (your renderer).
+The renderer is responsible for drawing content onto the screen. To use it, initialize it using the window instance and store it in a variable.
+
+### Example
 
 ```go
 renderer := window.NewRenderer2D()
 ```
 
-Drawing and rendering depend on this renderer.
+All drawing and rendering operations rely on this renderer.
 
-### Window close loop
+## ♻️ Game Loop
 
-Rendering should happen inside of the Window's close loop. This is:
+Rendering operations should be performed within the game loop. This ensures that the application continues to respond to user input and updates the display correctly.
+
+### Structure of the Game Loop
 
 ```go
 for !window.Close() {
-    // do stuff
+    // Perform rendering and update logic here
 }
 ```
 
-window.Close() will become true when the window it closed, and will return false when being active. You should render your stuff in there.
+- **`window.Close()`**: This function returns `true` when the window is closed and `false` when it is active. Use it to control the loop's execution.
+
+### Example Usage
+
+```go
+for !window.Close() {
+	image.Draw()
+
+  // ...
+
+	window.Refresh()
+}
+```
+
+Ensure all rendering tasks are enclosed within this loop to maintain smooth operation.

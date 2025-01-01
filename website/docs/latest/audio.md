@@ -2,7 +2,7 @@
 
 Features for playing audio files, supporting `mp3` and `wav`.
 
-## Usage
+## 📜 Usage
 
 First, open a file with `OpenAudioFile()`. This func takes one arg, the file path to your audio file. Returns an `AudioPlayer` struct.
 
@@ -14,12 +14,12 @@ You can now call the `Start()` and `Stop()` methods passing your audio player.
 
 ```go
 // play!
-Start(myAudioFile)
+myAudioFile.Start()
 
 // ...
 
 // stop.
-Stop(myAudioFile)
+myAudioFile.Stop()
 ```
 
-If you don't need the audio anymore, you should `Close(myAudioFile)` to close the file.
+If you don't need the audio anymore, you should `myAudioFile.Close()` to close the file.

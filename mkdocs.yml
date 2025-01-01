@@ -34,14 +34,15 @@ nav:
 
   - Tutorials:
       - 🎓 Home: "tutorials/index.md"
-
+      - 🌱 Beginner:
+          - 🚀 Getting Started: "tutorials/beginner/new-project.md"
   - Roadmap:
       - 📅 Upcoming: "roadmap/index.md"
       - 🛣️ V1: "roadmap/v1.md"
       - 🛣️ V2: "roadmap/v2.md"
 
   - About:
-      - ℹ️ About: "about/index.md"
+      - 🛈 About: "about/index.md"
       - 🛡️ License: "about/license.md"
       - 🤝 Code of Conduct: "about/coc.md"
       - 👥 Contributing: "about/contributing.md"
