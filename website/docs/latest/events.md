@@ -1,5 +1,5 @@
 <!--markdownlint-disable md010-->
-# 💡 Events module
+# 🔥 Events module
 
 Features for detecting user events.
 

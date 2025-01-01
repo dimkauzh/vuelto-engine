@@ -1,5 +1,5 @@
 <!--markdownlint-disable md010-->
-# 🖼 Image module
+# 🖼️ Image module
 
 Features for rendering images
 
