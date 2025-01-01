@@ -6,5 +6,5 @@ New to Vuelto? Then head over to the [tutorials tab](../tutorials/index.md).
 
 ## 📑 Table of contents
 
-- [Latest stable docs](latest/renderer.md)
+- [Latest stable docs](latest/window-render.md)
 - [Docs for developers and contributors](developers/index.md)

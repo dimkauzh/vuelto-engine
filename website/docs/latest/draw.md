@@ -12,7 +12,7 @@ A module for drawing UI elements, such as rects.
 ## Usage
 
 !!! note
-    For this you will need a [renderer](renderer.md) initialized.
+    For this you will need a [renderer](window-render.md) initialized.
 
 For now this module is pretty basic. You can draw a rectangle using the `DrawRect()` function, passing X position, Y position, width & height, and an RGBA color (int array as described above).
 
