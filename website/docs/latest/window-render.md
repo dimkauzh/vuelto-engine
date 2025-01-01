@@ -23,4 +23,16 @@ Simply initialize it by calling it and storing it into a variable (your renderer
 renderer := window.NewRenderer2D()
 ```
 
-Drawing, vectors, and others depend on this renderer.
+Drawing and rendering depend on this renderer.
+
+### Window close loop
+
+Rendering should happen inside of the Window's close loop. This is:
+
+```go
+for !window.Close() {
+    // do stuff
+}
+```
+
+window.Close() will become true when the window it closed, and will return false when being active. You should render your stuff in there.

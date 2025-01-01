@@ -14,10 +14,13 @@ type ImageEmbed struct {
 
 ## Usage
 
+!!! note
+    For this you will need a [renderer](window-render.md) initialized.
+
 First, load an image using `LoadImage()` and specify file path, pos X and Y, width, and height.
 
 ```go
-image := LoadImage("path/to/image.png", 10, 10, 50, 50) // returns an Image (internal type)
+image := renderer.LoadImage("path/to/image.png", 10, 10, 50, 50) // returns an Image (internal type)
 ```
 
 Then, whenever you feel like it, draw it.
