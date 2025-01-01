@@ -1,10 +1,17 @@
 # 📅 Upcoming release
 ## V1.1
 
-- [ ] Renderer
-    - [ ] SetPixel
-    - [ ] LoadText and .Draw()
-    - [ ] Move the main API to the Rendering driver
+- [ ] Framerates
+    - [ ] Set framerate
+    - [ ] Get framerate
+    - [ ] Deltatime
+
+- [ ] Events
+    - [ ] Keyboard
+    - [ ] Mouse
+
+- [x] Renderer
+    - [x] Move the main API to the Rendering driver
     - [x] Web
         - [x] Web-windowing
         - [x] Support for web using wasm
@@ -15,21 +22,17 @@
       - [x] Move to OpenGL v3.3
 
 - [x] Windowing
-  - [x] Platforms
-    - [x] Windowing for web
-    - [x] Windowing for desktop
+    - [x] Platforms
+        - [x] Windowing for web
+        - [x] Windowing for desktop
   - [x] Framerates
-    - [x] Set framerate
-    - [x] Get framerate
-    - [x] Deltatime
+      - [x] Set framerate
+      - [x] Get framerate
+      - [x] Deltatime
 
 - [x] Imaging
     - [x] Load images
     - [x] Process images (to string)
-
-- [x] Events
-    - [x] Keyboard
-    - [x] Mouse
 
 - [x] 2 Ring Rendering Driver
     - [x] Ring 1
@@ -53,7 +56,7 @@
 - [x] 2 Ring Image Driver
     - [x] Ring 1 (No ring 1 needed)
     - [x] Ring 2
-      - [x] API around Go image library
+        - [x] API around Go image library
 
 - [ ] Website
     - [ ] Docs
