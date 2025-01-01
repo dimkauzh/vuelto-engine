@@ -22,7 +22,7 @@ func (r *Renderer2D) DrawRect(x, y, width, height float32, color [4]int) {
 	rect.Draw()
 }
 
-// Clears the screen whith the specific color that is provided
+// Clears the screen with the specific color that is provided
 func (r *Renderer2D) ClearColor(color [4]int) {
 	gl.ClearColor(
 		float32(color[0])/255,

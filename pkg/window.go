@@ -28,7 +28,7 @@ type Window struct {
 	Event *event.Event
 }
 
-func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) {
+func frameBufferSizeCallback(window *windowing.Window, newWidth, newHeight int) {
 	gl.Viewport(0, 0, newWidth, newHeight)
 }
 
@@ -36,7 +36,7 @@ func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) 
 func NewWindow(title string, width, height int, resizable bool) *Window {
 	window, err := windowing.InitWindow()
 	if err != nil {
-		log.Fatalln("Could not initialise a new window: ", err)
+		log.Fatalln("Could not initialize a new window: ", err)
 		return nil
 	}
 	defer window.Close()
@@ -55,13 +55,13 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 		log.Fatalln("Error create window:", err)
 	}
 
-	window.ResizingCallback(framebuffersizecallback)
+	window.ResizingCallback(frameBufferSizeCallback)
 
 	events := event.Init(window)
 
 	err = gl.Init()
 	if err != nil {
-		log.Fatalf("Failed to initialise: %s", err)
+		log.Fatalf("Failed to initialize: %s", err)
 	}
 
 	gl.Enable(gl.TEXTURE_2D, gl.BLEND)
