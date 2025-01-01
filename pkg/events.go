@@ -24,6 +24,6 @@ func (w *Window) KeyReleased(key event.Key) bool {
 	return w.Event.Key(key) == event.RELEASED
 }
 
-func (w *Window) MousePos() (float64, float64) {
-	return w.Event.MousePos()
+func (w *Window) MousePos() *Vector2D {
+	return NewVector2D(w.Event.MousePos())
 }

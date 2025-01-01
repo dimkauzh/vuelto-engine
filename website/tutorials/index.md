@@ -8,3 +8,4 @@ everything does. Don't know how to get started with Vuelto? This is the best way
 Here are some tutorials:
 
 - [Setting up](../get-started.md)
+- [Creating a new project](beginner/new-project.md)

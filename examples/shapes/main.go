@@ -23,6 +23,5 @@ func main() {
 		line.Draw()
 
 		w.Refresh()
-
 	}
 }

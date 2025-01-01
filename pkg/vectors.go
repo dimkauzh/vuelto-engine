@@ -31,6 +31,10 @@ func NewVector2D(x, y float64) *Vector2D {
 	}
 }
 
+func (v2d *Vector2D) Pos() (float64, float64) {
+	return v2d.X, v2d.Y
+}
+
 // Adds two 2D vectors together
 func AddVector2D(v1, v2 Vector2D) *Vector2D {
 	return &Vector2D{

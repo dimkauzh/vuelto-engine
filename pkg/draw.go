@@ -32,8 +32,8 @@ func (r *Renderer2D) ClearColor(color [4]int) {
 	)
 }
 
-// Draws a new line by the given x1, x2, y1, y2 and color
-func (r *Renderer2D) DrawLine(x1, x2, y1, y2 float32, color [4]int) {
-	line := r.NewLine(x1, x2, y1, y2, color)
+// Draws a new line by the given x1, y1, x2, y2 and color
+func (r *Renderer2D) DrawLine(x1, y1, x2, y2 float32, color [4]int) {
+	line := r.NewLine(x1, y1, x2, y2, color)
 	line.Draw()
 }
