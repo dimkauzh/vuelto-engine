@@ -22,6 +22,7 @@ nav:
           - 🔊 Audio: "docs/latest/audio.md"
           - 💡 Events: "docs/latest/events.md"
           - 🖼 Images: "docs/latest/image.md"
+          - 🎨 Drawing: "docs/latest/draw.md"
           - 🔢 Vector Math: "docs/latest/vectors.md"
       - 📱 Developer Docs:
           - 💻 Dev Home: "docs/developers/index.md"
