@@ -1,3 +1,0 @@
-# 📐 Math docs
-
-TODO.

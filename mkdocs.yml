@@ -21,7 +21,7 @@ nav:
           - 🪟 Windowing: "docs/latest/windowing.md"
           - 🖥️ Renderer: "docs/latest/renderer.md"
           - 🔊 Audio: "docs/latest/audio.md"
-          - 🔢 Math: "docs/latest/math.md"
+          - 🔢 Vector Math: "docs/latest/vectors.md"
       - 📱 Developer Docs:
           - 💻 Dev Home: "docs/developers/index.md"
           - 💍 3 Ring approach: "docs/developers/rings.md"
@@ -76,7 +76,7 @@ theme:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
-      accent: indigo # close to vuelto vlue
+      accent: indigo # close to vuelto blue
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
