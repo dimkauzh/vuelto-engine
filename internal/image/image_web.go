@@ -33,8 +33,7 @@ type Image struct {
 }
 
 func Load(imagePath string) *Image {
-	log.Fatalf("Load() is not supported in web assembly")
-	return &Image{}
+	panic("Load() is not supported in web assembly")
 }
 
 func LoadAsEmbed(fs embed.FS, imagePath string) *Image {

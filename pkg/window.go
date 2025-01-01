@@ -15,6 +15,7 @@ package vuelto
 import (
 	"log"
 
+	"vuelto.pp.ua/internal/event"
 	"vuelto.pp.ua/internal/gl"
 	windowing "vuelto.pp.ua/internal/window"
 )
@@ -23,6 +24,8 @@ type Window struct {
 	Window        *windowing.Window
 	Title         string
 	Width, Height int
+
+	Event *event.Event
 }
 
 func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) {
@@ -54,6 +57,8 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 
 	window.ResizingCallback(framebuffersizecallback)
 
+	events := event.Init(window)
+
 	err = gl.Init()
 	if err != nil {
 		log.Fatalf("Failed to initialise: %s", err)
@@ -69,6 +74,7 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 		Title:  title,
 		Width:  width,
 		Height: height,
+		Event:  events,
 	}
 }
 
@@ -100,4 +106,16 @@ func (w *Window) SetCurrent() {
 // Destroys the window and cleans up the memory.
 func (w *Window) Destroy() {
 	w.Window.Destroy()
+}
+
+func (w *Window) GetDeltaTime() float32 {
+	return float32(w.Window.GetDeltaTime())
+}
+
+func (w *Window) SetFPS(fps int) {
+	w.Window.SetFPS(fps)
+}
+
+func (w *Window) GetFPS() int {
+	return w.Window.GetFPS()
 }

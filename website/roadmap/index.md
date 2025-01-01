@@ -1,14 +1,14 @@
 # 📅 Upcoming release
 ## V1.1
 
-- [ ] Framerates
-    - [ ] Set framerate
-    - [ ] Get framerate
-    - [ ] Deltatime
+- [x] Framerates
+    - [x] Set framerate
+    - [x] Get framerate
+    - [x] Deltatime
 
-- [ ] Events
-    - [ ] Keyboard
-    - [ ] Mouse
+- [x] Events
+    - [x] Keyboard
+    - [x] Mouse
 
 - [x] Renderer
     - [x] Move the main API to the Rendering driver

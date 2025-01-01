@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	vuelto "vuelto.pp.ua/pkg"
 )
 
@@ -23,8 +25,16 @@ func main() {
 		w1.SetCurrent()
 		ren1.ClearColor([4]int{100, 100, 100, 255})
 
-		ren1.DrawRect(0, 0, 0.5, 0.5, [4]int{10, 145, 245, 255})
+		if w1.KeyPressed(vuelto.Keys["Left"]) {
+			rect.X = rect.X - 0.5*w1.GetDeltaTime()
+		} else if w1.KeyPressed(vuelto.Keys["Right"]) {
+			rect.X = rect.X + 0.5*w1.GetDeltaTime()
+		}
+
+		fmt.Println(w1.MousePos())
+
 		rect.Draw()
+
 		line.Draw()
 
 		w1.Refresh()

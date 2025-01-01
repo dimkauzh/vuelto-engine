@@ -1,6 +1,3 @@
-//go:build js && wasm
-// +build js,wasm
-
 /*
  * Copyright (C) 2024 vuelto-org
  *
@@ -13,22 +10,20 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package web
+package vuelto
 
-import "syscall/js"
+import "vuelto.pp.ua/internal/event"
 
-var Console JSConsole
+var Keys = event.KeyMap
 
-type JSConsole struct{}
-
-func (c *JSConsole) Log(message ...any) {
-	js.Global().Get("console").Call("log", message...)
+func (w *Window) KeyPressed(key event.Key) bool {
+	return w.Event.Key(key) == event.PRESSED
 }
 
-func (c *JSConsole) Warn(message ...any) {
-	js.Global().Get("console").Call("warn", message...)
+func (w *Window) KeyReleased(key event.Key) bool {
+	return w.Event.Key(key) == event.RELEASED
 }
 
-func (c *JSConsole) Error(message ...any) {
-	js.Global().Get("console").Call("error", message...)
+func (w *Window) MousePos() (float64, float64) {
+	return w.Event.MousePos()
 }

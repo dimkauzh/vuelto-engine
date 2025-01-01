@@ -42,7 +42,15 @@ type Window struct {
 	frameDuration time.Duration
 }
 
+var initialized bool
+
 func InitWindow() (*Window, error) {
+	if initialized {
+		panic("Web doesnt support having multiple windows!")
+	} else {
+		initialized = true
+	}
+
 	w := &Window{
 		desiredFPS:    60,
 		frameDuration: time.Second / 60,
