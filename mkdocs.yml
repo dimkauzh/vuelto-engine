@@ -20,8 +20,8 @@ nav:
       - 👤 User Docs:
           - 🖥️ Windowing and Renderer: "docs/latest/window-render.md"
           - 🔊 Audio: "docs/latest/audio.md"
-          - 💡 Events: "docs/latest/events.md"
-          - 🖼 Images: "docs/latest/image.md"
+          - 🔥 Events: "docs/latest/events.md"
+          - 🖼️ Images: "docs/latest/image.md"
           - 🎨 Drawing: "docs/latest/draw.md"
           - 🔢 Vector Math: "docs/latest/vectors.md"
       - 📱 Developer Docs:
