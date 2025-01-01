@@ -16,14 +16,14 @@ import (
 //go:embed tree.png
 var embeddedFiles embed.FS
 
-func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) {
+func frameBufferSizeCallback(window *windowing.Window, newWidth, newHeight int) {
 	gl.Viewport(0, 0, newWidth, newHeight)
 }
 
 func main() {
 	win, err := windowing.InitWindow()
 	if err != nil {
-		log.Fatalf("Failed to initialise: %s", err)
+		log.Fatalf("Failed to initialize: %s", err)
 	}
 	defer win.Close()
 
@@ -42,13 +42,13 @@ func main() {
 		log.Fatalln("Error create window:", err)
 	}
 
-	win.ResizingCallback(framebuffersizecallback)
+	win.ResizingCallback(frameBufferSizeCallback)
 
 	events := event.Init(win)
 
 	err = gl.Init()
 	if err != nil {
-		log.Fatalf("Failed to initialise: %s", err)
+		log.Fatalf("Failed to initialize: %s", err)
 	}
 
 	gl.Enable(gl.TEXTURE_2D)
