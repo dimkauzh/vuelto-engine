@@ -18,6 +18,7 @@ package gl
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	gl "vuelto.pp.ua/internal/gl/opengl"
 	"vuelto.pp.ua/internal/image"
@@ -61,6 +62,7 @@ type Texture struct {
 }
 
 var TEXTURE_2D = &Arguments{gl.TEXTURE_2D}
+var BLEND = &Arguments{gl.BLEND}
 var LINEAR = &Arguments{gl.LINEAR}
 var NEAREST = &Arguments{gl.NEAREST}
 var VBO = &Arguments{gl.ARRAY_BUFFER}
@@ -104,6 +106,18 @@ func (s *Shader) Compile() {
 	free()
 	gl.CompileShader(shader)
 
+	var success int32
+	gl.GetShaderiv(shader, gl.COMPILE_STATUS, &success)
+	if success == gl.FALSE {
+		var logLength int32
+		gl.GetShaderiv(shader, gl.INFO_LOG_LENGTH, &logLength)
+
+		log := strings.Repeat("\x00", int(logLength+1))
+		gl.GetShaderInfoLog(shader, logLength, nil, gl.Str(log))
+
+		panic(fmt.Sprintf("Failed to compile shader: %v", log))
+	}
+
 	s.Type = shader
 }
 
@@ -136,11 +150,26 @@ func (p *Program) Link() {
 	gl.AttachShader(program, fragmentShader)
 	gl.LinkProgram(program)
 
+	var status int32
+	gl.GetProgramiv(program, gl.LINK_STATUS, &status)
+	if status == gl.FALSE {
+		var logLength int32
+		gl.GetProgramiv(program, gl.INFO_LOG_LENGTH, &logLength)
+
+		logg := make([]byte, logLength)
+		gl.GetProgramInfoLog(program, logLength, nil, &logg[0])
+		log.Fatalf("Program linking failed: %s", string(logg))
+	}
+
 	p.Program = program
 }
 
 func (p *Program) Use() {
 	gl.UseProgram(p.Program)
+}
+
+func (p *Program) UnUse() {
+	gl.UseProgram(0)
 }
 
 func (p *Program) Delete() {
@@ -283,7 +312,11 @@ func SetupVertexAttrib(program *Program) {
 }
 
 func DrawElements(indices []uint16) {
-	gl.DrawElements(gl.TRIANGLES, int32(len(indices)), gl.UNSIGNED_INT, nil)
+	if len(indices) == 2 {
+		gl.DrawElements(gl.LINES, int32(len(indices)), gl.UNSIGNED_INT, nil)
+	} else {
+		gl.DrawElements(gl.TRIANGLES, int32(len(indices)), gl.UNSIGNED_INT, nil)
+	}
 }
 
 func DrawArrays(corners int32) {
@@ -294,10 +327,18 @@ func Clear() {
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
+func ClearColor(r, g, b, a float32) {
+	gl.ClearColor(r, g, b, a)
+}
+
 func Enable(args ...*Arguments) {
 	for _, arg := range args {
 		gl.Enable(uint32(arg.Arg.(int)))
 	}
+}
+
+func EnableBlend() {
+	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 }
 
 func Viewport(x, y, width, height int) {

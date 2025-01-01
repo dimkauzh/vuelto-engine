@@ -54,6 +54,7 @@ var (
 	TEXTURE0             js.Value
 	VERTEX_ARRAY         js.Value
 	DYNAMIC_DRAW         js.Value
+	LINES                js.Value
 )
 
 func InitWebGL() {
@@ -89,6 +90,7 @@ func InitWebGL() {
 	TEXTURE0 = gl.Get("TEXTURE0")
 	VERTEX_ARRAY = gl.Get("VERTEX_ARRAY")
 	DYNAMIC_DRAW = gl.Get("DYNAMIC_DRAW")
+	LINES = gl.Get("LINES")
 }
 
 func CreateShader(inputType js.Value) js.Value {

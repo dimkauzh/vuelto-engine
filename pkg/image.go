@@ -13,65 +13,118 @@
 package vuelto
 
 import (
-	gl "vuelto.pp.ua/internal/gl/legacy"
+	"embed"
+
+	"vuelto.pp.ua/internal/gl"
+	"vuelto.pp.ua/internal/gl/ushaders"
 	"vuelto.pp.ua/internal/image"
+	"vuelto.pp.ua/internal/trita"
 )
 
 type Image struct {
-	Texture       uint32
 	X, Y          float32
 	Width, Height float32
+
+	Buffer  *gl.Buffer
+	Texture *gl.Texture
+	Indices []uint16
+	Program *gl.Program
+}
+
+type ImageEmbed struct {
+	Filesystem embed.FS
+	Image      string
 }
 
 var ImageArray []uint32
 
 // Loads a new image and returns a Image struct. Can be later drawn using the Draw() method
-func (r *Renderer2D) LoadImage(imagePath string, x, y, width, height float32) *Image {
-	file := image.Load(imagePath)
+func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Image {
+	vertexShader := gl.NewShader(gl.VertexShader{
+		WebShader:     ushaders.WebVShader,
+		DesktopShader: ushaders.DesktopVShader,
+	})
+	fragmentShader := gl.NewShader(gl.FragmentShader{
+		WebShader:     ushaders.WebFShader,
+		DesktopShader: ushaders.DesktopFShader,
+	})
 
-	var textureID uint32
-	gl.GenTextures(1, &textureID)
+	vertexShader.Compile()
+	defer vertexShader.Delete()
 
-	gl.BindTexture(gl.TEXTURE_2D, textureID)
+	fragmentShader.Compile()
+	defer fragmentShader.Delete()
 
-	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, file.Width, file.Height, 0, gl.RGBA, gl.UNSIGNED_BYTE, file.Texture)
+	program := gl.NewProgram(*vertexShader, *fragmentShader)
+	program.Link()
 
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+	program.Use()
 
-	ImageArray = append(ImageArray, textureID)
+	vertices := []float32{
+		x, y, 0.0, 0.0, 0.0,
+		x, y - height, 0.0, 0.0, 1.0,
+		x + width, y - height, 0.0, 1.0, 1.0,
+		x + width, y, 0.0, 1.0, 0.0,
+	}
+
+	program.UniformLocation("uniformColor").Set(0, 0, 0, 1.0)
+	program.UniformLocation("useTexture").Set(1)
+
+	indices := []uint16{
+		0, 1, 3,
+		1, 2, 3,
+	}
+
+	var file *image.Image
+	switch trita.YourType(imageFile) {
+	case trita.YourType(""):
+		file = image.Load(imageFile.(string))
+	case trita.YourType(ImageEmbed{}):
+		embed := imageFile.(ImageEmbed)
+		file = image.LoadAsEmbed(embed.Filesystem, embed.Image)
+	}
+
+	texture := gl.GenTexture()
+	texture.Bind()
+	texture.Configure(file, gl.NEAREST)
+	texture.UnBind()
+
+	buffer := gl.GenBuffers(vertices, indices)
+	buffer.Bind(gl.VA, gl.VBO, gl.EBO)
+
+	buffer.Data()
+	gl.SetupVertexAttrib(program)
 
 	return &Image{
-		Texture: textureID,
-		X:       x,
-		Y:       y,
-		Width:   width,
-		Height:  height,
+		X:      x,
+		Y:      y,
+		Width:  width,
+		Height: height,
+
+		Buffer:  buffer,
+		Texture: texture,
+		Indices: indices,
+		Program: program,
 	}
 }
 
 // Draws the image that's loaded before.
 func (img *Image) Draw() {
-	gl.BindTexture(gl.TEXTURE_2D, img.Texture)
-	defer gl.BindTexture(gl.TEXTURE_2D, 0)
-
-	gl.Begin(gl.QUADS)
-	defer gl.End()
-
-	gl.TexCoord2f(0.0, 0.0)
-	gl.Vertex2f(img.X, img.Y)
-	gl.TexCoord2f(1.0, 0.0)
-	gl.Vertex2f(img.X+img.Width, img.Y)
-	gl.TexCoord2f(1.0, 1.0)
-	gl.Vertex2f(img.X+img.Width, img.Y+img.Height)
-	gl.TexCoord2f(0.0, 1.0)
-	gl.Vertex2f(img.X, img.Y+img.Height)
-}
-
-func cleanTex() {
-	for _, i := range ImageArray {
-		gl.DeleteTextures(1, &i)
+	vertices := []float32{
+		img.X, img.Y, 0.0, 0.0, 0.0,
+		img.X, img.Y - img.Height, 0.0, 0.0, 1.0,
+		img.X + img.Width, img.Y - img.Height, 0.0, 1.0, 1.0,
+		img.X + img.Width, img.Y, 0.0, 1.0, 0.0,
 	}
+
+	img.Program.Use()
+
+	img.Buffer.Bind(gl.VA, gl.VBO, gl.EBO)
+	img.Buffer.Update(vertices)
+
+	img.Texture.Bind()
+	gl.DrawElements(img.Indices)
+	img.Texture.UnBind()
+
+	img.Buffer.UnBind(gl.VA, gl.VBO, gl.EBO)
 }

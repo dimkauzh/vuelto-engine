@@ -61,6 +61,7 @@ type Texture struct {
 }
 
 var TEXTURE_2D = &Arguments{&webgl.TEXTURE_2D}
+var BLEND = &Arguments{&webgl.BLEND}
 var LINEAR = &Arguments{&webgl.LINEAR}
 var NEAREST = &Arguments{&webgl.NEAREST}
 var VBO = &Arguments{&webgl.ARRAY_BUFFER}
@@ -113,6 +114,10 @@ func (p *Program) Link() {
 
 func (p *Program) Use() {
 	webgl.UseProgram(p.Program)
+}
+
+func (p *Program) UnUse() {
+	webgl.UseProgram(js.Null())
 }
 
 func (p *Program) Delete() {
@@ -256,7 +261,11 @@ func SetupVertexAttrib(program *Program) {
 }
 
 func DrawElements(indices []uint16) {
-	webgl.DrawElements(webgl.TRIANGLES, len(indices), webgl.UNSIGNED_SHORT, 0)
+	if len(indices) == 2 {
+		webgl.DrawElements(webgl.LINES, len(indices), webgl.UNSIGNED_SHORT, 0)
+	} else {
+		webgl.DrawElements(webgl.TRIANGLES, len(indices), webgl.UNSIGNED_SHORT, 0)
+	}
 }
 
 func DrawArrays(verticesCount int) {
@@ -268,10 +277,18 @@ func Clear() {
 	webgl.Clear(webgl.DEPTH_BUFFER_BIT)
 }
 
+func ClearColor(r, g, b, a float32) {
+	webgl.ClearColor(r, g, b, a)
+}
+
 func Enable(args ...*Arguments) {
 	for _, capability := range args {
 		webgl.Enable(*capability.Arg)
 	}
+}
+
+func EnableBlend() {
+	webgl.BlendFunc(webgl.SRC_ALPHA, webgl.ONE_MINUS_SRC_ALPHA)
 }
 
 func Viewport(x, y, width, height int) {

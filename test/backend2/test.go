@@ -1,20 +1,14 @@
 package main
 
 import (
-	"embed"
 	_ "embed"
 	"log"
 
-	"vuelto.pp.ua/internal/event"
 	"vuelto.pp.ua/internal/gl"
 	"vuelto.pp.ua/internal/gl/ushaders"
-	"vuelto.pp.ua/internal/image"
 
 	windowing "vuelto.pp.ua/internal/window"
 )
-
-//go:embed tree.png
-var embeddedFiles embed.FS
 
 func framebuffersizecallback(window *windowing.Window, newWidth, newHeight int) {
 	gl.Viewport(0, 0, newWidth, newHeight)
@@ -43,8 +37,6 @@ func main() {
 	}
 
 	win.ResizingCallback(framebuffersizecallback)
-
-	events := event.Init(win)
 
 	err = gl.Init()
 	if err != nil {
@@ -77,26 +69,16 @@ func main() {
 	program.Use()
 
 	vertices := []float32{
-		// Positions      // Texture Coords
-		-0.5, 0.5, 0.0, 0.0, 0.0, // Top-left
-		-0.5, -0.5, 0.0, 0.0, 1.0, // Bottom-left
-		0.5, -0.5, 0.0, 1.0, 1.0, // Bottom-right
-		0.5, 0.5, 0.0, 1.0, 0.0, // Top-right
+		-0.9, -0.9, 0.0,
+		0.9, -0.9, 0.0,
 	}
 
-	program.UniformLocation("uniformColor").Set(0, 0, 0, 1.0)
-	program.UniformLocation("useTexture").Set(1)
+	program.UniformLocation("uniformColor").Set(0.2, 0.6, 0.3, 1.0)
+	program.UniformLocation("useTexture").Set(0)
 
 	indices := []uint16{
-		0, 1, 3, // bottom-left, bottom-right, top-right
-		1, 2, 3, // bottom-left, top-right, top-left
+		0, 1,
 	}
-
-	texture := gl.GenTexture()
-	texture.Bind()
-	texture.Configure(image.LoadAsEmbed(embeddedFiles, "tree.png"), gl.NEAREST)
-	texture.UnBind()
-	defer texture.Delete()
 
 	buffer := gl.GenBuffers(vertices, indices)
 	buffer.Bind(gl.VA, gl.VBO, gl.EBO)
@@ -105,32 +87,13 @@ func main() {
 	buffer.Data()
 	gl.SetupVertexAttrib(program)
 
-	dx := float32(0.01)
-	dy := float32(0.0)
-
 	for !win.Close() {
 		gl.Clear()
 		gl.ClearColor(0.2, 0.2, 0.2, 1)
 
-		if events.Key(event.KeyMap["Left"]) == event.PRESSED {
-			dx = -0.01
-		} else if events.Key(event.KeyMap["Right"]) == event.PRESSED {
-			dx = 0.01
-		} else {
-			dx = 0.0
-		}
-
-		for i := 0; i < len(vertices); i += 5 {
-			vertices[i] += dx
-			vertices[i+1] += dy
-		}
-
-		buffer.Bind(gl.VBO)
-		buffer.Update(vertices)
-
-		texture.Bind()
+		buffer.Bind(gl.VA, gl.VBO, gl.EBO)
 		gl.DrawElements(indices)
-		texture.UnBind()
+		buffer.UnBind(gl.VA, gl.VBO, gl.EBO)
 
 		win.HandleEvents()
 		win.UpdateBuffers()

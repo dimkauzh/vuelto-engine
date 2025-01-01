@@ -15,13 +15,13 @@ func main() {
 	image1 := ren2.LoadImage("test/tree.png", 100, 100, 150, 150)
 
 	for !w1.Close() && !w2.Close() {
-		w1.SetContextCurrent()
+		w1.SetCurrent()
 		ren1.ClearColor([4]int{100, 100, 100, 255})
 
 		ren1.DrawRect(0, 0, 500, 500, [4]int{10, 145, 245, 255})
 
 		w1.Refresh()
-		w2.SetContextCurrent()
+		w2.SetCurrent()
 
 		image.Draw()
 		image1.Draw()

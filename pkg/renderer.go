@@ -13,7 +13,8 @@
 package vuelto
 
 type Renderer2D struct {
-	Window *Window
+	Window   *Window
+	LegacyGL bool
 }
 
 // Creates a new renderer thats connected to the window.

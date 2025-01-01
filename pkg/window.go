@@ -15,7 +15,7 @@ package vuelto
 import (
 	"log"
 
-	gl "vuelto.pp.ua/internal/gl/legacy"
+	"vuelto.pp.ua/internal/gl"
 	windowing "vuelto.pp.ua/internal/window"
 )
 
@@ -36,9 +36,10 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 		log.Fatalln("Could not initialise a new window: ", err)
 		return nil
 	}
+	defer window.Close()
 
-	window.GlfwGLMajor = 2
-	window.GlfwGLMinor = 1
+	window.GlfwGLMajor = 3
+	window.GlfwGLMinor = 3
 
 	window.Title = title
 	window.Width = width
@@ -53,14 +54,15 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 
 	window.ResizingCallback(framebuffersizecallback)
 
+	err = gl.Init()
+	if err != nil {
+		log.Fatalf("Failed to initialise: %s", err)
+	}
+
+	gl.Enable(gl.TEXTURE_2D, gl.BLEND)
+	gl.EnableBlend()
+
 	window.ContextCurrent()
-
-	gl.Ortho(0, float64(width), float64(height), 0, -1, 1)
-
-	gl.Enable(gl.BLEND)
-	gl.Enable(gl.TEXTURE_2D)
-
-	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
 	return &Window{
 		Window: window,
@@ -78,26 +80,24 @@ func (w *Window) SetResizable(resizable bool) {
 // Function created for a loop. Returns true when being closed, and returns false when being active.
 func (w *Window) Close() bool {
 	for !w.Window.Close() {
-		w.Window.HandleEvents()
 		return false
 	}
-	cleanTex()
 	return true
 }
 
 // Refreshes te window. Run this at the end of your loop (except if you're having multiple windows)
 func (w *Window) Refresh() {
+	w.Window.HandleEvents()
 	w.Window.UpdateBuffers()
-	gl.Clear(gl.COLOR_BUFFER_BIT)
+	gl.Clear()
 }
 
 // Sets the context of the window to the current context. (Only use when having multiple windows)
-func (w *Window) SetContextCurrent() {
+func (w *Window) SetCurrent() {
 	w.Window.ContextCurrent()
 }
 
 // Destroys the window and cleans up the memory.
 func (w *Window) Destroy() {
 	w.Window.Destroy()
-	cleanTex()
 }

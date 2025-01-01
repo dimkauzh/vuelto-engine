@@ -1,6 +1,8 @@
 VERSION = none
 MESSAGE = Release version $(VERSION)
 
+DIR = ./test/test/
+
 .PHONY: release proxy-release ci_check
 
 release:
@@ -35,7 +37,7 @@ web_nixos:
 		XDG_CACHE_HOME="$(XDG_CACHE_HOME)" \
 		HOME="$(HOME)" \
 		PATH="$(GOPATH)/bin:$(PATH)" \
-		"$(GOPATH)/bin/wasmserve" ./test/backend
+		"$(GOPATH)/bin/wasmserve" "$(DIR)"
 
 format:
 	go fmt ./pkg/
