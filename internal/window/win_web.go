@@ -37,7 +37,7 @@ type Window struct {
 	Height int
 
 	lastTime      time.Time
-	deltaTime     float64
+	deltaTime     float32
 	desiredFPS    int
 	frameDuration time.Duration
 }
@@ -148,7 +148,7 @@ func (w *Window) HandleEvents() {
 	}
 }
 
-func (w *Window) GetDeltaTime() float64 {
+func (w *Window) GetDeltaTime() float32 {
 	return w.deltaTime
 }
 

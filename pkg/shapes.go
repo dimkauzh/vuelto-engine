@@ -18,9 +18,10 @@ import (
 )
 
 type Line struct {
-	Renderer       *Renderer2D
-	X1, Y1, X2, Y2 float32
-	Color          [4]int
+	Renderer *Renderer2D
+	Pos1     *Vector2D
+	Pos2     *Vector2D
+	Color    [4]int
 
 	Buffer  *gl.Buffer
 	Program *gl.Program
@@ -28,9 +29,11 @@ type Line struct {
 }
 
 type Rect struct {
-	Renderer            *Renderer2D
-	X, Y, Width, Height float32
-	Color               [4]int
+	Renderer *Renderer2D
+	Pos      *Vector2D
+	Width    float32
+	Height   float32
+	Color    [4]int
 
 	Buffer  *gl.Buffer
 	Program *gl.Program
@@ -85,10 +88,8 @@ func (r *Renderer2D) NewLine(x1, y1, x2, y2 float32, color [4]int) *Line {
 
 	return &Line{
 		Renderer: r,
-		X1:       x1,
-		Y1:       y1,
-		X2:       x2,
-		Y2:       y2,
+		Pos1:     NewVector2D(x1, y1),
+		Pos2:     NewVector2D(x2, y2),
 		Color:    color,
 
 		Buffer:  buffer,
@@ -146,10 +147,9 @@ func (r *Renderer2D) NewRect(x, y, width, height float32, color [4]int) *Rect {
 
 	return &Rect{
 		Renderer: r,
-		X:        x,
-		Y:        y,
 		Width:    width,
 		Height:   height,
+		Pos:      NewVector2D(x, y),
 		Color:    color,
 
 		Buffer:  buffer,
@@ -161,8 +161,8 @@ func (r *Renderer2D) NewRect(x, y, width, height float32, color [4]int) *Rect {
 // Draws the line loaded previously
 func (l *Line) Draw() {
 	vertices := []float32{
-		l.X1, l.Y1, 0.0,
-		l.X2, l.Y2, 0.0,
+		l.Pos1.X, l.Pos1.Y, 0.0,
+		l.Pos2.X, l.Pos2.Y, 0.0,
 	}
 
 	l.Program.Use()
@@ -177,10 +177,10 @@ func (l *Line) Draw() {
 func (r *Rect) Draw() {
 
 	vertices := []float32{
-		r.X, r.Y, 0.0,
-		r.X, r.Y - r.Height, 0.0,
-		r.X + r.Width, r.Y - r.Height, 0.0,
-		r.X + r.Width, r.Y, 0.0,
+		r.Pos.X, r.Pos.Y, 0.0,
+		r.Pos.X, r.Pos.Y - r.Height, 0.0,
+		r.Pos.X + r.Width, r.Pos.Y - r.Height, 0.0,
+		r.Pos.X + r.Width, r.Pos.Y, 0.0,
 	}
 
 	r.Program.Use()

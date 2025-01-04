@@ -22,7 +22,7 @@ import (
 )
 
 type Image struct {
-	X, Y          float32
+	Pos           *Vector2D
 	Width, Height float32
 
 	Buffer  *gl.Buffer
@@ -96,8 +96,7 @@ func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Imag
 	gl.SetupVertexAttrib(program)
 
 	return &Image{
-		X:      x,
-		Y:      y,
+		Pos:    NewVector2D(x, y),
 		Width:  width,
 		Height: height,
 
@@ -111,10 +110,10 @@ func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Imag
 // Draws the image that's loaded before.
 func (img *Image) Draw() {
 	vertices := []float32{
-		img.X, img.Y, 0.0, 0.0, 0.0,
-		img.X, img.Y - img.Height, 0.0, 0.0, 1.0,
-		img.X + img.Width, img.Y - img.Height, 0.0, 1.0, 1.0,
-		img.X + img.Width, img.Y, 0.0, 1.0, 0.0,
+		img.Pos.X, img.Pos.Y, 0.0, 0.0, 0.0,
+		img.Pos.X, img.Pos.Y - img.Height, 0.0, 0.0, 1.0,
+		img.Pos.X + img.Width, img.Pos.Y - img.Height, 0.0, 1.0, 1.0,
+		img.Pos.X + img.Width, img.Pos.Y, 0.0, 1.0, 0.0,
 	}
 
 	img.Program.Use()

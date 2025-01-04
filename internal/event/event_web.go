@@ -57,7 +57,7 @@ var (
 	RELEASED = State{"keyup"}
 
 	keyPressed = make(map[string]bool)
-	mouseCords = [2]float64{0, 0}
+	mouseCords = [2]float32{0, 0}
 )
 
 func Init(window *windowing.Window) *Event {
@@ -82,8 +82,8 @@ func Init(window *windowing.Window) *Event {
 	web.Document.AddEventListener("mousemove", func(this js.Value, p []js.Value) interface{} {
 		event := p[0]
 
-		mouseCords[0] = float64(event.Get("clientX").Float())
-		mouseCords[1] = float64(event.Get("clientY").Float())
+		mouseCords[0] = float32(event.Get("clientX").Float())
+		mouseCords[1] = float32(event.Get("clientY").Float())
 
 		return nil
 	})
@@ -104,6 +104,6 @@ func (e *Event) Key(key Key) State {
 	return RELEASED
 }
 
-func (e *Event) MousePos() (float64, float64) {
+func (e *Event) MousePos() (float32, float32) {
 	return mouseCords[0], mouseCords[1]
 }

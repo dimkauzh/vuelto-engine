@@ -26,9 +26,9 @@ func main() {
 		ren1.ClearColor([4]int{100, 100, 100, 255})
 
 		if w1.KeyPressed(vuelto.Keys["Left"]) {
-			rect.X = rect.X - 0.5*w1.GetDeltaTime()
+			rect.Pos.X = rect.Pos.X - 0.5*w1.GetDeltaTime()
 		} else if w1.KeyPressed(vuelto.Keys["Right"]) {
-			rect.X = rect.X + 0.5*w1.GetDeltaTime()
+			rect.Pos.X = rect.Pos.X + 0.5*w1.GetDeltaTime()
 		}
 
 		fmt.Println(w1.MousePos())

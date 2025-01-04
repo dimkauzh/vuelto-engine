@@ -7,14 +7,14 @@ Features for doing math with both 2D and 3D vectors.
 
 ```go
 type Vector2D struct {
-	X float64
-	Y float64
+	X float32
+	Y float32
 }
 
 type Vector3D struct {
-	X float64
-	Y float64
-	Z float64
+	X float32
+	Y float32
+	Z float32
 }
 ```
 

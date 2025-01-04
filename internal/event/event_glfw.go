@@ -72,6 +72,7 @@ func (e *Event) Key(key Key) State {
 	return State{e.Window.GlfwWindow.GetKey(key.Key)}
 }
 
-func (e *Event) MousePos() (float64, float64) {
-	return e.Window.GlfwWindow.GetCursorPos()
+func (e *Event) MousePos() (float32, float32) {
+	x, y := e.Window.GlfwWindow.GetCursorPos()
+	return float32(x), float32(y)
 }

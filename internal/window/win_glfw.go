@@ -34,7 +34,7 @@ type Window struct {
 	Height int
 
 	lastTime      time.Time
-	deltaTime     float64
+	deltaTime     float32
 	desiredFPS    int
 	frameDuration time.Duration
 }
@@ -106,7 +106,7 @@ func (w *Window) Close() bool {
 
 func (w *Window) HandleEvents() {
 	now := time.Now()
-	w.deltaTime = now.Sub(w.lastTime).Seconds()
+	w.deltaTime = float32(now.Sub(w.lastTime).Seconds())
 	w.lastTime = now
 
 	glfw.PollEvents()
@@ -129,7 +129,7 @@ func (w *Window) Destroy() {
 	w.GlfwWindow.Destroy()
 }
 
-func (w *Window) GetDeltaTime() float64 {
+func (w *Window) GetDeltaTime() float32 {
 	return w.deltaTime
 }
 

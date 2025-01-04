@@ -13,25 +13,25 @@
 package vuelto
 
 type Vector2D struct {
-	X float64
-	Y float64
+	X float32
+	Y float32
 }
 
 type Vector3D struct {
-	X float64
-	Y float64
-	Z float64
+	X float32
+	Y float32
+	Z float32
 }
 
 // Creates a new 2D vector with x and y values
-func NewVector2D(x, y float64) *Vector2D {
+func NewVector2D(x, y float32) *Vector2D {
 	return &Vector2D{
 		X: x,
 		Y: y,
 	}
 }
 
-func (v2d *Vector2D) Pos() (float64, float64) {
+func (v2d *Vector2D) Pos() (float32, float32) {
 	return v2d.X, v2d.Y
 }
 
@@ -52,7 +52,7 @@ func SubtractVector2D(v1, v2 Vector2D) *Vector2D {
 }
 
 // Creates a new 3D vector with x, y and z values
-func NewVector3D(x, y, z float64) *Vector3D {
+func NewVector3D(x, y, z float32) *Vector3D {
 	return &Vector3D{
 		X: x,
 		Y: y,

@@ -7,8 +7,8 @@ Features for detecting user events.
 
 ```go
 type Vector2D struct {
-	X float64
-	Y float64
+	X float32
+	Y float32
 }
 ```
 !!! note
