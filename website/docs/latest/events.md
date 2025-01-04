@@ -35,11 +35,15 @@ vuelto.Keys["<Key-here>"]
 
 ## ℹ️ Usage
 
-For now you have the ability to detect key press and key release, with `KeyPressed()` and `KeyReleased()`. Both functions take a key name (as shown above) as a unique argument, and return a boolean indicating the status.
+For now you have the ability to detect key press and key release, with `KeyPressed()`, `KeyReleased()` and `KeyPressedOnce()`. All these functions take a key name (as shown above) as a unique argument, and return a boolean indicating the status.
 
 ```go
 if window.KeyPressed(vuelto.Keys["E"]) {
     // This runs when I press the E key
+}
+
+if window.KeyPressedOnce(vuelto.Keys["G"]) {
+		// This runs only once when I press the G key
 }
 
 if window.KeyReleased(vuelto.Keys["F"]) {

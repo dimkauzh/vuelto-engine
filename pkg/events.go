@@ -14,7 +14,10 @@ package vuelto
 
 import "vuelto.pp.ua/internal/event"
 
-var Keys = event.KeyMap
+var (
+	Keys     = event.KeyMap
+	keyState = make(map[event.Key]bool)
+)
 
 func (w *Window) KeyPressed(key event.Key) bool {
 	return w.Event.Key(key) == event.PRESSED
@@ -22,6 +25,16 @@ func (w *Window) KeyPressed(key event.Key) bool {
 
 func (w *Window) KeyReleased(key event.Key) bool {
 	return w.Event.Key(key) == event.RELEASED
+}
+
+func (w *Window) KeyPressedOnce(key event.Key) bool {
+	if pressed := w.KeyPressed(key); pressed && !keyState[key] {
+		keyState[key] = true
+		return true
+	} else if !pressed {
+		keyState[key] = false
+	}
+	return false
 }
 
 func (w *Window) MousePos() *Vector2D {
