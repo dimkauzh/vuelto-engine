@@ -1,5 +1,5 @@
 ---
-draft: false
+draft: true
 date: 2025-01-05
 categories:
   - Updates
@@ -7,7 +7,7 @@ categories:
 authors:
   - zaka
 slug: vuelto-1-1-release
-pin: true
+pin: false
 # readtime: 3 # more or less
 ---
 
