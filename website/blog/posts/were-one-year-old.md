@@ -10,7 +10,7 @@ pin: false
 readtime: 3 # more or less
 ---
 
-# We’re one year old\! V1.1 is coming, and it’s looking good\
+# We’re one year old\! V1.1 is coming, and it’s looking good
 
 ![Post cover](../assets/were-one-year-old-cover.png)
 
