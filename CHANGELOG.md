@@ -1,6 +1,6 @@
 # Vuelto Changelog
 
-## Vuelto 1.1 (Unreleased)
+## Vuelto 1.1 (05/01/2025)
 
 ### Breaking changes
 
