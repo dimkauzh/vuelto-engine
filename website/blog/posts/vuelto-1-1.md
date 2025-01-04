@@ -17,6 +17,7 @@ pin: false
 
 Hi there! Happy new year to everyone. We’re *a bit* late, but still hyped to give you everyone this year’s gift: **Vuelto 1.1!** While it’s a *minor* update from a user perspective, it’s a whole revamp of Vuelto’s internals, bringing - among other things - support for making web-based games from the same codebase! We also improved performance, made the groundwork for the now available events system, and even more. So let's dive into it!
 
+<!-- more -->
 ## The new Vuelto renderer
 
 Vuelto 1.0’s legacy renderer uses a pipelined system for rendering graphics. It looks kinda like this:  

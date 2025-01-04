@@ -18,6 +18,7 @@ Hi there\! I’m [Zaka](https://github.com/ZakaHaceCosas), and I’m a new addit
 
 We at Vuelto have been cooking a new release for a while now, and while it’s not ready for today as we still work on it, it’s coming soon (in fact, there’s already a [PR draft](https://github.com/vuelto-org/vuelto/pull/8)), and it’s looking pretty neat.
 
+<!-- more -->
 ## New rendering system approach
 
 Currently, Vuelto 1.0 uses a pipelined system for rendering graphics. It looks kinda like this:
