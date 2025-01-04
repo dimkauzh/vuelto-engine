@@ -36,6 +36,7 @@ nav:
       - 🎓 Home: "tutorials/index.md"
       - 🌱 Beginner:
           - 🚀 Getting Started: "tutorials/beginner/new-project.md"
+          - 🎨 Rendering: "tutorials/beginner/rendering.md"
   - Roadmap:
       - 📅 Upcoming: "roadmap/index.md"
       - 🛣️ V1: "roadmap/v1.md"
