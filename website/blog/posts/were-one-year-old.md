@@ -6,18 +6,19 @@ categories:
 authors:
   - zaka
 slug: were-one-year-old
-pin: true
+pin: false
 readtime: 3 # more or less
 ---
 
-![Post cover](../assets/were-one-year-old-cover.png)
+# We’re one year old\! V1.1 is coming, and it’s looking good
 
-# We’re one year old\! V1.1 is coming, and it’s looking good\!
+![Post cover](../assets/were-one-year-old-cover.png)
 
 Hi there\! I’m [Zaka](https://github.com/ZakaHaceCosas), and I’m a new addition to the Vuelto Team, though I’ve known this engine for a while. Feels like it’s already been a year since I got to know this engine \- and indeed, it has been a year since it was made\! Today, one year ago, Vuelto was created as an alternative to [Fusion Engine](https://github.com/fusionengine-org/fusion), another engine made by the same creator.
 
 We at Vuelto have been cooking a new release for a while now, and while it’s not ready for today as we still work on it, it’s coming soon (in fact, there’s already a [PR draft](https://github.com/vuelto-org/vuelto/pull/8)), and it’s looking pretty neat.
 
+<!-- more -->
 ## New rendering system approach
 
 Currently, Vuelto 1.0 uses a pipelined system for rendering graphics. It looks kinda like this:
@@ -70,7 +71,7 @@ window.Resizable = resizable
 
 \- you now have something that works with both the web and GLFW. Under the hood, Vuelto will take care of code filtering for each platform, so you don’t gotta worry about that.
 
-## Events\!
+## Events\
 
 *There’s less progress on this area* BUT \- it’s a thing, and it’s coming in V1.1\! While this is still in early stages and subject to changes, for now the idea is to make them using a boolean (`true`/`false`) structure.
 
@@ -94,7 +95,6 @@ vuelto.GetMousePox().Y // 131
 
 !!! note
     Keep in mind that the function returns the value for the moment of the call.
-
     The value is not “reactive” like a web dev would say, so if you want to constantly keep track of the value, you’ll have to use some sort of loop.
 
 ## Better engine, better looks
@@ -109,5 +109,5 @@ And that’s all, my fellows\! Again, this is still in the works, V1.1 will have
 
 For now, happy birthday, Vuelto\!
 
-God bless you,
+Onward and upward,
 > \- [Zaka](https://github.com/ZakaHaceCosas), from the Vuelto Team.
