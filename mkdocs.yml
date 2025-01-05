@@ -37,8 +37,8 @@ nav:
       - 🌱 Beginner:
           - 🚀 Getting Started: "tutorials/beginner/new-project.md"
           - 🎨 Rendering: "tutorials/beginner/rendering.md"
-  - Examples:
-      - 🏠 Examples: "examples/index.md"
+  - Demo:
+      - 🏠 Demo: "examples/index.md"
       - 📚 Shapes: "examples/1/index.html"
       - 📚 Images: "examples/2/index.html"
       - 📚 Combined: "examples/3/index.html"
