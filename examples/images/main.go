@@ -11,7 +11,7 @@ var embeddedFiles embed.FS
 
 func main() {
 	// This works in the web too! This is because of the images being embedded!
-	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, false)
+	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, true)
 	ren := w.NewRenderer2D()
 
 	iembed := vuelto.ImageEmbed{
