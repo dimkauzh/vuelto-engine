@@ -139,7 +139,7 @@ func (w *Window) Destroy() {}
 
 func (w *Window) HandleEvents() {
 	now := time.Now()
-	w.deltaTime = now.Sub(w.lastTime).Seconds()
+	w.deltaTime = float32(now.Sub(w.lastTime).Seconds())
 	w.lastTime = now
 
 	duration := time.Since(w.lastTime)
