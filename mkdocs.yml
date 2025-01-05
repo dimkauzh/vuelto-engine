@@ -38,10 +38,10 @@ nav:
           - 🚀 Getting Started: "tutorials/beginner/new-project.md"
           - 🎨 Rendering: "tutorials/beginner/rendering.md"
   - Demo:
-      - 🏠 Demo: "examples/index.md"
-      - 📚 Shapes: "examples/1/index.html"
-      - 📚 Images: "examples/2/index.html"
-      - 📚 Combined: "examples/3/index.html"
+      - 🏠 Demo: "demo/index.md"
+      - 📚 Shapes: "demo/1/index.html"
+      - 📚 Images: "demo/2/index.html"
+      - 📚 Rendering: "demo/3/index.html"
 
   - Roadmap:
       - 📅 Upcoming: "roadmap/index.md"
@@ -97,6 +97,7 @@ plugins:
       redirect_maps:
         "discord.md": "https://discord.gg/gZqdRXbbqg"
         "repo.md": "https://github.com/vuelto-org/vuelto"
+        "examples.md": "demo/index.md"
 
 markdown_extensions:
   - abbr
