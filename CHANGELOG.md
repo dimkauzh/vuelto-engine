@@ -1,6 +1,12 @@
 # Vuelto Changelog
 
-## Vuelto 1.1 (05/01/2025)
+## Vuelto 1.1.1 (05/01/2025)
+
+### Fixes
+
+- Fixed web builds not working.
+
+## Vuelto 1.1.0 (05/01/2025)
 
 ### Breaking changes
 
@@ -27,4 +33,6 @@
 - Params `X` and `Y` (and `Z`) for `Vector2D` and `Vector3D` are now of type `float32` instead of `float64`.
 - Improved performance.
 
-<!-- TODO: review older versions and log their changes -->
+---
+
+Changes prior to 1.1.0 aren't logged. Use GitHub's diff view if you want to see changes from older versions.
