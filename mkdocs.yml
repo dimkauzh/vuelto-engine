@@ -16,7 +16,7 @@ nav:
       - 🛠️ In-depth Installation: "install.md"
 
   - Docs:
-      - 🏠 Home: "docs/index.md"
+      - 🏠 Docs: "docs/index.md"
       - 👤 User Docs:
           - 🖥️ Windowing and Renderer: "docs/latest/window-render.md"
           - 🔊 Audio: "docs/latest/audio.md"
@@ -33,7 +33,7 @@ nav:
       - blog/index.md
 
   - Tutorials:
-      - 🎓 Home: "tutorials/index.md"
+      - 🎓 Tutorials: "tutorials/index.md"
       - 🌱 Beginner:
           - 🚀 Getting Started: "tutorials/beginner/new-project.md"
           - 🎨 Rendering: "tutorials/beginner/rendering.md"
