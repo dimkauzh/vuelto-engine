@@ -1,5 +1,10 @@
 # 📄 Vuelto Documentation
 
-Welcome to the documentation of Vuelto! Here you will find a wiki, which is basically all function explained. New to Vuelto? Then head over to the [tutorials](../tutorials/index.md).
+Welcome to the Vuelto documentation! Here you'll find a page for each Vuelto feature, where all functions (and types where needed) are explained to you.
 
-To start with, make sure you have everything setup and Vuelto ready to use. If you are not sure that you have everything setup, head over to the [Get Started tab.](../get-started.md)
+New to Vuelto? Then head over to the [tutorials tab](../tutorials/index.md).
+
+## 📑 Table of contents
+
+- [Latest stable docs](latest/window-render.md)
+- [Docs for developers and contributors](developers/index.md)

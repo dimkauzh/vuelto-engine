@@ -1,6 +1,8 @@
 site_name: Vuelto
 site_description: A fast and lightweight game engine powered by Go and OpenGL. Easy, fast and lightweight!
-site_url: https://vuelto.me
+site_url: https://vuelto.pp.ua
+site_author: The Vuelto Team
+copyright: The Vuelto Team
 
 repo_name: vuelto-org/vuelto
 repo_url: https://github.com/vuelto-org/vuelto
@@ -8,21 +10,50 @@ repo_url: https://github.com/vuelto-org/vuelto
 docs_dir: "website"
 
 nav:
-  - Home: "home.md"
-
+  - Home: "index.md"
   - Getting started:
-    - 🚀 Quick start: "get-started.md"
-    - 🛠️ Indepth Installation: "install.md"
+      - 🚀 Quick start: "get-started.md"
+      - 🛠️ In-depth Installation: "install.md"
 
+  - Docs:
+      - 🏠 Home: "docs/index.md"
+      - 👤 User Docs:
+          - 🖥️ Windowing and Renderer: "docs/latest/window-render.md"
+          - 🔊 Audio: "docs/latest/audio.md"
+          - 🔥 Events: "docs/latest/events.md"
+          - 🖼️ Images: "docs/latest/image.md"
+          - 🎨 Drawing: "docs/latest/draw.md"
+          - 🔢 Vector Math: "docs/latest/vectors.md"
+      - 📱 Developer Docs:
+          - 💻 Dev Home: "docs/developers/index.md"
+          - 💍 3 Ring approach: "docs/developers/rings.md"
+          - 📋 Contribution Guidelines: "docs/developers/contribution.md"
+
+  - Blog:
+      - blog/index.md
+
+  - Tutorials:
+      - 🎓 Home: "tutorials/index.md"
+      - 🌱 Beginner:
+          - 🚀 Getting Started: "tutorials/beginner/new-project.md"
+          - 🎨 Rendering: "tutorials/beginner/rendering.md"
   - Roadmap:
-    - 🛣️ V1: "roadmap/v1.md"
-    - 🛣️ V2: "roadmap/v2.md"
+      - 📅 Upcoming: "roadmap/index.md"
+      - 🛣️ V1: "roadmap/v1.md"
+      - 🛣️ V2: "roadmap/v2.md"
+
+  - About:
+      - 🛈 About: "about/index.md"
+      - 🛡️ License: "about/license.md"
+      - 🤝 Code of Conduct: "about/coc.md"
+      - 👥 Contributing: "about/contributing.md"
 
 theme:
   name: material
+  custom_dir: website/overrides
 
-  logo: logo/icon-no-bg.png
-  favicon: logo/icon-no-bg.png
+  logo: /logo/pfp-nobg.png
+  favicon: logo/favicon.png
 
   features:
     - navigation.path
@@ -34,7 +65,6 @@ theme:
 
     - content.code.copy
 
-
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -42,18 +72,25 @@ theme:
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: teal
-      accent: indigo
+      primary: white
+      accent: deep-orange # close to vuelto orange
       toggle:
         icon: material/toggle-switch
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
-      accent: indigo
+      accent: indigo # close to vuelto blue
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
+
+plugins:
+  - blog
+  - redirects:
+      redirect_maps:
+        "discord.md": "https://discord.gg/gZqdRXbbqg"
+        "repo.md": "https://github.com/vuelto-org/vuelto"
 
 markdown_extensions:
   - abbr
@@ -89,6 +126,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde

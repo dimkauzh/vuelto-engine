@@ -1,0 +1,36 @@
+name: Go Format Check
+
+on:
+  push:
+    branches:
+      - latest
+      - stable
+
+  pull_request:
+    branches:
+      - latest
+      - stable
+jobs:
+  go-fmt-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '1.22'
+
+    - name: Check Go format
+      run: |
+        files=$(gofmt -l .)
+        if [ -n "$files" ]; then
+        echo "Following files arent formatted:"
+          echo "$files"
+          exit 1
+        else
+          echo "Everything is formatted."
+        fi
+

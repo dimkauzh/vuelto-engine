@@ -2,10 +2,14 @@ name: ci_check
 
 on:
   push:
-    branches: "main"
+    branches:
+      - latest
+      - stable
 
   pull_request:
-    branches: "main"
+    branches:
+      - latest
+      - stable
 
 jobs:
   build:
@@ -15,7 +19,7 @@ jobs:
       fail-fast: false
 
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         build_type: [Release]
         c_compiler: [gcc, clang, cl]
         include:
@@ -26,6 +30,9 @@ jobs:
             c_compiler: gcc
             cpp_compiler: g++
           - os: ubuntu-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+          - os: macos-latest
             c_compiler: clang
             cpp_compiler: clang++
         exclude:
@@ -42,7 +49,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: '1.22'
 
       - name: Update Packages (Linux)
         if: startsWith(matrix.os, 'ubuntu')
@@ -57,3 +64,4 @@ jobs:
 
       - name: Make Ci_Check
         run: make ci_check
+

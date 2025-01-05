@@ -13,3 +13,9 @@ CMakeFiles/
 .cmake
 Testing
 site
+
+.env
+.envrc
+.direnv/
+
+internal/gl/opengl/old

@@ -1,11 +1,14 @@
 package main
 
-import vuelto "vuelto.me/pkg"
+import (
+	vuelto "vuelto.pp.ua/pkg"
+)
 
 func main() {
-	w := vuelto.NewWindow("hi", 800, 600, false)
+	// This works in the web too! Only it wouldn't be so fun :(
+	win := vuelto.NewWindow("hi", 800, 600, false)
 
-	for !w.Close() {
-		w.Refresh()
+	for !win.Close() {
+		win.Refresh()
 	}
 }
