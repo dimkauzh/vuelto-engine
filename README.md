@@ -12,7 +12,7 @@
   <a href="https://beua.today"><img alt="Powered By" src="https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge"></a>
 </p>
 
-Vuelto is an open-source, fast, and lightweight game engine, based on Golang, CGo, and OpenGL. It's easy to use yet very powerful, and it's also cross platform, meaning it can be deployed on almost all major platforms
+Vuelto is an open-source, fast, and lightweight game engine, based on Golang, CGo, and OpenGL. It's easy to use yet very powerful, and it's also cross platform, meaning it can be deployed on almost all major platforms.
 
 ## ✨ Features
 
