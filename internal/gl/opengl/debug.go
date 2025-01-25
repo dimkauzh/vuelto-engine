@@ -16,8 +16,8 @@ type DebugProc func(
 
 var userDebugCallback DebugProc
 
-//export glowDebugCallback_glcore33
-func glowDebugCallback_glcore33(
+//export glowDebugCallback_glcompatability33
+func glowDebugCallback_glcompatability33(
 	source uint32,
 	gltype uint32,
 	id uint32,

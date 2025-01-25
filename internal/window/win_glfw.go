@@ -67,7 +67,7 @@ func (w *Window) Create() error {
 	}
 
 	if w.GlfwGLMajor >= 3 {
-		glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
+		glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCompatProfile)
 
 		if runtime.GOOS == "darwin" {
 			glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
