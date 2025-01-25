@@ -57,6 +57,8 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 
 	window.ResizingCallback(frameBufferSizeCallback)
 
+	window.ContextCurrent()
+
 	events := event.Init(window)
 
 	err = gl.Init()
@@ -67,7 +69,6 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 	gl.Enable(gl.TEXTURE_2D, gl.BLEND)
 	gl.EnableBlend()
 
-	window.ContextCurrent()
 
 	return &Window{
 		Window: window,
