@@ -49,12 +49,12 @@ format:
 	go fmt ./internal/gl/opengl/
 	go fmt ./internal/gl/
 
-	go fmt ./internal/windowing/web/
-	go fmt ./internal/windowing/x11/
-	go fmt ./internal/windowing/cocoa/
-	go fmt ./internal/windowing/win32/
-	go fmt ./internal/windowing/wayland/
-	go fmt ./internal/windowing/
+	go fmt ./internal/window/web/
+	go fmt ./internal/window/x11/
+	go fmt ./internal/window/cocoa/
+	go fmt ./internal/window/win32/
+	go fmt ./internal/window/wayland/
+	go fmt ./internal/window/
 
 	go fmt ./examples/images/
 	go fmt ./examples/shapes/

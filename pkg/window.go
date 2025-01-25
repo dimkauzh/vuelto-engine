@@ -69,7 +69,6 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 	gl.Enable(gl.TEXTURE_2D, gl.BLEND)
 	gl.EnableBlend()
 
-
 	return &Window{
 		Window: window,
 		Title:  title,
