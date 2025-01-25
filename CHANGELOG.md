@@ -1,5 +1,11 @@
 # Vuelto Changelog
 
+## Vuelto 1.1.2 (25/01/2025)
+
+### Fixes
+- Fixed building on older gpu's
+- Changed to compatability rather then core profile
+
 ## Vuelto 1.1.1 (05/01/2025)
 
 ### Fixes
