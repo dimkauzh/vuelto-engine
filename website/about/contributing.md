@@ -24,22 +24,15 @@ Some technologies we are using
 
 If you want to contribute, you have to set up the work environment, so you can develop vuelto the right way.
 
-1. Install  the packages
+- Run `go mod tidy` to install all the packages.
+- Fork [the repository](https://github.com/vuelto-org/vuelto).
+- Clone your forked github repository:
 
 ```bash
-go mod tidy
+git clone https://github.com/your_username/vuelto.git
 ```
 
-2. Fork [the repository](https://vuelto.pp.ua/repo).
-
-3. Clone your forked github repository:
-
-```bash
-git clone https://github.com/your_username_/vuelto.git
-cd vuelto
-```
-
-4. Change the branch to the dev branch to follow rule \#1:
+- Change the branch to the dev branch to follow rule \#1:
 
 ```bash
 git checkout dev
@@ -47,14 +40,12 @@ git checkout dev
 
 ## Pull Request
 
-If you're ready with your changes, then you must follow a few steps before pull requesting.
-
-1. Run `make` to format your code:
+When you're ready with your changes, make sure you run `make` to format your code before pull requesting:
 
 ```bash
 make format
 ```
 
-Then make sure your pull request code works without erroring and you followed the [contribution rules](#contributing-rules)
+Then make sure your code works without erroring and you're following the [contribution rules](#contributing-rules).
 
-After all of this, you can create a pull request and one of our main organization members will look at it.
+After all of this, you can create a pull request and one of our main members will look at it (and hopefully merge it!).

@@ -11,6 +11,7 @@ type Vector2D struct {
 	Y float32
 }
 ```
+
 !!! note
     Every event should be checked in the game loop, else it won't work.
 

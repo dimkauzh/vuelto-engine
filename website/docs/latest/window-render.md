@@ -9,6 +9,7 @@ This module allows you to manage the main window and rendering operations, essen
 ## 🏠 Window
 
 To create a window, initialize a new instance and store it in a variable. Pass the following arguments:
+
 - **Title**: The title of your window.
 - **Width**: The width of the window in pixels.
 - **Height**: The height of the window in pixels.
@@ -52,11 +53,11 @@ for !window.Close() {
 
 ```go
 for !window.Close() {
-	image.Draw()
+ image.Draw()
 
   // ...
 
-	window.Refresh()
+ window.Refresh()
 }
 ```
 

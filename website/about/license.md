@@ -14,7 +14,6 @@ This software is licensed under the terms of the [GNU General Public License ver
 
 “_The source code_” refers to any piece of source code, including but not limited to scripts, computer code, and compiled binaries, that is directly associated with The software.
 
-
 "_The main repository_" refers to the repository where most of The software's development occurs, and/or where The source code of The software itself (or at least it’s primary / most important parts) is hosted, _not_ implying that other code repositories that are directly linked to the project are to be excluded by the terms of the Vuelto License.
 
 ## **1. Primary License**
@@ -24,6 +23,7 @@ The software is, by default, licensed under the terms of the main license unless
 ## **2. Condition for License Change**
 
 The software shall be deemed "unmaintained" if any of the following conditions are met:
+
 - The project repository has been archived or set to read-only.
 - The project has been officially pronounced as "dead", "unmaintained", or something else with the same meaning by The maintainer(s).
 - No substantial code contributions (beyond minor maintenance tasks or dependency updates) have been made to The main repository for a continuous period of 1.5 years (18 months).
@@ -60,13 +60,13 @@ The decision on whether The software is unmaintained will be made by the origina
 
 ## **5. Communication of License change**
 
-If The software is declared unmaintained by The maintainer(s), the change shall be communicated by an update to The sroject's "_README_ file", website, or any other mean of communication that makes this change clear.
+If The software is declared unmaintained by The maintainer(s), the change shall be communicated by an update to The project's "_README_ file", website, or any other mean of communication that makes this change clear.
 
 ## **6. Extensibility of the License**
 
 It is possible for The maintainer(s) to extend the Vuelto License with additional terms. These must be made clear by The maintainer(s) by specifying them when using the License's identifier.
 
-All possible extensions are shipped in the License's text, but they shall apply only if specified by The maintainer(s). Extensions are not part of the License's numerical order (Section 1, Section 2, and so); instead they are found at the end, preceeded by a heading with their specific identifier, and then using "A, B, C..." notation rather than "1, 2, 3..." notation for each section.
+All possible extensions are shipped in the License's text, but they shall apply only if specified by The maintainer(s). Extensions are not part of the License's numerical order (Section 1, Section 2, and so); instead they are found at the end, preceded by a heading with their specific identifier, and then using "A, B, C..." notation rather than "1, 2, 3..." notation for each section.
 
 ### **6.1. License identification**
 
@@ -84,7 +84,6 @@ The following extensions, with their content available at the end of this Licens
 ### **A. Copyright on Artwork**
 
 Any artwork associated with The software, including but not limited to logos, icons, and other visual assets, is copyrighted and licensed under the terms of the Primary License (GNU GPLv3 or later). However, if The software license changes to the MIT License under the conditions outlined in **Section 3**, this copyright on artwork no longer applies, and the artwork is included under the MIT License.
-
 
 ### **B. Copyright on Code**
 

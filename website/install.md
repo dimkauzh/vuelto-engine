@@ -12,7 +12,7 @@ go get vuelto.pp.ua@latest
 
 You have to have X11-dev-packages and C compiler installed.
 
-#### 🖥️ X11
+### 🖥️ X11
 
 On Debian and derivate distributions like Ubuntu and Linux Mint the xorg-dev meta-package pulls in the development packages for all of X11.
 
