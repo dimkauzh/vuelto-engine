@@ -11,7 +11,7 @@ hide:
 </style>
 
 <div align="center">
-  <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-nobg.png">
+  <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-nobg.png" />
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/vuelto-org/vuelto?style=for-the-badge)](https://github.com/vuelto-org/vuelto)
 [![License](https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge)](https://github.com/vuelto-org/license)
@@ -21,7 +21,7 @@ hide:
 [![Powered By](https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge)](https://www.opengl.org/Documentation/Specs.html)
 [![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge)](https://beua.today)
 
-</p>
+</div>
 
 Welcome to the Vuelto website! Here you will find things like documentation, blogs, tutorials and everything about Vuelto!
 
