@@ -3,6 +3,7 @@ hide:
   - navigation
 ---
 
+<!-- markdownlint-disable md033 -->
 <style>
   .md-typeset h1,
   .md-content__button {
@@ -10,18 +11,29 @@ hide:
   }
 </style>
 
-<div align="center">
-  <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-nobg.png" />
+<img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-nobg.png" />
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/vuelto-org/vuelto?style=for-the-badge)](https://github.com/vuelto-org/vuelto)
-[![License](https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge)](https://github.com/vuelto-org/license)
-[![CI Check](https://img.shields.io/github/actions/workflow/status/vuelto-org/vuelto/ci_check.yml?style=for-the-badge)](https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml)
-[![Lines of code](https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge)](https://github.com/vuelto-org/vuelto)
-[![Report card](https://goreportcard.com/badge/github.com/vuelto-org/vuelto?style=for-the-badge)](https://goreportcard.com/report/github.com/vuelto-org/vuelto)
-[![Powered By](https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge)](https://www.opengl.org/Documentation/Specs.html)
-[![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge)](https://beua.today)
-
-</div>
+<a href="https://github.com/vuelto-org/vuelto">
+  <img src="https://img.shields.io/github/last-commit/vuelto-org/vuelto?style=for-the-badge" alt="GitHub last commit">
+</a>
+<a href="https://github.com/vuelto-org/license">
+  <img src="https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge" alt="License">
+</a>
+<a href="https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml">
+  <img src="https://img.shields.io/github/actions/workflow/status/vuelto-org/vuelto/ci_check.yml?style=for-the-badge" alt="CI Check">
+</a>
+<a href="https://github.com/vuelto-org/vuelto">
+  <img src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge" alt="Lines of code">
+</a>
+<a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto">
+  <img src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto?style=for-the-badge" alt="Report card">
+</a>
+<a href="https://www.opengl.org/Documentation/Specs.html">
+  <img src="https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge" alt="Powered By">
+</a>
+<a href="https://beua.today">
+  <img src="https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge" alt="Made in Ukraine">
+</a>
 
 Welcome to the Vuelto website! Here you will find things like documentation, blogs, tutorials and everything about Vuelto!
 
