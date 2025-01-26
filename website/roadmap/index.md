@@ -30,3 +30,7 @@
     - [ ] Color struct
     - [ ] NewColor function
     - [ ] Predefined Color constants
+
+- [ ] Web image loading
+    - [ ] HTTP
+    - [ ] HTTPS
