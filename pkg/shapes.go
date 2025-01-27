@@ -42,6 +42,8 @@ type Rect struct {
 
 // Loads a new line and returns a Line struct. Can be later drawn using Draw() method
 func (r *Renderer2D) NewLine(x1, y1, x2, y2 float32, color [4]int) *Line {
+	r.Window.SetCurrent()
+
 	vertexShader := gl.NewShader(gl.VertexShader{
 		WebShader:     ushaders.WebVShader,
 		DesktopShader: ushaders.DesktopVShader,
@@ -86,6 +88,8 @@ func (r *Renderer2D) NewLine(x1, y1, x2, y2 float32, color [4]int) *Line {
 	buffer.Data()
 	gl.SetupVertexAttrib(program)
 
+	r.Window.UnsetCurrent()
+
 	return &Line{
 		Renderer: r,
 		Pos1:     NewVector2D(x1, y1),
@@ -100,6 +104,8 @@ func (r *Renderer2D) NewLine(x1, y1, x2, y2 float32, color [4]int) *Line {
 
 // Loads a new rect and returns a Rect struct. Can be later drawn using Draw() method
 func (r *Renderer2D) NewRect(x, y, width, height float32, color [4]int) *Rect {
+	r.Window.SetCurrent()
+
 	vertexShader := gl.NewShader(gl.VertexShader{
 		WebShader:     ushaders.WebVShader,
 		DesktopShader: ushaders.DesktopVShader,
@@ -145,6 +151,8 @@ func (r *Renderer2D) NewRect(x, y, width, height float32, color [4]int) *Rect {
 	buffer.Data()
 	gl.SetupVertexAttrib(program)
 
+	r.Window.UnsetCurrent()
+
 	return &Rect{
 		Renderer: r,
 		Width:    width,
@@ -160,6 +168,8 @@ func (r *Renderer2D) NewRect(x, y, width, height float32, color [4]int) *Rect {
 
 // Draws the line loaded previously
 func (l *Line) Draw() {
+	l.Renderer.Window.SetCurrent()
+
 	vertices := []float32{
 		l.Pos1.X, l.Pos1.Y, 0.0,
 		l.Pos2.X, l.Pos2.Y, 0.0,
@@ -171,10 +181,15 @@ func (l *Line) Draw() {
 	l.Buffer.Update(vertices)
 	gl.DrawElements(l.Indices)
 	l.Buffer.UnBind(gl.VA, gl.VBO, gl.EBO)
+
+	l.Program.UnUse()
+
+	l.Renderer.Window.UnsetCurrent()
 }
 
 // Draws the rect loaded previously
 func (r *Rect) Draw() {
+	r.Renderer.Window.SetCurrent()
 
 	vertices := []float32{
 		r.Pos.X, r.Pos.Y, 0.0,
@@ -189,4 +204,8 @@ func (r *Rect) Draw() {
 	r.Buffer.Update(vertices)
 	gl.DrawElements(r.Indices)
 	r.Buffer.UnBind(gl.VA, gl.VBO, gl.EBO)
+
+	r.Program.UnUse()
+
+	r.Renderer.Window.UnsetCurrent()
 }

@@ -316,3 +316,11 @@ func Int32ToUint16(input []int32) []uint16 {
 func NewUint16ArrayFromInt32(input []int32) js.Value {
 	return NewUint16Array(Int32ToUint16(input))
 }
+
+func NewUint8Array(values []uint8) js.Value {
+	array := js.Global().Get("Uint8Array").New(len(values))
+	for i, v := range values {
+		array.SetIndex(i, v)
+	}
+	return array
+}

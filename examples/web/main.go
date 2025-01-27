@@ -24,6 +24,9 @@ func main() {
 		Image:      "galaxy.png",
 	}
 
+	image2 := ren.LoadImage(vuelto.ImageHTTP{
+		Url: "https://dev-tester.com/content/images/2021/12/blog_cover_further_api_testing_with_http_toolkit.png",
+	}, -0.1, 0.1, 0.4, 0.4)
 	image1 := ren.LoadImage(iembed, 0.5, 0.5, -0.5, 0.5)
 	image := ren.LoadImage(i2embed, 0, 0, 1, 1)
 	rect := ren.NewRect(0, 0, -1, -1, [4]int{10, 145, 245, 255})
@@ -38,6 +41,7 @@ func main() {
 		rect2.Draw()
 		line.Draw()
 
+		image2.Draw()
 		image1.Draw()
 		image.Draw()
 		w.Refresh()

@@ -135,6 +135,8 @@ func (w *Window) Close() bool {
 
 func (w *Window) ContextCurrent() {}
 
+func (w *Window) UnsetContext() {}
+
 func (w *Window) Destroy() {}
 
 func (w *Window) HandleEvents() {

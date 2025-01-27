@@ -25,8 +25,8 @@ hide:
 <a href="https://github.com/vuelto-org/vuelto">
   <img src="https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge" alt="Lines of code">
 </a>
-<a href="https://goreportcard.com/report/github.com/vuelto-org/vuelto">
-  <img src="https://goreportcard.com/badge/github.com/vuelto-org/vuelto?style=for-the-badge" alt="Report card">
+<a href="https://goreportcard.com/report/vuelto.pp.ua">
+  <img src="https://goreportcard.com/badge/vuelto.pp.ua?style=for-the-badge" alt="Report card">
 </a>
 <a href="https://www.opengl.org/Documentation/Specs.html">
   <img src="https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge" alt="Powered By">
@@ -34,6 +34,7 @@ hide:
 <a href="https://beua.today">
   <img src="https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge" alt="Made in Ukraine">
 </a>
+
 
 Welcome to the Vuelto website! Here you will find things like documentation, blogs, tutorials and everything about Vuelto!
 

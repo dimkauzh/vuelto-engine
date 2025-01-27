@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-VL--Cv1.1-blue?style=for-the-badge)](https://github.com/vuelto-org/license)
 [![CI Check](https://img.shields.io/github/actions/workflow/status/vuelto-org/vuelto/ci_check.yml?style=for-the-badge)](https://github.com/vuelto-org/vuelto/actions/workflows/ci_check.yml)
 [![Lines of code](https://www.aschey.tech/tokei/github/vuelto-org/vuelto?style=for-the-badge)](https://github.com/vuelto-org/vuelto)
-[![Report card](https://goreportcard.com/badge/github.com/vuelto-org/vuelto?style=for-the-badge)](https://goreportcard.com/report/github.com/vuelto-org/vuelto)
+[![Report card](https://goreportcard.com/badge/vuelto.pp.ua?style=for-the-badge)](https://goreportcard.com/report/vuelto.pp.ua)
 [![Powered By](https://img.shields.io/badge/powered_by-GL_3.3-blue?style=for-the-badge)](https://www.opengl.org/Documentation/Specs.html)
 [![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge)](https://beua.today)
 

@@ -94,7 +94,7 @@ func main() {
 
 	texture := gl.GenTexture()
 	texture.Bind()
-	texture.Configure(image.LoadAsEmbed(embeddedFiles, "tree.png"), gl.NEAREST)
+	texture.Configure(image.LoadAsHTTP("https://dev-tester.com/content/images/2021/12/blog_cover_further_api_testing_with_http_toolkit.png"), gl.NEAREST)
 	texture.UnBind()
 	defer texture.Delete()
 

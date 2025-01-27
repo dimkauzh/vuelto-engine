@@ -252,6 +252,7 @@ func (b *Buffer) Data() {
 
 func (b *Buffer) Update(data []float32) {
 	gl.BufferData(gl.ARRAY_BUFFER, len(data)*4, gl.Ptr(data), gl.DYNAMIC_DRAW)
+	gl.BufferData(gl.ELEMENT_ARRAY_BUFFER, len(b.Indices)*4, gl.Ptr(b.Indices), gl.DYNAMIC_DRAW)
 }
 
 func (b *Buffer) Delete(args ...*Arguments) {

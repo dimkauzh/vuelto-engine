@@ -5,7 +5,7 @@ Hello and welcome to the first tutorial in the beginner series! In this tutorial
 
 !!! note
     This tutorial assumes you have a basic understanding of Go. If you are new to Go, you can learn more about it.
-    If you want to follow along, the example we are building is available in the [Github repo](https://github.com/vuelto-org/vuelto/blob/latest/examples/basic-window/main.go).
+    If you want to follow along, the example we are building is available in the [Github repo](https://github.com/vuelto-org/vuelto/blob/stable/examples/basic-window/main.go).
 
 ## 📦 Prerequisites
 

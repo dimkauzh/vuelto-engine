@@ -31,6 +31,10 @@
     - [ ] NewColor function
     - [ ] Predefined Color constants
 
-- [ ] Web image loading
-    - [ ] HTTP
-    - [ ] HTTPS
+- [x] Multiple windows
+    - [x] Remove context management
+    - [x] Automate context managment
+
+- [x] Web image loading
+    - [x] HTTP
+    - [x] HTTPS

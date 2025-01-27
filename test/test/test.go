@@ -20,6 +20,9 @@ func main() {
 	w2.SetCurrent()
 	image := ren2.LoadImage("test/test/tree.png", 0.1, -0.1, 0.4, -0.4)
 	image1 := ren2.LoadImage("test/test/galaxy.png", -0.1, -0.1, 0.4, 0.4)
+	image2 := ren2.LoadImage(vuelto.ImageHTTP{
+		Url: "https://dev-tester.com/content/images/2021/12/blog_cover_further_api_testing_with_http_toolkit.png",
+	}, -0.1, 0.1, 0.4, 0.4)
 
 	for !w1.Close() && !w2.Close() {
 		w1.SetCurrent()
@@ -36,6 +39,7 @@ func main() {
 		rect.Draw()
 
 		line.Draw()
+		image2.Draw()
 
 		w1.Refresh()
 		w2.SetCurrent()

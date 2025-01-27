@@ -22,7 +22,9 @@ import (
 	"image/draw"
 	_ "image/jpeg"
 	_ "image/png"
+	"io"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -80,6 +82,50 @@ func LoadAsEmbed(fs embed.FS, imagePath string) *Image {
 
 	return &Image{
 		Path:    imagePath,
+		Texture: rgbaImg.Pix,
+		Width:   rgbaImg.Bounds().Dx(),
+		Height:  rgbaImg.Bounds().Dy(),
+	}
+}
+
+func LoadAsHTTP(imageUrl string) *Image {
+	if !(len(imageUrl) > 4 && (imageUrl[:7] == "http://" || imageUrl[:8] == "https://")) {
+		panic("Load() only supports HTTP and HTTPS paths in web assembly")
+	}
+
+	resp, err := http.Get(imageUrl)
+	if err != nil {
+		log.Fatalf("failed to fetch image '%s': %v", imageUrl, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("failed to fetch image '%s': status code %d", imageUrl, resp.StatusCode)
+	}
+
+	imgData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("failed to read image data from '%s': %v", imageUrl, err)
+	}
+
+	img, _, err := image.Decode(bytes.NewReader(imgData))
+	if err != nil {
+		log.Fatalf("failed to decode image '%s': %v", imageUrl, err)
+	}
+
+	rgbaImg, ok := img.(*image.RGBA)
+	if !ok {
+		bounds := img.Bounds()
+		rgbaImg = image.NewRGBA(bounds)
+		for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+			for x := bounds.Min.X; x < bounds.Max.X; x++ {
+				rgbaImg.Set(x, y, img.At(x, y))
+			}
+		}
+	}
+
+	return &Image{
+		Path:    imageUrl,
 		Texture: rgbaImg.Pix,
 		Width:   rgbaImg.Bounds().Dx(),
 		Height:  rgbaImg.Bounds().Dy(),

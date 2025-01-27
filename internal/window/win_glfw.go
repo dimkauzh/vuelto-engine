@@ -39,12 +39,18 @@ type Window struct {
 	frameDuration time.Duration
 }
 
-func InitWindow() (*Window, error) {
-	runtime.LockOSThread()
+var glfwInit bool
 
-	if err := glfw.Init(); err != nil {
-		return nil, err
+func InitWindow() (*Window, error) {
+	if !glfwInit {
+		runtime.LockOSThread()
+
+		if err := glfw.Init(); err != nil {
+			return nil, err
+		}
+		glfwInit = true
 	}
+
 	return &Window{
 		desiredFPS:    60,
 		frameDuration: time.Second / 60,
@@ -123,6 +129,10 @@ func (w *Window) UpdateBuffers() {
 
 func (w *Window) ContextCurrent() {
 	w.GlfwWindow.MakeContextCurrent()
+}
+
+func (w *Window) UnsetContext() {
+	glfw.DetachCurrentContext()
 }
 
 func (w *Window) Destroy() {

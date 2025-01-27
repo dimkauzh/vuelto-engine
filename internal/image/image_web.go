@@ -21,8 +21,12 @@ import (
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
+	"io"
 	"log"
+	"net/http"
 	"syscall/js"
+
+	"vuelto.pp.ua/internal/gl/webgl"
 )
 
 type Image struct {
@@ -58,15 +62,54 @@ func LoadAsEmbed(fs embed.FS, imagePath string) *Image {
 		}
 	}
 
-	data := js.Global().Get("Uint8Array").New(len(rgbaImg.Pix))
-	for i, v := range rgbaImg.Pix {
-		data.SetIndex(i, v)
+	return &Image{
+		Path:    imagePath,
+		Width:   rgbaImg.Bounds().Dx(),
+		Height:  rgbaImg.Bounds().Dy(),
+		Texture: webgl.NewUint8Array(rgbaImg.Pix),
+	}
+}
+
+func LoadAsHTTP(imageUrl string) *Image {
+	if !(len(imageUrl) > 4 && (imageUrl[:7] == "http://" || imageUrl[:8] == "https://")) {
+		panic("Load() only supports HTTP and HTTPS paths in web assembly")
+	}
+
+	resp, err := http.Get(imageUrl)
+	if err != nil {
+		log.Fatalf("failed to fetch image '%s': %v", imageUrl, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("failed to fetch image '%s': status code %d", imageUrl, resp.StatusCode)
+	}
+
+	imgData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("failed to read image data from '%s': %v", imageUrl, err)
+	}
+
+	img, _, err := image.Decode(bytes.NewReader(imgData))
+	if err != nil {
+		log.Fatalf("failed to decode image '%s': %v", imageUrl, err)
+	}
+
+	rgbaImg, ok := img.(*image.RGBA)
+	if !ok {
+		bounds := img.Bounds()
+		rgbaImg = image.NewRGBA(bounds)
+		for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+			for x := bounds.Min.X; x < bounds.Max.X; x++ {
+				rgbaImg.Set(x, y, img.At(x, y))
+			}
+		}
 	}
 
 	return &Image{
-		Path:    imagePath,
-		Texture: data,
+		Path:    imageUrl,
 		Width:   rgbaImg.Bounds().Dx(),
 		Height:  rgbaImg.Bounds().Dy(),
+		Texture: webgl.NewUint8Array(rgbaImg.Pix),
 	}
 }

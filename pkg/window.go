@@ -93,14 +93,21 @@ func (w *Window) Close() bool {
 
 // Refreshes te window. Run this at the end of your loop (except if you're having multiple windows)
 func (w *Window) Refresh() {
+	w.SetCurrent()
 	w.Window.HandleEvents()
 	w.Window.UpdateBuffers()
 	gl.Clear()
+	w.UnsetCurrent()
 }
 
 // Sets the context of the window to the current context. (Only use when having multiple windows)
 func (w *Window) SetCurrent() {
 	w.Window.ContextCurrent()
+}
+
+// Unsets the context of the window. (Only use when having multiple windows)
+func (w *Window) UnsetCurrent() {
+	w.Window.UnsetContext()
 }
 
 // Destroys the window and cleans up the memory.
