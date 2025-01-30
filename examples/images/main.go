@@ -14,22 +14,22 @@ func main() {
 	w := vuelto.NewWindow("Image Example - Vuelto", 800, 600, true)
 	ren := w.NewRenderer2D()
 
-	iembed := vuelto.ImageEmbed{
+	imageEmbed := vuelto.ImageEmbed{
 		Filesystem: embeddedFiles,
 		Image:      "tree.png",
 	}
 
-	i2embed := vuelto.ImageEmbed{
+	imageEmbedTwo := vuelto.ImageEmbed{
 		Filesystem: embeddedFiles,
 		Image:      "galaxy.png",
 	}
 
-	image1 := ren.LoadImage(iembed, 0.5, 0.5, -0.5, 0.5)
-	image := ren.LoadImage(i2embed, 0, 0, 1, 1)
+	imageOne := ren.LoadImage(imageEmbed, 0.5, 0.5, -0.5, 0.5)
+	imageTwo := ren.LoadImage(imageEmbedTwo, 0, 0, 1, 1)
 
 	for !w.Close() {
-		image1.Draw()
-		image.Draw()
+		imageOne.Draw()
+		imageTwo.Draw()
 		w.Refresh()
 	}
 }

@@ -33,7 +33,7 @@
 
 - [x] Multiple windows
     - [x] Remove context management
-    - [x] Automate context managment
+    - [x] Automate context management
 
 - [x] Web image loading
     - [x] HTTP

@@ -12,7 +12,7 @@ We are happy and welcome if you want to contribute to Vuelto. But please conside
 6. Format: Please, run `make format` for formatting of the code. Without this we won't merge your code
 7. CI: We cannot merge if the CI fails. Incase that it fails, please fix your code or fix the CI (only incase of breaking changes or improvements).
 
-## ⚠️  Not following these rules
+## ⚠️ Not following these rules
 
 If we see a pull request that doesn't follow these rules, we will tell you that, and close the pull request.
 We allow you to re-open a new pull request, but we expect you to have your code fixed.

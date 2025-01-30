@@ -98,10 +98,10 @@ func (s *Shader) Delete() {
 	webgl.DeleteShader(s.Shader)
 }
 
-func NewProgram(vertexshader, fragmentshader Shader) *Program {
+func NewProgram(vertexShader, fragmentShader Shader) *Program {
 	return &Program{
-		VertexShader:   vertexshader.Shader,
-		FragmentShader: fragmentshader.Shader,
+		VertexShader:   vertexShader.Shader,
+		FragmentShader: fragmentShader.Shader,
 		Program:        webgl.CreateProgram(),
 	}
 }

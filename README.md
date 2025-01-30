@@ -1,3 +1,5 @@
+<!--  markdownlint-disable md033 -->
+
 <div align="center">
   <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-dark.png#gh-dark-mode-only">
   <img width="1400" alt="banner" src="https://github.com/vuelto-org/vuelto/raw/latest/logo/banner-light.png#gh-light-mode-only">
@@ -129,7 +131,7 @@ You can contact us via our Discord community or at our email:
 A special thanks to:
 
 - **Dimkauzh** for the initial idea and development.
-- **ZakaHaceCosas** for the great improvements on top of vuelto.
+- **ZakaMakesStuff** for the great improvements on top of vuelto.
 
 Also a big shout-out to our homies and partners at [**Sokora**](https://sokora.org), [**Atom**](https://atomlabs.ie) and [**Epic-Bot**](https://bamb.cl/epic-bot/)
 

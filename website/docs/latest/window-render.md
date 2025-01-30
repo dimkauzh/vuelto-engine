@@ -15,7 +15,7 @@ To create a window, initialize a new instance and store it in a variable. Pass t
 - **Height**: The height of the window in pixels.
 - **Resizable**: A boolean indicating whether the window can be resized.
 
-### Example
+### Example 1
 
 ```go
 window := vuelto.NewWindow("My Game", 800, 600, true)
@@ -27,7 +27,7 @@ The renderer depends on this window to function.
 
 The renderer is responsible for drawing content onto the screen. To use it, initialize it using the window instance and store it in a variable.
 
-### Example
+### Example 2
 
 ```go
 renderer := window.NewRenderer2D()

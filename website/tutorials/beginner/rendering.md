@@ -4,7 +4,7 @@
 Hello and welcome to the second tutorial in the beginner series! In this tutorial, we will learn how to render a window with Vuelto. We expect you to at least have the basics from the [first tutorial](new-project.md) setup and ready to go. Let's get started!
 
 !!! note
-    This tutorial is designed for the desktop platforms (Windows, macOS, and Linux). The changes for the web platform will be covered in the last paragrap of the tutorial.
+    This tutorial is designed for the desktop platforms (Windows, macOS, and Linux). The changes for the web platform will be covered in the last paragraph of the tutorial.
 
 ## 🖌️ Settings up the renderer
 

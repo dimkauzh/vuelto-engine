@@ -35,7 +35,6 @@ hide:
   <img src="https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7&style=for-the-badge" alt="Made in Ukraine">
 </a>
 
-
 Welcome to the Vuelto website! Here you will find things like documentation, blogs, tutorials and everything about Vuelto!
 
 ## ℹ️  About
