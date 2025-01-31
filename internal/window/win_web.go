@@ -1,8 +1,8 @@
-//go:build js && wasm
-// +build js,wasm
+//go:build js || wasm
+// +build js wasm
 
 /*
- * Copyright (C) 2024 vuelto-org
+ * Copyright (C) 2025 vuelto-org
  *
  * This file is part of the Vuelto project, licensed under the VL-Cv1.1 License.
  * Primary License: GNU GPLv3 or later (see <https://www.gnu.org/licenses/>).
@@ -17,6 +17,7 @@ package windowing
 
 import (
 	"fmt"
+	"os"
 	"syscall/js"
 	"time"
 
@@ -32,9 +33,10 @@ type Window struct {
 	GlfwGLMajor int
 	GlfwGLMinor int
 
-	Title  string
-	Width  int
-	Height int
+	Title        string
+	Width        int
+	Height       int
+	Transparency bool
 
 	lastTime      time.Time
 	deltaTime     float32
@@ -45,9 +47,9 @@ type Window struct {
 var initialized bool
 
 func InitWindow() (*Window, error) {
-	if initialized {
+	if initialized && os.Getenv("VUELTO_DISABLE_BUILD_ERRORS") == "" {
 		panic("Web doesnt support having multiple windows!")
-	} else {
+	} else if !initialized {
 		initialized = true
 	}
 
@@ -92,6 +94,10 @@ func (w *Window) Create() error {
 		w.JSCanvas.Set("height", w.Height)
 	}
 
+	if w.Transparency && os.Getenv("VUELTO_DISABLE_BUILD_ERRORS") == "" {
+		panic("Web doesnt support having multiple windows!")
+	}
+
 	return nil
 }
 
@@ -127,6 +133,25 @@ func (w *Window) SetResizable(resizable bool) {
 		w.JSCanvas.Set("width", w.Width)
 		w.JSCanvas.Set("height", w.Height)
 	}
+}
+
+func (w *Window) SetTransparency(alpha float32) {
+	if os.Getenv("VUELTO_DISABLE_BUILD_ERRORS") == "" {
+		panic("SetTransparency() is not supported on web!")
+	}
+}
+
+func (w *Window) SetTitle(title string) {
+	web.Document.Set("title", title)
+}
+
+func (w *Window) SetSize(width, height int) {
+	w.JSCanvas.Set("width", width)
+	w.JSCanvas.Set("height", height)
+}
+
+func (w *Window) GetSize() (int, int) {
+	return w.JSCanvas.Get("width").Int(), w.JSCanvas.Get("height").Int()
 }
 
 func (w *Window) Close() bool {

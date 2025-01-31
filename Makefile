@@ -37,6 +37,7 @@ web_nixos:
 		XDG_CACHE_HOME="$(XDG_CACHE_HOME)" \
 		HOME="$(HOME)" \
 		PATH="$(GOPATH)/bin:$(PATH)" \
+		VUELTO_DISABLE_BUILD_ERRORS="true" \
 		"$(shell command -v wasmserve)" "$(DIR)"
 
 format:

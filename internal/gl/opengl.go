@@ -2,7 +2,7 @@
 // +build windows linux darwin
 
 /*
- * Copyright (C) 2024 vuelto-org
+ * Copyright (C) 2025 vuelto-org
  *
  * This file is part of the Vuelto project, licensed under the VL-Cv1.1 License.
  * Primary License: GNU GPLv3 or later (see <https://www.gnu.org/licenses/>).
@@ -20,13 +20,14 @@ import (
 	"log"
 	"strings"
 
+	"vuelto.pp.ua/internal/font"
 	gl "vuelto.pp.ua/internal/gl/opengl"
 	"vuelto.pp.ua/internal/image"
 	"vuelto.pp.ua/internal/trita"
 )
 
 type Arguments struct {
-	Arg any
+	Arg uint
 }
 
 type Shader struct {
@@ -284,11 +285,20 @@ func (t *Texture) UnBind() {
 	gl.BindTexture(gl.TEXTURE_2D, 0)
 }
 
-func (t *Texture) Configure(image *image.Image, filter *Arguments) {
-	gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(image.Width), int32(image.Height), 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(image.Texture))
+func (t *Texture) Configure(inputImage any, filter *Arguments) {
+	switch trita.YourType(inputImage) {
+	case trita.YourType(&image.Image{}):
+		outputImage := inputImage.(*image.Image)
+		gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(outputImage.Width), int32(outputImage.Height), 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(outputImage.Texture))
+	case trita.YourType(&font.Font{}):
+		outputImage := inputImage.(*font.Font)
+		gl.TexImage2D(gl.TEXTURE_2D, 0, gl.RGBA, int32(outputImage.Widthbound), int32(outputImage.Heightbound), 0, gl.RGBA, gl.UNSIGNED_BYTE, gl.Ptr(outputImage.Texture))
+	default:
+		panic("Unknown texture type")
+	}
 
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, int32(filter.Arg.(int)))
-	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, int32(filter.Arg.(int)))
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, int32(filter.Arg))
+	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, int32(filter.Arg))
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
 }
@@ -334,7 +344,7 @@ func ClearColor(r, g, b, a float32) {
 
 func Enable(args ...*Arguments) {
 	for _, arg := range args {
-		gl.Enable(uint32(arg.Arg.(int)))
+		gl.Enable(uint32(arg.Arg))
 	}
 }
 

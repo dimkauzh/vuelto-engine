@@ -5,7 +5,8 @@
 
 - [ ] Renderer
     - [ ] SetPixel
-    - [ ] LoadText and .Draw()
+    - [x] UI
+        - [x] LoadText and .Draw()
 
 - [ ] Image
     - [ ] Manipulate images
@@ -21,20 +22,30 @@
     - [ ] Static nodes
         - [ ] Unmovable
         - [ ] Just a basic image/shape
-
-- [ ] Animations
-    - [ ] Using images
-    - [ ] Using spritesheets
+    - [ ] Collisions
+        - [ ] Custom collision option
+    - [ ] Animations
+        - [ ] Using images
+        - [ ] Using spritesheets
 
 - [ ] Custom color system
     - [ ] Color struct
     - [ ] NewColor function
     - [ ] Predefined Color constants
 
-- [x] Multiple windows
-    - [x] Remove context management
-    - [x] Automate context management
+- [x] Window system
+    - [x] Transparent windows
+    - [x] Window manipulations
+        - [x] SetTitle
+        - [x] SetSize
+        - [x] GetSize
+    - [x] Multiple Windows
+        - [x] Remove context management
+        - [x] Automate context managment
 
 - [x] Web image loading
     - [x] HTTP
     - [x] HTTPS
+
+- [x] Dangerous stuff
+    - [x] VUELTO_DISABLE_BUILD_ERRORS env var

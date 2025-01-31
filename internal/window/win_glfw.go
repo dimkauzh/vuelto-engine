@@ -2,7 +2,7 @@
 // +build windows linux darwin
 
 /*
- * Copyright (C) 2024 vuelto-org
+ * Copyright (C) 2025 vuelto-org
  *
  * This file is part of the Vuelto project, licensed under the VL-Cv1.1 License.
  * Primary License: GNU GPLv3 or later (see <https://www.gnu.org/licenses/>).
@@ -29,9 +29,10 @@ type Window struct {
 	GlfwGLMinor int
 	GlfwWindow  *glfw.Window
 
-	Title  string
-	Width  int
-	Height int
+	Title        string
+	Width        int
+	Height       int
+	Transparency bool
 
 	lastTime      time.Time
 	deltaTime     float32
@@ -63,6 +64,12 @@ func (w *Window) Create() error {
 		glfw.WindowHint(glfw.Resizable, glfw.True)
 	} else {
 		glfw.WindowHint(glfw.Resizable, glfw.False)
+	}
+
+	if w.Transparency {
+		glfw.WindowHint(glfw.TransparentFramebuffer, glfw.True)
+	} else {
+		glfw.WindowHint(glfw.TransparentFramebuffer, glfw.False)
 	}
 
 	if w.GlfwGLMajor != 0 {
@@ -101,6 +108,22 @@ func (w *Window) SetResizable(resizable bool) {
 	} else {
 		w.GlfwWindow.SetAttrib(glfw.Resizable, glfw.False)
 	}
+}
+
+func (w *Window) SetTransparency(opacity float32) {
+	w.GlfwWindow.SetOpacity(opacity)
+}
+
+func (w *Window) SetTitle(title string) {
+	w.GlfwWindow.SetTitle(title)
+}
+
+func (w *Window) SetSize(width, height int) {
+	w.GlfwWindow.SetSize(width, height)
+}
+
+func (w *Window) GetSize() (int, int) {
+	return w.GlfwWindow.GetSize()
 }
 
 func (w *Window) Close() bool {

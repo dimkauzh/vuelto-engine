@@ -2,7 +2,7 @@
 // +build windows linux darwin
 
 /*
- * Copyright (C) 2024 vuelto-org
+ * Copyright (C) 2025 vuelto-org
  *
  * This file is part of the Vuelto project, licensed under the VL-Cv1.1 License.
  * Primary License: GNU GPLv3 or later (see <https://www.gnu.org/licenses/>).
@@ -64,28 +64,7 @@ func LoadAsEmbed(fs embed.FS, imagePath string) *Image {
 		log.Fatalf("failed to read embedded image '%s': %v", imagePath, err)
 	}
 
-	img, _, err := image.Decode(bytes.NewReader(imgFile))
-	if err != nil {
-		log.Fatalf("failed to decode image '%s': %v", imagePath, err)
-	}
-
-	rgbaImg, ok := img.(*image.RGBA)
-	if !ok {
-		bounds := img.Bounds()
-		rgbaImg = image.NewRGBA(bounds)
-		for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-			for x := bounds.Min.X; x < bounds.Max.X; x++ {
-				rgbaImg.Set(x, y, img.At(x, y))
-			}
-		}
-	}
-
-	return &Image{
-		Path:    imagePath,
-		Texture: rgbaImg.Pix,
-		Width:   rgbaImg.Bounds().Dx(),
-		Height:  rgbaImg.Bounds().Dy(),
-	}
+	return loadImage(imgFile, imagePath)
 }
 
 func LoadAsHTTP(imageUrl string) *Image {
@@ -108,6 +87,10 @@ func LoadAsHTTP(imageUrl string) *Image {
 		log.Fatalf("failed to read image data from '%s': %v", imageUrl, err)
 	}
 
+	return loadImage(imgData, imageUrl)
+}
+
+func loadImage(imgData []byte, imageUrl string) *Image {
 	img, _, err := image.Decode(bytes.NewReader(imgData))
 	if err != nil {
 		log.Fatalf("failed to decode image '%s': %v", imageUrl, err)

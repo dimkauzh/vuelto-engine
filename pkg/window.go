@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 vuelto-org
+ * Copyright (C) 2025 vuelto-org
  *
  * This file is part of the Vuelto project, licensed under the VL-Cv1.1 License.
  * Primary License: GNU GPLv3 or later (see <https://www.gnu.org/licenses/>).
@@ -33,7 +33,7 @@ func frameBufferSizeCallback(window *windowing.Window, newWidth, newHeight int) 
 }
 
 // Creates a new window and returns a Window struct.
-func NewWindow(title string, width, height int, resizable bool) *Window {
+func NewWindow(title string, width, height int, resizable bool, transparent bool) *Window {
 	window, err := windowing.InitWindow()
 	if err != nil {
 		log.Fatalln("Could not initialize a new window: ", err)
@@ -49,6 +49,7 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 	window.Height = height
 
 	window.Resizable = resizable
+	window.Transparency = transparent
 
 	err = window.Create()
 	if err != nil {
@@ -81,6 +82,21 @@ func NewWindow(title string, width, height int, resizable bool) *Window {
 // Sets the resizable attribute of the window.
 func (w *Window) SetResizable(resizable bool) {
 	w.Window.SetResizable(resizable)
+}
+
+// Sets the title of the window.
+func (w *Window) SetTitle(title string) {
+	w.Window.SetTitle(title)
+}
+
+// Sets the size of the window.
+func (w *Window) SetSize(width, height int) {
+	w.Window.SetSize(width, height)
+}
+
+// Returns the size of the window.
+func (w *Window) GetSize() (int, int) {
+	return w.Window.GetSize()
 }
 
 // Function created for a loop. Returns true when being closed, and returns false when being active.

@@ -6,7 +6,7 @@ import (
 
 func main() {
 	// This works in the web too! Only it wouldn't be so fun :(
-	win := vuelto.NewWindow("hi", 800, 600, false)
+	win := vuelto.NewWindow("hi", 800, 600, false, false)
 
 	for !win.Close() {
 		win.Refresh()

@@ -1,8 +1,8 @@
-//go:build js && wasm
-// +build js,wasm
+//go:build js || wasm
+// +build js wasm
 
 /*
- * Copyright (C) 2024 vuelto-org
+ * Copyright (C) 2025 vuelto-org
  *
  * This file is part of the Vuelto project, licensed under the VL-Cv1.1 License.
  * Primary License: GNU GPLv3 or later (see <https://www.gnu.org/licenses/>).
@@ -19,6 +19,7 @@ import (
 	"log"
 	"syscall/js"
 
+	"vuelto.pp.ua/internal/font"
 	"vuelto.pp.ua/internal/gl/webgl"
 	"vuelto.pp.ua/internal/image"
 	"vuelto.pp.ua/internal/trita"
@@ -232,8 +233,17 @@ func (t *Texture) UnBind() {
 	webgl.BindTexture(webgl.TEXTURE_2D, js.Null())
 }
 
-func (t *Texture) Configure(image *image.Image, filter *Arguments) {
-	webgl.TexImage2D(webgl.TEXTURE_2D, 0, webgl.RGBA, image.Width, image.Height, 0, webgl.RGBA, webgl.UNSIGNED_BYTE, image.Texture)
+func (t *Texture) Configure(inputImage any, filter *Arguments) {
+	switch trita.YourType(inputImage) {
+	case trita.YourType(&image.Image{}):
+		outputImage := inputImage.(*image.Image)
+		webgl.TexImage2D(webgl.TEXTURE_2D, 0, webgl.RGBA, outputImage.Width, outputImage.Height, 0, webgl.RGBA, webgl.UNSIGNED_BYTE, outputImage.Texture)
+	case trita.YourType(&font.Font{}):
+		outputImage := inputImage.(*font.Font)
+		webgl.TexImage2D(webgl.TEXTURE_2D, 0, webgl.RGBA, outputImage.Widthbound, outputImage.Heightbound, 0, webgl.RGBA, webgl.UNSIGNED_BYTE, outputImage.Texture)
+	default:
+		panic("Unknown texture type")
+	}
 
 	webgl.TexParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, *filter.Arg)
 	webgl.TexParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, *filter.Arg)

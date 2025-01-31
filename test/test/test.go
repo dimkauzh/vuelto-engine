@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	w1 := vuelto.NewWindow("hi", 800, 600, false)
-	w2 := vuelto.NewWindow("hi2", 800, 600, false)
+	w1 := vuelto.NewWindow("hi", 800, 600, false, false)
+	w2 := vuelto.NewWindow("hi2", 800, 600, false, false)
 
 	ren1 := w1.NewRenderer2D()
 	ren2 := w2.NewRenderer2D()

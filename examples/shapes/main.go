@@ -6,7 +6,7 @@ import (
 
 func main() {
 	// This works in the web too!
-	w := vuelto.NewWindow("hi", 800, 600, true)
+	w := vuelto.NewWindow("hi", 800, 600, true, false)
 
 	ren := w.NewRenderer2D()
 

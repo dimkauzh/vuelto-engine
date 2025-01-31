@@ -15,14 +15,14 @@ package vuelto
 import (
 	"embed"
 
+	"vuelto.pp.ua/internal/font"
 	"vuelto.pp.ua/internal/gl"
 	"vuelto.pp.ua/internal/gl/ushaders"
-	"vuelto.pp.ua/internal/image"
 	"vuelto.pp.ua/internal/trita"
 )
 
-type Image struct {
-	Pos           *Vector2D
+type Font struct {
+	X, Y          float32
 	Width, Height float32
 
 	Buffer  *gl.Buffer
@@ -30,22 +30,20 @@ type Image struct {
 	Indices []uint16
 	Program *gl.Program
 
-	Renderer *Renderer2D
+	Renderer *UIRenderer
 }
 
-type ImageEmbed struct {
+type FontEmbed struct {
 	Filesystem embed.FS
-	Image      string
+	Font       string
 }
 
-type ImageHTTP struct {
+type FontHTTP struct {
 	Url string
 }
 
-var ImageArray []uint32
-
 // Loads a new image and returns a Image struct. Can be later drawn using the Draw() method
-func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Image {
+func (r *UIRenderer) LoadFont(fontFile any, text string, x, y float32, size int) *Font {
 	r.Window.SetCurrent()
 
 	vertexShader := gl.NewShader(gl.VertexShader{
@@ -68,14 +66,7 @@ func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Imag
 
 	program.Use()
 
-	vertices := []float32{
-		x, y, 0.0, 0.0, 0.0,
-		x, y - height, 0.0, 0.0, 1.0,
-		x + width, y - height, 0.0, 1.0, 1.0,
-		x + width, y, 0.0, 1.0, 0.0,
-	}
-
-	program.UniformLocation("uniformColor").Set(0, 0, 0, 1.0)
+	program.UniformLocation("uniformColor").Set(1, 1, 1, 1)
 	program.UniformLocation("useTexture").Set(1)
 
 	indices := []uint16{
@@ -83,21 +74,29 @@ func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Imag
 		1, 2, 3,
 	}
 
-	var file *image.Image
-	switch trita.YourType(imageFile) {
+	var file *font.Font
+	switch trita.YourType(fontFile) {
 	case trita.YourType(""):
-		file = image.Load(imageFile.(string))
-	case trita.YourType(ImageEmbed{}):
-		embed := imageFile.(ImageEmbed)
-		file = image.LoadAsEmbed(embed.Filesystem, embed.Image)
-	case trita.YourType(ImageHTTP{}):
-		file = image.LoadAsHTTP(imageFile.(ImageHTTP).Url)
+		file = font.Load(r.Window.Width, r.Window.Height, fontFile.(string), text, size, x, y)
+	case trita.YourType(FontEmbed{}):
+		embed := fontFile.(FontEmbed)
+		file = font.LoadAsEmbed(r.Window.Width, r.Window.Height, embed.Filesystem, embed.Font, text, size, x, y)
+	case trita.YourType(FontHTTP{}):
+		http := fontFile.(FontHTTP)
+		file = font.LoadAsHTTP(r.Window.Width, r.Window.Height, http.Url, text, size, x, y)
 	}
 
 	texture := gl.GenTexture()
 	texture.Bind()
 	texture.Configure(file, gl.NEAREST)
 	texture.UnBind()
+
+	vertices := []float32{
+		x, y, 0.0, 0.0, 1.0,
+		x, y - file.Height, 0.0, 0.0, 0.0,
+		x + file.Width, y - file.Height, 0.0, 1.0, 0.0,
+		x + file.Width, y, 0.0, 1.0, 1.0,
+	}
 
 	buffer := gl.GenBuffers(vertices, indices)
 	buffer.Bind(gl.VA, gl.VBO, gl.EBO)
@@ -107,10 +106,12 @@ func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Imag
 
 	r.Window.UnsetCurrent()
 
-	return &Image{
-		Pos:    NewVector2D(x, y),
-		Width:  width,
-		Height: height,
+	return &Font{
+		X: x,
+		Y: y,
+
+		Width:  file.Width,
+		Height: file.Height,
 
 		Buffer:  buffer,
 		Texture: texture,
@@ -122,26 +123,26 @@ func (r *Renderer2D) LoadImage(imageFile any, x, y, width, height float32) *Imag
 }
 
 // Draws the image that's loaded before.
-func (img *Image) Draw() {
-	img.Renderer.Window.SetCurrent()
+func (f *Font) Draw() {
+	f.Renderer.Window.SetCurrent()
 
 	vertices := []float32{
-		img.Pos.X, img.Pos.Y, 0.0, 0.0, 0.0,
-		img.Pos.X, img.Pos.Y - img.Height, 0.0, 0.0, 1.0,
-		img.Pos.X + img.Width, img.Pos.Y - img.Height, 0.0, 1.0, 1.0,
-		img.Pos.X + img.Width, img.Pos.Y, 0.0, 1.0, 0.0,
+		f.X, f.Y, 0.0, 0.0, 1.0,
+		f.X, f.Y - f.Height, 0.0, 0.0, 0.0,
+		f.X + f.Width, f.Y - f.Height, 0.0, 1.0, 0.0,
+		f.X + f.Width, f.Y, 0.0, 1.0, 1.0,
 	}
 
-	img.Program.Use()
-	img.Buffer.Bind(gl.VA, gl.VBO, gl.EBO)
-	img.Buffer.Update(vertices)
+	f.Program.Use()
+	f.Buffer.Bind(gl.VA, gl.VBO, gl.EBO)
+	f.Buffer.Update(vertices)
 
-	img.Texture.Bind()
-	gl.DrawElements(img.Indices)
-	img.Texture.UnBind()
+	f.Texture.Bind()
+	gl.DrawElements(f.Indices)
+	f.Texture.UnBind()
 
-	img.Buffer.UnBind(gl.VA, gl.VBO, gl.EBO)
-	img.Program.UnUse()
+	f.Buffer.UnBind(gl.VA, gl.VBO, gl.EBO)
+	f.Program.UnUse()
 
-	img.Renderer.Window.UnsetCurrent()
+	f.Renderer.Window.UnsetCurrent()
 }

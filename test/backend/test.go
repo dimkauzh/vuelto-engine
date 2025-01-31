@@ -6,9 +6,9 @@ import (
 	"log"
 
 	"vuelto.pp.ua/internal/event"
+	"vuelto.pp.ua/internal/font"
 	"vuelto.pp.ua/internal/gl"
 	"vuelto.pp.ua/internal/gl/ushaders"
-	"vuelto.pp.ua/internal/image"
 
 	windowing "vuelto.pp.ua/internal/window"
 )
@@ -43,6 +43,7 @@ func main() {
 	}
 
 	win.ResizingCallback(frameBufferSizeCallback)
+	win.ContextCurrent()
 
 	events := event.Init(win)
 
@@ -51,9 +52,8 @@ func main() {
 		log.Fatalf("Failed to initialize: %s", err)
 	}
 
-	gl.Enable(gl.TEXTURE_2D)
-
-	win.ContextCurrent()
+	gl.Enable(gl.TEXTURE_2D, gl.BLEND)
+	gl.EnableBlend()
 
 	vertexShader := gl.NewShader(gl.VertexShader{
 		WebShader:     ushaders.WebVShader,
@@ -76,15 +76,7 @@ func main() {
 
 	program.Use()
 
-	vertices := []float32{
-		// Positions      // Texture Coords
-		-0.5, 0.5, 0.0, 0.0, 0.0, // Top-left
-		-0.5, -0.5, 0.0, 0.0, 1.0, // Bottom-left
-		0.5, -0.5, 0.0, 1.0, 1.0, // Bottom-right
-		0.5, 0.5, 0.0, 1.0, 0.0, // Top-right
-	}
-
-	program.UniformLocation("uniformColor").Set(0, 0, 0, 1.0)
+	program.UniformLocation("uniformColor").Set(1, 1, 1, 1)
 	program.UniformLocation("useTexture").Set(1)
 
 	indices := []uint16{
@@ -92,9 +84,18 @@ func main() {
 		1, 2, 3, // bottom-left, top-right, top-left
 	}
 
+	mytext := font.LoadAsHTTP(500, 500, "https://github.com/fusionengine-org/fusion/raw/refs/heads/main/src/fusionengine/external/font.ttf", "TESTESTEST", 30, 0, 0)
+
+	vertices := []float32{
+		0, 0, 0.0, 0.0, 1.0,
+		0, 0 - mytext.Height, 0.0, 0.0, 0.0,
+		0 + mytext.Width, 0 - mytext.Height, 0.0, 1.0, 0.0,
+		0 + mytext.Width, 0, 0.0, 1.0, 1.0,
+	}
+
 	texture := gl.GenTexture()
 	texture.Bind()
-	texture.Configure(image.LoadAsHTTP("https://dev-tester.com/content/images/2021/12/blog_cover_further_api_testing_with_http_toolkit.png"), gl.NEAREST)
+	texture.Configure(mytext, gl.NEAREST)
 	texture.UnBind()
 	defer texture.Delete()
 
@@ -120,9 +121,9 @@ func main() {
 			dx = 0.0
 		}
 
-		for i := 0; i < len(vertices); i += 5 {
-			vertices[i] += dx
-			vertices[i+1] += dy
+		for i := 0; i < len(mytext.Vertices); i += 5 {
+			mytext.Vertices[i] += dx
+			mytext.Vertices[i+1] += dy
 		}
 
 		buffer.Bind(gl.VBO)

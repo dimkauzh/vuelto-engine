@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	// Warning: This example is not working in the web! This is due to the web not supporting multiple windows.
-	w1 := vuelto.NewWindow("hi", 800, 600, false)
-	w2 := vuelto.NewWindow("hi2", 800, 600, false)
+	// Warning: This example is not working in the web! This is due to the web not supporting multiple windows and due to the image loading.
+	w1 := vuelto.NewWindow("hi", 800, 600, false, false)
+	w2 := vuelto.NewWindow("hi2", 800, 600, false, false)
 
 	ren1 := w1.NewRenderer2D()
 	ren2 := w2.NewRenderer2D()
