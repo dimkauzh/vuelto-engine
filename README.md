@@ -31,8 +31,7 @@ You need to have the following installed on your system:
 
 - 🖥️ A C compiler
 - 🔧 A Go compiler (Go 1.18 and above)
-- 🪟 Xorg/Wayland development packages (For Linux only)
-- 🖱️ Supported platform
+- 🪟 On Linux, Xorg/Wayland development packages
 
 For an installation guide, [go here](https://vuelto.pp.ua/install/).
 
