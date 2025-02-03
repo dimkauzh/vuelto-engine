@@ -79,6 +79,14 @@ func NewWindow(title string, width, height int, resizable bool, transparent bool
 	}
 }
 
+// Set callback to the resize of the window
+func (w *Window) SetResizeCallback(callback func(window *Window, newWidth, newHeight int)) {
+	w.Window.ResizingCallback(func(window *windowing.Window, newWidth, newHeight int) {
+		gl.Viewport(0, 0, newWidth, newHeight)
+		callback(w, newWidth, newHeight)
+	})
+}
+
 // Sets the resizable attribute of the window.
 func (w *Window) SetResizable(resizable bool) {
 	w.Window.SetResizable(resizable)

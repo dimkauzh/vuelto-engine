@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"embed"
 	"image"
+	"image/color"
 	_ "image/jpeg"
 	_ "image/png"
 	"io"
@@ -99,5 +100,25 @@ func loadImage(imgData []byte, imageUrl string) *Image {
 		Width:   rgbaImg.Bounds().Dx(),
 		Height:  rgbaImg.Bounds().Dy(),
 		Texture: webgl.NewUint8Array(rgbaImg.Pix),
+	}
+}
+
+func LoadPixelmap(pixels map[int]map[int][4]float32, width, height int) *Image {
+	img := image.NewRGBA(image.Rect(0, 0, width, height))
+
+	for x, col := range pixels {
+		for y, c := range col {
+			r := uint8(c[0] * 255)
+			g := uint8(c[1] * 255)
+			b := uint8(c[2] * 255)
+			a := uint8(c[3] * 255)
+			img.Set(x, y, color.RGBA{r, g, b, a})
+		}
+	}
+
+	return &Image{
+		Texture: webgl.NewUint8Array(img.Pix),
+		Width:   img.Rect.Size().X,
+		Height:  img.Rect.Size().Y,
 	}
 }

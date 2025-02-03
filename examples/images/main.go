@@ -24,12 +24,12 @@ func main() {
 		Image:      "galaxy.png",
 	}
 
-	imageOne := ren.LoadImage(imageEmbed, 0.5, 0.5, -0.5, 0.5)
+	imageOne := ren.LoadImage(imageEmbed, 0.7, 0.3, -0.5, 0.5)
 	imageTwo := ren.LoadImage(imageEmbedTwo, 0, 0, 1, 1)
 
 	for !w.Close() {
-		imageOne.Draw()
 		imageTwo.Draw()
+		imageOne.Draw()
 		w.Refresh()
 	}
 }
